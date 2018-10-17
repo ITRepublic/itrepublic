@@ -1,3 +1,4 @@
+
 @extends('layout.master')
 
 @section('title')
@@ -9,51 +10,40 @@
 <section class="banner-area relative" id="home">	
     <div class="overlay overlay-bg"></div>
     <div class="container">
-        <div class="row fullscreen d-flex align-items-center justify-content-center">
+        <div class="row fullscreen d-flex align-items-center">
             <div class="banner-content col-lg-12">
                 <h1 class="text-white">
                     <span>1500+</span> Jobs posted last week				
-                </h1>	
-                <form action="search.html" class="serach-form-area">
-                    <div class="row justify-content-center form-wrap">
-                        <div class="col-lg-4 form-cols">
-                            <input type="text" 
-                                    class="form-control" name="search" 
-                                    placeholder="what are you looking for?">
-                        </div>
-                        <div class="col-lg-3 form-cols">
-                            <div class="default-select" id="default-selects">
-
-                                <select id="ddl_province" name="ddl_province">
-                                <option value="">Select area</option>
-                                @foreach ($master_province as $master_province)
-                                    <option value="{{ $master_province->province_id }}">
-                                        {{ $master_province->province_name }}
-                                    </option>
-                                @endforeach
-                                </select>
+                </h1>
+                <div class="card col-md-6 offset-md-3">
+                    <div class="card-body">
+                        <h3 class="py-3">Job Seeker Login</h3> <hr>	
+                        <form action="{{ route('job_finder_login_submit') }}" method="post" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">E-mail</label>
+                                <div class="col-md-6"><input type="email" name="email" class="form-control" placeholder="input your email" value="{{ old('email') }}"></div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 form-cols">
-                            <div class="default-select" id="default-selects2">
-                                <select id="it_category" name="it_category">
-                                    <option value="">All Category</option>
-                                    @foreach ($master_tech_type as $master_tech_type)
-                                    <option value="{{ $master_tech_type->tech_type_id }}">
-                                        {{ $master_tech_type->tech_type_name }}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>										
-                        </div>
-                        <div class="col-lg-2 form-cols">
-                            <button type="button" class="btn btn-info">
-                              <span class="lnr lnr-magnifier"></span> Search
-                            </button>
-                        </div>								
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Password</label>
+                                <div class="col-md-6"><input type="password" name="password" class="form-control" placeholder="input your password"></div>
+                            </div>
+                            <div class="form-group">
+                            <p><a href="{{ url('/forgot-password') }}" style="font-size: 12px;">Forgot password?</a></p>
+                                <button type="submit" class="btn btn-outline-primary col-md-2">Login</button>
+                            </div>
+                            {{-- <div class="form-group">
+                                <label>Create Account:</label> <br>
+                                <a class="btn btn-danger col-md-3 my-1" href="{{ route('createJobCreator') }}">
+                                    <i class="fa fa-user pr-1"></i>Job Creator
+                                </a>
+                                <a class="btn btn-success col-md-3 my-1" href="{{ route('createJobFinder') }}">
+                                    <i class="fa fa-user pr-1"></i>Job Finder
+                                </a>
+                            </div> --}}
+                        </form>
                     </div>
-                </form>	
-                <p class="text-white"> <span>Search by tags:</span> Tecnology, Business, Consulting, IT Company, Design, Development</p>
+                </div>
             </div>											
         </div>
     </div>

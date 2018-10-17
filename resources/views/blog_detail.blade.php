@@ -14,7 +14,7 @@
                 <h1 class="text-white">
                     Blog Single				
                 </h1>	
-                <p class="text-white link-nav"><a href="{{ route('home') }}">Home </a>  <span class="lnr lnr-arrow-right"></span> <a href="{{ route('blog') }}"> Blog</a> <span class="lnr lnr-arrow-right"></span> <a href="{{ route('blogDetail') }}"> Blog Single</a></p>
+                <p class="text-white link-nav"><a href="{{ route('home') }}">Home </a>  <span class="lnr lnr-arrow-right"></span> <a href="{{ route('blog') }}"> Blog</a> <span class="lnr lnr-arrow-right"></span> <a href="{{ route('blog_detail') }}"> Blog Single</a></p>
             </div>											
         </div>
     </div>

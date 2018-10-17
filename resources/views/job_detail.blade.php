@@ -28,52 +28,69 @@
     <div class="container">
         <div class="row justify-content-center d-flex">
             <div class="col-lg-8 post-list">
-                @foreach($job_post_list_model as $index => $item)
-                    <div class="single-post d-flex flex-row">
-                        <div class="thumb">
-                            <img src="{{ asset('public/themes/img/post.png') }}" alt="">
-                            <ul class="tags">
-                                <li>
-                                    <a href="#">Art</a>
-                                </li>
-                                <li>
-                                    <a href="#">Media</a>
-                                </li>
-                                <li>
-                                    <a href="#">Design</a>					
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="details">
-                            <div class="title d-flex flex-row justify-content-between">
-                                <div class="titles">
-                                    <h4>{{ $item->job_name }}</h4>				
-                                </div>
-                                &nbsp;
-                                
-                            </div>
-                            <p>
-                                {{ $item->description }}
-                            </p>
-                            <h5>Job Nature: Full time</h5>
-                            <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-                            <p class="address"><span class="lnr lnr-database"></span> {{ $item->payment_range_minimum }} - {{ $item->payment_range_maximum }}</p>
-                            <ul class="btns">
-                                    <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-                                        <li>
-                                            <a href="{{ route('apply_detail_job', $item->job_post_id) }}">
-                                                Apply
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('get_detail_job', $item->job_post_id) }}">
-                                                Detail
-                                            </a>
-                                        </li>
-                                </ul>
+                <form action="" method="post" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <?php $edit_session = session()->get('apply_job_post_session'); ?>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Company Name</label>
+                        <div class="col-md-6">
+                            <input type="text" name="job_name" class="form-control" readonly=true                            
+                                placeholder="Job Name" value="{{ $job_post_list_model->company_name }}">
                         </div>
                     </div>
-                @endforeach
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Job Name</label>
+                        <div class="col-md-6">
+                            <input type="text" name="job_name" class="form-control" readonly=true                            
+                            placeholder="Job Name" value="{{ $job_post_list_model->job_name }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Description</label>
+                        <div class="col-md-6">
+                            <textarea rows="3" name="description" class="form-control" readonly=true
+                            placeholder="Description">{{ $job_post_list_model->description }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Benefit Details</label>
+                        <div class="col-md-6">
+                            <textarea rows="3" name="benefit_details" class="form-control" readonly=true
+                            placeholder="Benefit Details">{{ $job_post_list_model->benefit_details }}</textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Payment Range Minimum</label>
+                        <div class="col-md-6">
+                            <input type="text" name="payment_range_minimum" class="form-control" readonly=true
+                            placeholder="Payment Range Minimum" value="{{ $job_post_list_model->payment_range_minimum }}">
+                        </div>
+                    </div>                    
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Payment Range Maximum</label>
+                        <div class="col-md-6">
+                            <input type="text" name="payment_range_maximum" class="form-control" readonly=true
+                            placeholder="Payment Range Maximum" value="{{ $job_post_list_model->payment_range_maximum }}">
+                        </div>
+                    </div>        
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Experience</label>
+                        <div class="col-md-6">
+                            <textarea rows="3" name="experience" class="form-control" readonly=true
+                            placeholder="Experience">{{ $job_post_list_model->experience }}</textarea>
+                        </div>
+                    </div>             
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Email Address</label>
+                        <div class="col-md-6">
+                            <input type="email" name="jc_email_address" readonly="true" class="form-control" 
+                            value="{{ $job_post_list_model->jc_email_address }}">
+                        </div>
+                    </div>
+                    
+                    <a class="btn btn-outline-primary col-md-4" href="{{ route('get_job') }}" class="text-white"> Back</a>
+                </form>
             </div>
             <div class="col-lg-4 sidebar">
                 <div class="single-slidebar">

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    public function getContact() {
+    public function get_contact() {
         return view('contact')->withTitle('Contact');
     }
 }

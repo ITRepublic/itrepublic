@@ -14,10 +14,10 @@
                 <h1 class="text-white">
                     Job post				
                 </h1>	
-                <p class="text-white link-nav"><a href="{{ route('job_finder_home') }}">Home </a>  
+                <p class="text-white link-nav"><a href="{{ route('job_creator_home') }}">Home </a>  
                 <span class="lnr lnr-arrow-right"></span>  
-                <a href="{{ route('get_job') }}" class="text-white"> Job post</a>
-                </p>											
+                <a href="{{ route('get_job_per_customer') }}" class="text-white"> Job post</a>
+							
         </div>
     </div>
 </section>
@@ -28,52 +28,41 @@
     <div class="container">
         <div class="row justify-content-center d-flex">
             <div class="col-lg-8 post-list">
-                @foreach($job_post_list_model as $index => $item)
-                    <div class="single-post d-flex flex-row">
-                        <div class="thumb">
-                            <img src="{{ asset('public/themes/img/post.png') }}" alt="">
-                            <ul class="tags">
-                                <li>
-                                    <a href="#">Art</a>
-                                </li>
-                                <li>
-                                    <a href="#">Media</a>
-                                </li>
-                                <li>
-                                    <a href="#">Design</a>					
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="details">
-                            <div class="title d-flex flex-row justify-content-between">
-                                <div class="titles">
-                                    <h4>{{ $item->job_name }}</h4>				
-                                </div>
-                                &nbsp;
-                                
+                <form action="" method="post" enctype="multipart/form-data">
+                <h3 class="py-3">Applicant Profile</h3> <hr>
+                <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Email Address</label>
+                            <div class="col-md-6">
+                                <input type="email" name="email_address" class="form-control" readonly=true
+                                placeholder="email address" value="{{ $job_finder_model->email_address }}">
                             </div>
-                            <p>
-                                {{ $item->description }}
-                            </p>
-                            <h5>Job Nature: Full time</h5>
-                            <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-                            <p class="address"><span class="lnr lnr-database"></span> {{ $item->payment_range_minimum }} - {{ $item->payment_range_maximum }}</p>
-                            <ul class="btns">
-                                    <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-                                        <li>
-                                            <a href="{{ route('apply_detail_job', $item->job_post_id) }}">
-                                                Apply
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('get_detail_job', $item->job_post_id) }}">
-                                                Detail
-                                            </a>
-                                        </li>
-                                </ul>
-                        </div>
-                    </div>
-                @endforeach
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Full Name</label>
+                                <div class="col-md-6">
+                                    <input type="text" name="name" class="form-control" readonly=true
+                                    placeholder="full name" value="{{ $job_finder_model->full_name }}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Address</label>
+                                <div class="col-md-6">
+                                    <textarea rows="3" name="address" class="form-control" readonly=true
+                                    placeholder="address">{{ $job_finder_model->address }}</textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Phone</label>
+                                <div class="col-md-6">
+                                    <input type="text" name="phone" class="form-control" readonly=true
+                                    placeholder="phone" value="{{ $job_finder_model->phone }}">
+                                </div>
+                            </div>
+                            <a class="btn btn-outline-primary col-md-4" href="{{ route('detail_applicant_job_post', $job_finder_model->job_post_id) }}">
+                                Back
+                            </a>
+                </form>
             </div>
             <div class="col-lg-4 sidebar">
                 <div class="single-slidebar">

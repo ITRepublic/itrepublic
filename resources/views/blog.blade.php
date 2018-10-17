@@ -33,7 +33,7 @@
                         <li><a href="#">Technology, </a></li>
                         <li><a href="#">Fashion</a></li>
                     </ul>
-                    <a href="{{ route('blogDetail') }}">
+                    <a href="{{ route('blog_detail') }}">
                         <h1>
                             Cartridge Is Better Than Ever
                             A Discount Toner
@@ -69,7 +69,7 @@
                         <li><a href="#">Technology, </a></li>
                         <li><a href="#">Fashion</a></li>
                     </ul>
-                    <a href="{{ route('blogDetail') }}">
+                    <a href="{{ route('blog_detail') }}">
                         <h1>
                             Cartridge Is Better Than Ever
                             A Discount Toner
@@ -105,7 +105,7 @@
                         <li><a href="#">Technology, </a></li>
                         <li><a href="#">Fashion</a></li>
                     </ul>
-                    <a href="{{ route('blogDetail') }}">
+                    <a href="{{ route('blog_detail') }}">
                         <h1>
                             Cartridge Is Better Than Ever
                             A Discount Toner
@@ -141,7 +141,7 @@
                         <li><a href="#">Technology, </a></li>
                         <li><a href="#">Fashion</a></li>
                     </ul>
-                    <a href="{{ route('blogDetail') }}">
+                    <a href="{{ route('blog_detail') }}">
                         <h1>
                             Cartridge Is Better Than Ever
                             A Discount Toner
@@ -216,7 +216,7 @@
                                 <img class="img-fluid" src="{{ asset('public/themes/img/blog/r1.jpg') }}" alt="">
                             </div>
                             <div class="recent-details">
-                                <a href="{{ route('blogDetail') }}">
+                                <a href="{{ route('blog_detail') }}">
                                     <h4>
                                         Home Audio Recording
                                         For Everyone
@@ -232,7 +232,7 @@
                                 <img class="img-fluid" src="{{ asset('public/themes/img/blog/r2.jpg') }}" alt="">
                             </div>
                             <div class="recent-details">
-                                <a href="{{ route('blogDetail') }}">
+                                <a href="{{ route('blog_detail') }}">
                                     <h4>
                                         Home Audio Recording
                                         For Everyone
@@ -248,7 +248,7 @@
                                 <img class="img-fluid" src="{{ asset('public/themes/img/blog/r3.jpg') }}" alt="">
                             </div>
                             <div class="recent-details">
-                                <a href="{{ route('blogDetail') }}">
+                                <a href="{{ route('blog_detail') }}">
                                     <h4>
                                         Home Audio Recording
                                         For Everyone
@@ -264,7 +264,7 @@
                                 <img class="img-fluid" src="{{ asset('public/themes/img/blog/r4.jpg') }}" alt="">
                             </div>
                             <div class="recent-details">
-                                <a href="{{ route('blogDetail') }}">
+                                <a href="{{ route('blog_detail') }}">
                                     <h4>
                                         Home Audio Recording
                                         For Everyone

@@ -12,11 +12,16 @@
         <div class="row d-flex align-items-center justify-content-center">
             <div class="about-content col-lg-12">
                 <h1 class="text-white">
-                    Job post				
+                    Maintain User				
                 </h1>	
-                <p class="text-white link-nav"><a href="{{ route('job_finder_home') }}">Home </a>  
+                <p class="text-white link-nav"><a href="{{ route('job_creator_home') }}">Home </a>  
                 <span class="lnr lnr-arrow-right"></span>  
-                <a href="{{ route('get_job') }}" class="text-white"> Job post</a>
+                <a href="{{ route('job_creator_maintain_user') }}" class="text-white"> Maintain User</a>
+                <br>
+                
+                <a class="nav-link text-white" href="{{ url('job_creator_create_user') }}">
+                Create new user here
+                                </a>
                 </p>											
         </div>
     </div>
@@ -28,52 +33,72 @@
     <div class="container">
         <div class="row justify-content-center d-flex">
             <div class="col-lg-8 post-list">
-                @foreach($job_post_list_model as $index => $item)
-                    <div class="single-post d-flex flex-row">
-                        <div class="thumb">
-                            <img src="{{ asset('public/themes/img/post.png') }}" alt="">
-                            <ul class="tags">
-                                <li>
-                                    <a href="#">Art</a>
-                                </li>
-                                <li>
-                                    <a href="#">Media</a>
-                                </li>
-                                <li>
-                                    <a href="#">Design</a>					
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="details">
-                            <div class="title d-flex flex-row justify-content-between">
-                                <div class="titles">
-                                    <h4>{{ $item->job_name }}</h4>				
-                                </div>
-                                &nbsp;
-                                
-                            </div>
-                            <p>
-                                {{ $item->description }}
-                            </p>
-                            <h5>Job Nature: Full time</h5>
-                            <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-                            <p class="address"><span class="lnr lnr-database"></span> {{ $item->payment_range_minimum }} - {{ $item->payment_range_maximum }}</p>
-                            <ul class="btns">
-                                    <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-                                        <li>
-                                            <a href="{{ route('apply_detail_job', $item->job_post_id) }}">
-                                                Apply
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('get_detail_job', $item->job_post_id) }}">
-                                                Detail
-                                            </a>
-                                        </li>
-                                </ul>
+            <form action="{{ route('job_creator_create_user_post') }}" method="post" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Username</label>
+                        <div class="col-md-6">
+                            <input type="text" name="username" class="form-control" 
+                            placeholder="Username" value="{{ old('username') }}">
                         </div>
                     </div>
-                @endforeach
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Company Name</label>
+                        <div class="col-md-6">
+                        <input type="text" name="company_name" readonly="true" class="form-control" 
+                            value="{{ $master_customer->company_name }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Email Address</label>
+                        <div class="col-md-6">
+                            <input type="email" name="email_address" class="form-control" 
+                            placeholder="email address" value="{{ old('email_address') }}">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Phone</label>
+                        <div class="col-md-6">
+                            <input type="text" name="phone" class="form-control" 
+                            placeholder="phone" value="{{ old('phone') }}">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Password</label>
+                        <div class="col-md-6">
+                            <input type="password" name="password" class="form-control" 
+                            placeholder="password">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Password Confirmation</label>
+                        <div class="col-md-6">
+                            <input type="password" name="password_confirmation" class="form-control" 
+                            placeholder="password confirmation">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Status</label>
+                        <div class="col-md-6">
+                            <div class="default-select" id="default-selects">
+                                <select id="ddl_active" name="ddl_active">
+                                    <option value="active">
+                                        Active
+                                    </option>
+                                    <option value="inactive" selected>
+                                        Inactive
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-outline-primary col-md-4">Submit</button>
+                    </div>
+                </form>
             </div>
             <div class="col-lg-4 sidebar">
                 <div class="single-slidebar">

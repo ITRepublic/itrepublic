@@ -12,11 +12,16 @@
         <div class="row d-flex align-items-center justify-content-center">
             <div class="about-content col-lg-12">
                 <h1 class="text-white">
-                    Job post				
+                    Maintain User				
                 </h1>	
-                <p class="text-white link-nav"><a href="{{ route('job_finder_home') }}">Home </a>  
+                <p class="text-white link-nav"><a href="{{ route('job_creator_home') }}">Home </a>  
                 <span class="lnr lnr-arrow-right"></span>  
-                <a href="{{ route('get_job') }}" class="text-white"> Job post</a>
+                <a href="{{ route('job_creator_maintain_user') }}" class="text-white"> Maintain User</a>
+                <br>
+                
+                <a class="nav-link text-white" href="{{ url('job_creator_create_user') }}">
+                Create new user here
+                                </a>
                 </p>											
         </div>
     </div>
@@ -28,52 +33,65 @@
     <div class="container">
         <div class="row justify-content-center d-flex">
             <div class="col-lg-8 post-list">
-                @foreach($job_post_list_model as $index => $item)
-                    <div class="single-post d-flex flex-row">
-                        <div class="thumb">
-                            <img src="{{ asset('public/themes/img/post.png') }}" alt="">
-                            <ul class="tags">
-                                <li>
-                                    <a href="#">Art</a>
-                                </li>
-                                <li>
-                                    <a href="#">Media</a>
-                                </li>
-                                <li>
-                                    <a href="#">Design</a>					
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="details">
-                            <div class="title d-flex flex-row justify-content-between">
-                                <div class="titles">
-                                    <h4>{{ $item->job_name }}</h4>				
-                                </div>
-                                &nbsp;
-                                
-                            </div>
-                            <p>
-                                {{ $item->description }}
-                            </p>
-                            <h5>Job Nature: Full time</h5>
-                            <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-                            <p class="address"><span class="lnr lnr-database"></span> {{ $item->payment_range_minimum }} - {{ $item->payment_range_maximum }}</p>
-                            <ul class="btns">
-                                    <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-                                        <li>
-                                            <a href="{{ route('apply_detail_job', $item->job_post_id) }}">
-                                                Apply
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('get_detail_job', $item->job_post_id) }}">
-                                                Detail
-                                            </a>
-                                        </li>
-                                </ul>
+                        <h3 class="py-1">User Detail</h3> <hr>	
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Username</label>
+                        <div class="col-md-6">
+                            <input type="text" name="username" class="form-control" readonly=true
+                            placeholder="Username" value="{{ $master_user_model->username }}">
                         </div>
                     </div>
-                @endforeach
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Company Name</label>
+                        <div class="col-md-6">
+                        <input type="text" name="company_name" readonly="true" class="form-control" 
+                            value="{{ $master_user_model->company_name }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Email Address</label>
+                        <div class="col-md-6">
+                            <input type="email" name="email_address" class="form-control" readonly=true
+                            placeholder="email address" value="{{ $master_user_model->user_email_address }}">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Phone</label>
+                        <div class="col-md-6">
+                            <input type="text" name="phone" class="form-control" readonly=true
+                            placeholder="phone" value="{{ $master_user_model->phone }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Status</label>
+                        <div class="col-md-6">
+                            <div class="default-select" id="default-selects">
+                                <select id="ddl_active" disabled name="ddl_active">
+                                <?php $status = $master_user_model->status; ?>
+                                    @if($status == "active")
+                                    <option value="active" selected>
+                                        Active
+                                    </option>
+                                    <option value="inactive">
+                                        Inactive
+                                    </option>
+                                    @else
+                                    <option value="active">
+                                        Active
+                                    </option>
+                                    <option value="inactive" selected>
+                                        Inactive
+                                    </option>
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="btn btn-outline-primary col-md-4" href="{{ route('job_creator_maintain_user') }}" class="text-white"> Back</a>
+                </form>
             </div>
             <div class="col-lg-4 sidebar">
                 <div class="single-slidebar">

@@ -14,9 +14,14 @@
                 <h1 class="text-white">
                     Job post				
                 </h1>	
-                <p class="text-white link-nav"><a href="{{ route('job_finder_home') }}">Home </a>  
+                <p class="text-white link-nav"><a href="{{ route('job_creator_home') }}">Home </a>  
                 <span class="lnr lnr-arrow-right"></span>  
-                <a href="{{ route('get_job') }}" class="text-white"> Job post</a>
+                <a href="{{ route('get_job_per_customer') }}" class="text-white"> Job post</a>
+                <br>
+                
+                <a class="nav-link text-white" href="{{ url('job_creator_post_register') }}">
+                Create new job here
+                                </a>
                 </p>											
         </div>
     </div>
@@ -60,16 +65,23 @@
                             <p class="address"><span class="lnr lnr-database"></span> {{ $item->payment_range_minimum }} - {{ $item->payment_range_maximum }}</p>
                             <ul class="btns">
                                     <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-                                        <li>
-                                            <a href="{{ route('apply_detail_job', $item->job_post_id) }}">
-                                                Apply
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('get_detail_job', $item->job_post_id) }}">
-                                                Detail
-                                            </a>
-                                        </li>
+                                            <li>
+                                                <a href="{{ route('edit_detail_job_post', $item->job_post_id) }}">
+                                                    Edit
+                                                </a>
+                                            </li>
+                                                &nbsp;&nbsp;
+                                            <li>
+                                                <a href="{{ route('get_detail_job_post', $item->job_post_id) }}">
+                                                    Detail
+                                                </a>
+                                            </li>
+                                                &nbsp;&nbsp;
+                                            <li>
+                                                <a href="{{ route('detail_applicant_job_post', $item->job_post_id) }}">
+                                                    View Applicant
+                                                </a>
+                                            </li>
                                 </ul>
                         </div>
                     </div>

@@ -14,7 +14,7 @@
                 <h1 class="text-white">
                     About Us				
                 </h1>	
-                <p class="text-white link-nav"><a href="{{ route('home') }}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="{{ route('about-us') }}"> About Us</a></p>
+                <p class="text-white link-nav"><a href="{{ route('home') }}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="{{ route('about_us') }}"> About Us</a></p>
             </div>											
         </div>
     </div>
