@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('public/themes/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/themes/css/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('public/themes/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
 </head>
 <body>
     @include('layout.header')
@@ -34,7 +35,7 @@
         
     @include('layout.call-to-action')
 
-    @include('layout.download-apps')
+    {{-- @include('layout.download-apps') --}}
 
     @include('layout.footer')
 

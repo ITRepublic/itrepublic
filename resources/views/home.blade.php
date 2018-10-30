@@ -102,7 +102,7 @@
 <!-- End features Area -->
 
 <!-- Start popular-post Area -->
-<section class="popular-post-area pt-100">
+{{-- <section class="popular-post-area pt-100">
     <div class="container">
         <div class="row align-items-center">
             <div class="active-popular-post-carusel">
@@ -187,7 +187,7 @@
             </div>
         </div>
     </div>	
-</section>
+</section> --}}
 <!-- End popular-post Area -->
 
 <!-- Start feature-cat Area -->
@@ -522,7 +522,7 @@
                     </ul>
                 </div>
 
-                <div class="single-slidebar">
+                {{-- <div class="single-slidebar">
                     <h4>Top rated job posts</h4>
                     <div class="active-relatedjob-carusel">
                         <div class="single-rated">
@@ -562,7 +562,7 @@
                             <a href="#" class="btns text-uppercase">Apply job</a>
                         </div>																		
                     </div>
-                </div>							
+                </div>--}}
 
                 <div class="single-slidebar">
                     <h4>Jobs by Category</h4>
@@ -577,7 +577,7 @@
                     </ul>
                 </div>
 
-                <div class="single-slidebar">
+                {{-- <div class="single-slidebar">
                     <h4>Carrer Advice Blog</h4>
                     <div class="blog-list">
                         <div class="single-blog " style="background:#000 url(public/themes/img/blog1.jpg);">
@@ -626,7 +626,7 @@
                             </div>
                         </div>																		
                     </div>
-                </div>							
+                </div>--}}
 
             </div>
         </div>

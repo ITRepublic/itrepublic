@@ -2,7 +2,9 @@
     <div class="container">
         <div class="row align-items-center justify-content-between d-flex">
           <div id="logo">
-            <a href="{{ route('home') }}"><img src="{{ asset('public/themes/img/logo.png') }}" alt="" title="" /></a>
+            <a href="{{ route('home') }}">
+              <img src="{{ asset('public/itrepublic_logo.png') }}" alt="" title="" width="140"/>
+            </a>
           </div>
           <nav id="nav-menu-container">
             <ul class="nav-menu">

@@ -2213,15 +2213,21 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .p1-gradient-bg, .banner-area .overlay-bg, .sidebar .single-slidebar .cat-list li:hover, .callto-action-area, .single-price:hover .price-bottom, .single-service:hover, .submit-right, .submit-left, .contact-btns, .form-area .primary-btn {
-  background-image: -moz-linear-gradient(0deg, #bfacff 0%, #795fff 100%);
+  background-image: -moz-linear-gradient(0deg, #333 0%, gray 100%);
+  background-image: -webkit-linear-gradient(0deg, #333 0%, gray 100%);
+  background-image: -ms-linear-gradient(0deg, #333 0%, gray 100%);
+  /* background-image: -moz-linear-gradient(0deg, #bfacff 0%, #795fff 100%);
   background-image: -webkit-linear-gradient(0deg, #bfacff 0%, #795fff 100%);
-  background-image: -ms-linear-gradient(0deg, #bfacff 0%, #795fff 100%);
+  background-image: -ms-linear-gradient(0deg, #bfacff 0%, #795fff 100%); */
 }
 
 .p1-gradient-color, .feat-txt h1 {
-  background: -moz-linear-gradient(0deg, #bfacff 0%, #795fff 100%);
+  /* background: -moz-linear-gradient(0deg, #bfacff 0%, #795fff 100%);
   background: -webkit-linear-gradient(0deg, #bfacff 0%, #795fff 100%);
-  background: -ms-linear-gradient(0deg, #bfacff 0%, #795fff 100%);
+  background: -ms-linear-gradient(0deg, #bfacff 0%, #795fff 100%); */
+  background: -moz-linear-gradient(0deg, #333 0%, gray 100%);
+  background: -webkit-linear-gradient(0deg, #333 0%, gray 100%);
+  background: -ms-linear-gradient(0deg, #333 0%, gray 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -2357,8 +2363,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .banner-content .form-wrap {
-  background-color: #a998f6;
-  border: 1px solid #b8aaf3;
+  background-color: #333;
+  border: 1px solid #333;
   padding: 20px 0;
   margin: 40px 0;
 }
