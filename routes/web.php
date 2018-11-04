@@ -34,28 +34,36 @@ Route::get('/logout', 'auth_controller@destroy')->name('logout');
 // Middleware check if no session redirect to login page
 // Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
 
+    Route::get('/user_home', 'home_controller@user_home')->name('user_home');
+    Route::get('/advance_search_home', 'home_controller@advance_search_home')->name('advance_search_home');
     //for job finder
-    Route::get('/job_finder_home', 'home_controller@job_finder_home')->name('job_finder_home');
     Route::get('/job_finder_about_us', 'home_controller@job_finder_about_us')->name('job_finder_about_us');
+    Route::get('/profile', 'profile_controller@create')->name('profile');
     Route::get('/get_job', 'job_controller@get_job')->name('get_job');
     Route::get('/job_finder_blog', 'home_controller@job_finder_blog')->name('job_finder_blog');
     Route::get('/job_finder_contact', 'home_controller@job_finder_contact')->name('job_finder_contact');
-
+    
+    Route::post('/submit_profile', ['uses' => 'profile_controller@store', 'before' => 'csrf'])->name('submit_profile');
     Route::get('/job/{id}/detail', 'job_controller@get_job_detail')->name('job_detail');
     Route::get('get_detail_job/{id}/edit', 'job_controller@get_detail_job')->name('get_detail_job');
     Route::get('apply_detail_job/{id}/edit', 'job_controller@apply_detail_job')->name('apply_detail_job');
     Route::post('/apply_detail_job_post', ['uses' => 'job_controller@apply_detail_job_post', 'before' => 'csrf'])->name('apply_detail_job_post');
 
     //for job creator
-    Route::get('/job_creator_home', 'home_controller@job_creator_home')->name('job_creator_home');
     Route::get('/job_creator_about_us', 'home_controller@job_creator_about_us')->name('job_creator_about_us');
     Route::get('/job_creator_maintain_user', 'maintain_user_controller@job_creator_maintain_user')->name('job_creator_maintain_user');
+    Route::get('/resume', 'resume_controller@create')->name('resume');
+    Route::get('/company_profile', 'job_creator_controller@company_profile')->name('company_profile');
+    
     Route::get('/get_job_per_customer', 'job_controller@get_job_per_customer')->name('get_job_per_customer');
     Route::get('/job_creator_blog', 'home_controller@job_creator_blog')->name('job_creator_blog');
     Route::get('/job_creator_contact', 'home_controller@job_creator_contact')->name('job_creator_contact');
 
     //job post
-    Route::get('/job_creator_post', 'job_controller@get_job_per_customer')->name('job_creator_post');
+    Route::post('submit_company_profile', ['uses' => 'job_creator_controller@submit_company_profile', 'before' => 'csrf'])->name('submit_company_profile');
+    Route::get('resume_detail/{id}/detail', 'resume_controller@detail_resume')->name('resume_detail');
+    Route::get('resume_advance_search', 'resume_controller@get_advance_search')->name('resume_advance_search');
+    Route::post('resume_advance_search_submit', ['uses' => 'resume_controller@advance_search_submit', 'before' => 'csrf'])->name('resume_advance_search_submit');
     Route::get('get_detail_job_post/{id}/edit', 'job_controller@get_detail_job_post')->name('get_detail_job_post');
     Route::get('edit_detail_job_post/{id}/edit', 'job_controller@edit_detail_job_post')->name('edit_detail_job_post');
     Route::post('/update_detail_job_post', ['uses' => 'job_controller@update_detail_job_post', 'before' => 'csrf'])->name('update_detail_job_post');

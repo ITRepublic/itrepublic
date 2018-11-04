@@ -12,13 +12,14 @@
         <div class="row d-flex align-items-center justify-content-center">
             <div class="about-content col-lg-12">
                 <h1 class="text-white">
-                    Job post				
+                    Resume				
                 </h1>	
                 <p class="text-white link-nav"><a href="{{ route('user_home') }}">Home </a>  
                 <span class="lnr lnr-arrow-right"></span>  
-                <a href="{{ route('get_job') }}" class="text-white"> Job post</a>
+                <a href="{{ route('resume') }}" class="text-white"> Resume</a>
                 </p>											
-        </div>
+        </div>  
+    </div>			
     </div>
 </section>
 <!-- End banner Area -->	
@@ -27,88 +28,39 @@
 <section class="post-area section-gap">
     <div class="container">
         <div class="row justify-content-center d-flex">
+        
             <div class="col-lg-8 post-list">
-                <form action="" method="post" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <?php $edit_session = session()->get('apply_job_post_session'); ?>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Company Name</label>
-                        <div class="col-md-6">
-                            <input type="text" name="job_name" class="form-control" readonly=true                            
-                                placeholder="Job Name" value="{{ $job_post_list_model->company_name }}">
+            <a class="btn btn-outline-primary col-md-4" href="{{ route('resume_advance_search') }}" class="text-white">Advance Search</a>
+                @foreach($job_finder_model as $index => $item)
+                    <div class="single-post d-flex flex-row">
+                        <div class="thumb">
+                            <img src="{{ asset('public/themes/img/post.png') }}" alt="">
+                        </div>
+                        <div class="details">
+                            <div class="title d-flex flex-row justify-content-between">
+                                <div class="titles">
+                                    <h4>{{ $item->full_name }}</h4>				
+                                </div>
+                                &nbsp;
+                                
+                            </div>
+                            <p>
+                                Email Address: {{ $item->email_address }}
+                            </p>
+                            <h5>Last Working As: {{ $item->tech_type_name }}</h5>
+                            <p class="address"><span class="lnr lnr-map"></span> {{ $item->address }} at {{ $item->province_name }}</p>
+                            <p class="address"><span class="lnr lnr-database"></span> IDR {{ $item->last_salary }}</p>
+                            <ul class="btns">
+                                    <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
+                                        <li>
+                                            <a href="{{ route('resume_detail', $item->finder_id) }}">
+                                                View Detail
+                                            </a>
+                                        </li>
+                                </ul>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Job Name</label>
-                        <div class="col-md-6">
-                            <input type="text" name="job_name" class="form-control" readonly=true                            
-                            placeholder="Job Name" value="{{ $job_post_list_model->job_name }}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Description</label>
-                        <div class="col-md-6">
-                            <textarea rows="3" name="description" class="form-control" readonly=true
-                            placeholder="Description">{{ $job_post_list_model->description }}</textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Benefit Details</label>
-                        <div class="col-md-6">
-                            <textarea rows="3" name="benefit_details" class="form-control" readonly=true
-                            placeholder="Benefit Details">{{ $job_post_list_model->benefit_details }}</textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Job Category</label>
-                        <div class="col-md-6">
-                        <select id="category_id" name="category_id" disabled='disabled'>
-                            <option value="">Select category</option>
-                                @foreach ($master_tech_type as $master_tech_type)
-                                    @if ($master_tech_type->tech_type_id == $job_post_list_model->category_id)
-                                        <option selected="selected" value="{{ $master_tech_type->tech_type_id }}">
-                                            {{ $master_tech_type->tech_type_name }}
-                                        </option>
-                                    @else
-                                        <option value="{{ $master_tech_type->tech_type_id }}">
-                                            {{ $master_tech_type->tech_type_name }}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Payment Range Minimum</label>
-                        <div class="col-md-6">
-                            <input type="text" name="payment_range_minimum" class="form-control" readonly=true
-                            placeholder="Payment Range Minimum" value="{{ $job_post_list_model->payment_range_minimum }}">
-                        </div>
-                    </div>                    
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Payment Range Maximum</label>
-                        <div class="col-md-6">
-                            <input type="text" name="payment_range_maximum" class="form-control" readonly=true
-                            placeholder="Payment Range Maximum" value="{{ $job_post_list_model->payment_range_maximum }}">
-                        </div>
-                    </div>        
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Experience</label>
-                        <div class="col-md-6">
-                            <textarea rows="3" name="experience" class="form-control" readonly=true
-                            placeholder="Experience">{{ $job_post_list_model->experience }}</textarea>
-                        </div>
-                    </div>             
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Email Address</label>
-                        <div class="col-md-6">
-                            <input type="email" name="jc_email_address" readonly="true" class="form-control" 
-                            value="{{ $job_post_list_model->email_address }}">
-                        </div>
-                    </div>
-                    
-                    <a class="btn btn-outline-primary col-md-4" href="{{ route('get_job') }}" class="text-white"> Back</a>
-                </form>
+                @endforeach
             </div>
             <div class="col-lg-4 sidebar">
                 <div class="single-slidebar">

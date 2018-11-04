@@ -13,6 +13,7 @@
             ?>
                   @if ($group == "jf")
                       <li class="menu-active"><a href="{{ route('home') }}">Home</a></li>
+                      <li><a href="{{ route('profile') }}">Profile</a></li>
                       <li><a href="{{ route('about_us') }}">About Us</a></li>
                       <li><a href="{{ route('get_job') }}">Job Posting</a></li>
                       <li><a href="http://blog.itrepublic.id" target="_blank">Blog</a></li>
@@ -21,7 +22,9 @@
                   @elseif ($group == "jc")
                       <li class="menu-active"><a href="{{ route('home') }}">Home</a></li>
                       <li><a href="{{ route('about_us') }}">About Us</a></li>
+                      <li><a href="{{ route('company_profile') }}">Company Profile</a></li>
                       <li><a href="{{ route('get_job_per_customer') }}">Job Posting</a></li>
+                      <li><a href="{{ route('resume') }}">Resume</a></li>
                       <li><a href="{{ route('job_creator_maintain_user') }}">User</a></li>                          
                       <li><a href="http://blog.itrepublic.id" target="_blank">Blog</a></li>
                       <li><a href="{{ route('job_creator_contact') }}">Contact</a></li>
@@ -48,3 +51,4 @@
         </div>
     </div>
   </header><!-- #header -->
+

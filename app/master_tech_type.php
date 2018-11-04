@@ -10,7 +10,7 @@ class master_tech_type extends Model
     protected $table = "master_tech_type";
     
     protected $fillable = [
-    	'tech_typee_id', 
+    	'tech_type_id', 
     	'tech_type_name'
     ];
 }

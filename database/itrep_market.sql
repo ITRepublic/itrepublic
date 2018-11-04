@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2018 at 07:52 PM
+-- Generation Time: Nov 04, 2018 at 07:40 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -110,7 +110,8 @@ CREATE TABLE `job_creator` (
 
 INSERT INTO `job_creator` (`user_id`, `company_id`, `email_address`, `company_name`, `company_address`, `company_profile`, `phone`, `group_id`, `status`, `updated_at`, `created_at`) VALUES
 (1, 1, 'testvacan@yahoo.com', 'Jekardah', 'bambu betung', '', '123456', 'jc', 'active', '2018-09-25 11:25:49', '2018-09-25 11:25:49'),
-(13, 1, 'testanak3123@gmail.com', 'Jekardah 1', '', '', '123456', 'jc', 'active', '2018-10-17 15:31:52', '2018-10-16 14:47:33');
+(13, 1, 'testanak3123@gmail.com', 'Jekardah 1', '', '', '123456', 'jc', 'active', '2018-10-17 15:31:52', '2018-10-16 14:47:33'),
+(14, 3, 'orgil@yahoo.com', 'perusahaan anak anak', 'Bojong Kenyot', 'perubahan', '12312321321', 'jc', 'active', '', '');
 
 -- --------------------------------------------------------
 
@@ -124,6 +125,17 @@ CREATE TABLE `job_finder` (
   `full_name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `phone` varchar(50) NOT NULL,
+  `gender` varchar(50) NOT NULL,
+  `birth_date` varchar(50) NOT NULL,
+  `province_id` varchar(3) NOT NULL,
+  `last_position` varchar(50) NOT NULL,
+  `last_level` varchar(50) NOT NULL,
+  `last_work_history` text NOT NULL,
+  `last_work_category` text NOT NULL,
+  `cv_file_name` varchar(255) NOT NULL,
+  `university` varchar(255) NOT NULL,
+  `language` varchar(50) NOT NULL,
+  `last_salary` varchar(255) NOT NULL,
   `group_id` varchar(5) NOT NULL,
   `total_rating` varchar(50) NOT NULL DEFAULT '',
   `status` enum('active','inactive') NOT NULL DEFAULT 'inactive',
@@ -136,9 +148,9 @@ CREATE TABLE `job_finder` (
 -- Dumping data for table `job_finder`
 --
 
-INSERT INTO `job_finder` (`finder_id`, `email_address`, `full_name`, `address`, `phone`, `group_id`, `total_rating`, `status`, `profile_pict`, `updated_at`, `created_at`) VALUES
-(6, '123@gmail.com', 'users123', 'bambu betung', '123456', 'jf', '0', 'active', '', '2018-09-25 11:16:03', '2018-09-25 11:16:03'),
-(7, 'vincent_gk@yahoo.com', 'wakakakaa', 'bambu betung', '123456', 'jf', '0', 'active', '', '2018-09-25 11:24:00', '2018-09-25 11:24:00');
+INSERT INTO `job_finder` (`finder_id`, `email_address`, `full_name`, `address`, `phone`, `gender`, `birth_date`, `province_id`, `last_position`, `last_level`, `last_work_history`, `last_work_category`, `cv_file_name`, `university`, `language`, `last_salary`, `group_id`, `total_rating`, `status`, `profile_pict`, `updated_at`, `created_at`) VALUES
+(6, '123@gmail.com', 'users123', 'bambu betung', '123456', 'man', '2018-11-07', '3', 'Tekjon', 'Senior', 'Coba Coba', '2', 'storage/app/resume/Q6bO0DLyQ1pLep1SEJ0ayLxVBCtMdaPf2yjyxj4D.docx', 'Binus', 'English', '12300000', 'jf', '0', 'active', 'storage/app/image/Jm0YbPFYXR0X0tLKvqEuCbX7GwWrGqZ2bcntbMKp.png', '2018-11-04 17:11:49', '2018-09-25 11:16:03'),
+(7, 'vincent_gk@yahoo.com', 'wakakakaa', 'bambu betung', '123456', '', '', '', '', '', '', '', '', '', '', '', 'jf', '0', 'active', '', '2018-09-25 11:24:00', '2018-09-25 11:24:00');
 
 -- --------------------------------------------------------
 
@@ -252,6 +264,7 @@ CREATE TABLE `job_post_list` (
   `job_name` varchar(255) NOT NULL,
   `benefit_details` text NOT NULL,
   `description` text NOT NULL,
+  `category_id` varchar(5) NOT NULL,
   `has_seen_id` int(11) NOT NULL,
   `payment_range_minimum` int(11) NOT NULL,
   `payment_range_maximum` int(11) NOT NULL,
@@ -259,15 +272,15 @@ CREATE TABLE `job_post_list` (
   `job_status` int(11) NOT NULL,
   `created_at` varchar(30) NOT NULL,
   `updated_at` varchar(30) NOT NULL,
-  `jc_email_address` varchar(255) NOT NULL
+  `jc_user_id` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `job_post_list`
 --
 
-INSERT INTO `job_post_list` (`job_post_id`, `job_name`, `benefit_details`, `description`, `has_seen_id`, `payment_range_minimum`, `payment_range_maximum`, `experience`, `job_status`, `created_at`, `updated_at`, `jc_email_address`) VALUES
-(1, 'test job 1', 'asuransi 1', 'cek job 1', 0, 3500000, 7000000, 'test job 1', 1, '2018-10-07 16:24:05', '2018-10-17 14:09:31', 'testvacan@yahoo.com');
+INSERT INTO `job_post_list` (`job_post_id`, `job_name`, `benefit_details`, `description`, `category_id`, `has_seen_id`, `payment_range_minimum`, `payment_range_maximum`, `experience`, `job_status`, `created_at`, `updated_at`, `jc_user_id`) VALUES
+(1, 'test job 1', 'asuransi 1', 'cek job 1', '3', 0, 3500000, 7000000, 'test job 1', 1, '2018-10-07 16:24:05', '2018-11-04 18:36:57', '1');
 
 -- --------------------------------------------------------
 
@@ -289,8 +302,8 @@ CREATE TABLE `job_post_search` (
 --
 
 INSERT INTO `job_post_search` (`job_post_match_id`, `job_post_id`, `jf_user_id`, `status_id`, `created_at`, `updated_at`) VALUES
-(2, 1, '6', 1, '2018-10-17 17:24:53', '2018-10-17 17:24:53'),
-(3, 1, '7', 1, '2018-10-17 17:25:34', '2018-10-17 17:25:34');
+(4, 1, '6', 1, '2018-11-04 11:49:29', '2018-11-04 11:49:29'),
+(5, 1, '7', 1, '2018-11-04 18:39:13', '2018-11-04 18:39:13');
 
 -- --------------------------------------------------------
 
@@ -375,6 +388,17 @@ CREATE TABLE `master_customer` (
   `email_address` varchar(255) NOT NULL,
   `company_name` varchar(255) NOT NULL,
   `phone` varchar(30) NOT NULL,
+  `authorized_person_name` varchar(255) NOT NULL,
+  `logo` varchar(255) NOT NULL,
+  `province_id` varchar(30) NOT NULL,
+  `address` text NOT NULL,
+  `total_employee` varchar(50) NOT NULL,
+  `apply_process_time` varchar(50) NOT NULL,
+  `industry_id` varchar(10) NOT NULL,
+  `website` varchar(255) NOT NULL,
+  `working_hours` varchar(30) NOT NULL,
+  `benefit_details` varchar(255) NOT NULL,
+  `language` varchar(30) NOT NULL,
   `summary` varchar(255) NOT NULL,
   `status_id` int(11) NOT NULL,
   `updated_at` varchar(30) NOT NULL,
@@ -385,9 +409,10 @@ CREATE TABLE `master_customer` (
 -- Dumping data for table `master_customer`
 --
 
-INSERT INTO `master_customer` (`company_id`, `email_address`, `company_name`, `phone`, `summary`, `status_id`, `updated_at`, `created_at`) VALUES
-(1, '123@gmail.com', 'Jekardah', '123456', 'cekidot', 9, '2018-09-26 15:58:28', '2018-09-26 15:58:28'),
-(2, 'testvacan@yahoo.com', 'Jekardah', '123456', 'cekidot', 9, '2018-09-26 15:59:34', '2018-09-26 15:59:34');
+INSERT INTO `master_customer` (`company_id`, `email_address`, `company_name`, `phone`, `authorized_person_name`, `logo`, `province_id`, `address`, `total_employee`, `apply_process_time`, `industry_id`, `website`, `working_hours`, `benefit_details`, `language`, `summary`, `status_id`, `updated_at`, `created_at`) VALUES
+(1, '123@gmail.com', 'Jekardah', '123456', '', '', '', '', '', '', '', '', '', '', '', 'cekidot', 9, '2018-09-26 15:58:28', '2018-09-26 15:58:28'),
+(2, 'testvacan@yahoo.com', 'Jekardah', '123456', '', '', '', '', '', '', '', '', '', '', '', 'cekidot', 9, '2018-09-26 15:59:34', '2018-09-26 15:59:34'),
+(3, 'perusahaan1@yahoo.com', 'Coba Cobas', '123456', 'Dasar Biadab', 'D:\\xampp\\tmp\\phpCE3D.tmp', '3', 'Jakartas', '123', '12', '2', 'www.123.com', '12', 'asuransi', 'English', 'Perusahaan bergerak di bidang jasas', 9, '2018-11-04 18:09:56', '2018-11-04 16:59:08');
 
 -- --------------------------------------------------------
 
@@ -407,6 +432,25 @@ CREATE TABLE `master_difficulty` (
 INSERT INTO `master_difficulty` (`diff_id`, `diff_name`) VALUES
 (1, 'Easy'),
 (2, 'Moderate');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `master_industry`
+--
+
+CREATE TABLE `master_industry` (
+  `industry_id` int(11) NOT NULL,
+  `industry_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `master_industry`
+--
+
+INSERT INTO `master_industry` (`industry_id`, `industry_name`) VALUES
+(1, 'Accounting/Audit/Tax Services'),
+(2, 'Advertising/Marketing/Promotion/PR');
 
 -- --------------------------------------------------------
 
@@ -582,9 +626,10 @@ CREATE TABLE `master_user` (
 
 INSERT INTO `master_user` (`user_id`, `user_email_address`, `username`, `password`, `group_id`, `status_id`, `created_at`, `updated_at`) VALUES
 (1, 'testvacan@yahoo.com', 'testvacan@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'jc', 'active', '2018-09-25 11:25:48', '2018-09-25 11:25:48'),
-(6, '123@gmail.com', '123@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'jf', 'active', '2018-09-25 11:16:02', '2018-09-25 11:16:02'),
+(6, '123@gmail.com', '123@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'jf', 'active', '2018-09-25 11:16:02', '2018-11-04 11:17:28'),
 (7, 'vincent_gk@yahoo.com', 'vincent_gk@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'jf', 'active', '2018-09-25 11:24:00', '2018-09-25 11:24:00'),
-(13, 'testanak3123@gmail.com', 'anak buah 1', 'e10adc3949ba59abbe56e057f20f883e', 'jc', 'active', '2018-10-16 14:47:33', '2018-10-17 15:31:52');
+(13, 'testanak3123@gmail.com', 'anak buah 1', 'e10adc3949ba59abbe56e057f20f883e', 'jc', 'active', '2018-10-16 14:47:33', '2018-10-17 15:31:52'),
+(14, 'orgil@yahoo.com', 'Orang Gila', 'e10adc3949ba59abbe56e057f20f883e', 'jc', 'active', '', '');
 
 -- --------------------------------------------------------
 
@@ -594,7 +639,7 @@ INSERT INTO `master_user` (`user_id`, `user_email_address`, `username`, `passwor
 
 CREATE TABLE `skill_list` (
   `skill_list_id` int(11) NOT NULL,
-  `jf_email_address` varchar(255) NOT NULL,
+  `jf_user_id` varchar(255) NOT NULL,
   `skill_id` varchar(25) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -762,6 +807,12 @@ ALTER TABLE `master_difficulty`
   ADD PRIMARY KEY (`diff_id`);
 
 --
+-- Indexes for table `master_industry`
+--
+ALTER TABLE `master_industry`
+  ADD PRIMARY KEY (`industry_id`);
+
+--
 -- Indexes for table `master_menu`
 --
 ALTER TABLE `master_menu`
@@ -879,7 +930,7 @@ ALTER TABLE `job_post_list`
 -- AUTO_INCREMENT for table `job_post_search`
 --
 ALTER TABLE `job_post_search`
-  MODIFY `job_post_match_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `job_post_match_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `job_post_skill`
@@ -909,13 +960,19 @@ ALTER TABLE `master_admin`
 -- AUTO_INCREMENT for table `master_customer`
 --
 ALTER TABLE `master_customer`
-  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `master_difficulty`
 --
 ALTER TABLE `master_difficulty`
   MODIFY `diff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `master_industry`
+--
+ALTER TABLE `master_industry`
+  MODIFY `industry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `master_payment_type`
@@ -945,7 +1002,7 @@ ALTER TABLE `master_tech_type`
 -- AUTO_INCREMENT for table `master_user`
 --
 ALTER TABLE `master_user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `skill_list`

@@ -8,6 +8,7 @@ use App\job_create_model;
 use App\master_customer;
 use App\job_post_search;
 use App\job_finder_model;
+use App\master_tech_type;
 
 class job_controller extends Controller
 {
@@ -15,7 +16,7 @@ class job_controller extends Controller
     public function get_job_per_customer() {
 
         $company_id = session()->get('company_id');
-        $job_post_list_model = job_post_list_model::join('job_creator','job_post_list.jc_email_address', '=', 'job_creator.email_address')
+        $job_post_list_model = job_post_list_model::join('job_creator','job_post_list.jc_user_id', '=', 'job_creator.user_id')
         ->join('master_customer','job_creator.company_id', '=', 'master_customer.company_id')
         ->where([
             ['master_customer.company_id', '=', $company_id],
@@ -26,7 +27,8 @@ class job_controller extends Controller
         return view('job_creator_post',array('job_post_list_model' => $job_post_list_model))->withTitle('Job Post');
     }
     public function job_creator_post_register() {
-        return view('job_creator_post_register')->withTitle('Job Register');
+        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);  
+        return view('job_creator_post_register', array('master_tech_type' => $master_tech_type))->withTitle('Job Register');
     }
 
     public function job_creator_post_store(Request $request) {
@@ -34,6 +36,7 @@ class job_controller extends Controller
             'job_name'  => 'required',
             'description'   => 'required',
             'benefit_details'         => 'required',
+            'category_id'         => 'required',
             'payment_range_minimum'      => 'required|numeric',
             'payment_range_maximum'      => 'required|numeric',
             'experience'      => 'required',
@@ -44,10 +47,11 @@ class job_controller extends Controller
         $data['job_name'] = $request->job_name;
         $data['description'] = $request->description;
         $data['benefit_details'] = $request->benefit_details;
+        $data['category_id'] = $request->category_id;
         $data['payment_range_minimum'] = $request->payment_range_minimum;
         $data['payment_range_maximum'] = $request->payment_range_maximum;
         $data['experience'] = $request->experience;
-        $data['jc_email_address'] = $request->jc_email_address;
+        $data['jc_user_id'] = $request->jc_user_id;
         $data['has_seen_id'] = '0';
         $data['job_status'] = '1';
 
@@ -59,26 +63,30 @@ class job_controller extends Controller
     {
         session()->forget('detail_job_post_session');
         session()->put('detail_job_post_session', 'view');
+        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);
 
         $job_post_list_model = job_post_list_model::join('master_status','job_post_list.job_status', '=', 'master_status.status_id')
-        ->join('job_creator', 'job_post_list.jc_email_address', '=', 'job_creator.email_address')
+        ->join('job_creator', 'job_post_list.jc_user_id', '=', 'job_creator.user_id')
+        ->leftJoin('master_tech_type','job_post_list.category_id', '=', 'master_tech_type.tech_type_id')
         ->where('job_post_id', $id)
         ->first();
 
-        return view('job_creator_post_detail', array('job_post_list_model' => $job_post_list_model))->withTitle($job_post_list_model->job_name);
+        return view('job_creator_post_detail', array('job_post_list_model' => $job_post_list_model, 'master_tech_type' => $master_tech_type))->withTitle($job_post_list_model->job_name);
 
     }
     public function edit_detail_job_post($id)
     {
         session()->forget('detail_job_post_session');
         session()->put('detail_job_post_session', 'edit');
+        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);
 
         $job_post_list_model = job_post_list_model::join('master_status','job_post_list.job_status', '=', 'master_status.status_id')
-        ->join('job_creator', 'job_post_list.jc_email_address', '=', 'job_creator.email_address')
+        ->join('job_creator', 'job_post_list.jc_user_id', '=', 'job_creator.user_id')
+        ->leftJoin('master_tech_type','job_post_list.category_id', '=', 'master_tech_type.tech_type_id')
         ->where('job_post_id', $id)
         ->first();
 
-        return view('job_creator_post_edit_detail', array('job_post_list_model' => $job_post_list_model))->withTitle($job_post_list_model->job_name);
+        return view('job_creator_post_edit_detail', array('job_post_list_model' => $job_post_list_model, 'master_tech_type' => $master_tech_type))->withTitle($job_post_list_model->job_name);
 
     }
     public function update_detail_job_post(Request $request) {
@@ -86,6 +94,7 @@ class job_controller extends Controller
             'job_name'  => 'required',
             'description'   => 'required',
             'benefit_details'         => 'required',
+            'category_id'         => 'required',
             'payment_range_minimum'      => 'required|numeric',
             'payment_range_maximum'      => 'required|numeric',
             'experience'      => 'required',
@@ -97,6 +106,7 @@ class job_controller extends Controller
         $data['job_name'] = $request->job_name;
         $data['description'] = $request->description;
         $data['benefit_details'] = $request->benefit_details;
+        $data['category_id'] = $request->category_id;
         $data['payment_range_minimum'] = $request->payment_range_minimum;
         $data['payment_range_maximum'] = $request->payment_range_maximum;
         $data['experience'] = $request->experience;
@@ -106,7 +116,7 @@ class job_controller extends Controller
     }
     //for job finder
     public function get_job() {
-        $job_post_list_model = job_post_list_model::join('job_creator','job_post_list.jc_email_address', '=', 'job_creator.email_address')
+        $job_post_list_model = job_post_list_model::join('job_creator','job_post_list.jc_user_id', '=', 'job_creator.user_id')
         ->join('master_customer','job_creator.company_id', '=', 'master_customer.company_id')
         ->where('job_status', '=', '1')
         ->get();
@@ -119,26 +129,31 @@ class job_controller extends Controller
     {
         session()->forget('apply_job_post_session');
         session()->put('apply_job_post_session', 'view');
+        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);  
 
         $job_post_list_model = job_post_list_model::join('master_status','job_post_list.job_status', '=', 'master_status.status_id')
-        ->join('job_creator', 'job_post_list.jc_email_address', '=', 'job_creator.email_address')
+        ->join('job_creator', 'job_post_list.jc_user_id', '=', 'job_creator.user_id')
+        ->leftJoin('master_tech_type','job_post_list.category_id', '=', 'master_tech_type.tech_type_id')
         ->where('job_post_id', $id)
         ->first();
 
-        return view('job_detail', array('job_post_list_model' => $job_post_list_model))->withTitle($job_post_list_model->job_name);
+        return view('job_detail', array('job_post_list_model' => $job_post_list_model, 'master_tech_type' => $master_tech_type))->withTitle($job_post_list_model->job_name);
 
     }
 
     public function apply_detail_job($id) {
         session()->forget('apply_job_post_session');
         session()->put('apply_job_post_session', 'edit');
+        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);  
 
         $job_post_list_model = job_post_list_model::join('master_status','job_post_list.job_status', '=', 'master_status.status_id')
-        ->join('job_creator', 'job_post_list.jc_email_address', '=', 'job_creator.email_address')
+        ->join('job_creator', 'job_post_list.jc_user_id', '=', 'job_creator.user_id')
+        ->leftJoin('master_tech_type','job_post_list.category_id', '=', 'master_tech_type.tech_type_id')
         ->where('job_post_id', $id)
         ->first();
 
-        return view('apply_detail_job', array('job_post_list_model' => $job_post_list_model))->withTitle($job_post_list_model->job_name);
+
+        return view('apply_detail_job', array('job_post_list_model' => $job_post_list_model, 'master_tech_type' => $master_tech_type))->withTitle($job_post_list_model->job_name);
     }
 
     public function apply_detail_job_post(Request $request) {
@@ -159,7 +174,7 @@ class job_controller extends Controller
         }
         
 
-        $job_post_list_model = job_post_list_model::join('job_creator','job_post_list.jc_email_address', '=', 'job_creator.email_address')
+        $job_post_list_model = job_post_list_model::join('job_creator','job_post_list.jc_user_id', '=', 'job_creator.user_id')
         ->join('master_customer','job_creator.company_id', '=', 'master_customer.company_id')
         ->where('job_status', '=', '1')
         ->get();

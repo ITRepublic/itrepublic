@@ -14,7 +14,7 @@
                 <h1 class="text-white">
                     Job post				
                 </h1>	
-                <p class="text-white link-nav"><a href="{{ route('job_creator_home') }}">Home </a>  
+                <p class="text-white link-nav"><a href="{{ route('user_home') }}">Home </a>  
                 <span class="lnr lnr-arrow-right"></span>  
                 <a href="{{ route('get_job_per_customer') }}" class="text-white"> Job post</a>
                 <br>

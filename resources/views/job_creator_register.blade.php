@@ -34,13 +34,15 @@
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label">Email Address</label>
                             <div class="col-md-8">
-                                <input type="email" name="email_address" class="form-control no-border-radius" value="{{ old('email_address') }}">
+                                <input type="email" name="email_address" placeholder="Email Address"
+                                class="form-control no-border-radius" value="{{ old('email_address') }}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label">Company Name</label>
                             <div class="col-md-8">
-                                <input type="text" name="company_name" class="form-control no-border-radius" value="{{ old('company_name') }}">
+                                <input type="text" name="company_name" placeholder="Company Name"
+                                class="form-control no-border-radius" value="{{ old('company_name') }}">
                             </select>
                             </div>
                         </div>
@@ -48,10 +50,106 @@
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label">Phone</label>
                             <div class="col-md-8">
-                                <input type="text" name="phone" class="form-control no-border-radius" value="{{ old('phone') }}">
+                                <input type="text" name="phone" class="form-control no-border-radius" 
+                                placeholder="Phone" value="{{ old('phone') }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Authorized Person Name</label>
+                            <div class="col-md-8">
+                                <input type="text" name="authorized_person_name" placeholder="Authorized Person Name"
+                                class="form-control no-border-radius" value="{{ old('authorized_person_name') }}">
+                            </select>
+                            </div>
+                        </div>
+                    
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Upload Your Logo Here</label>
+                            <div class="col-md-7">
+                                <input type="file" class="form-control-file" name="logo">
+                            </div>
+                        </div>              
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Province</label>
+                            <div class="col-md-7">
+                            <select id="province_id" name="province_id">
+                                    <option value="">Select area</option>
+                                    @foreach ($master_province as $master_province)
+                                        <option value="{{ $master_province->province_id }}">
+                                            {{ $master_province->province_name }}
+                                        </option>
+                                    @endforeach
+                                    </select>
+                            </div>
+                        </div>       
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Address</label>
+                            <div class="col-md-7">
+                                <textarea rows="3" name="address" 
+                                class="form-control">{{ old('address') }}</textarea>
+                            </div>
+                        </div> 
+                        <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Total Employee</label>
+                            <div class="col-md-7">
+                                <input type="text" name="total_employee" class="form-control"                             
+                                placeholder="Total Employee" value="{{ old('total_employee') }}">
+                            </div>
+                        </div>             
+                        <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Apply Process Time</label>
+                            <div class="col-md-7">
+                                <input type="text" name="apply_process_time" class="form-control"                             
+                                placeholder="Apply Process Time" value="{{ old('apply_process_time') }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Industry</label>
+                            <div class="col-md-7">
+                            <select id="industry_id" name="industry_id">
+                                    <option value="">Select category</option>
+                                    @foreach ($master_industry as $master_industry)
+                                        <option value="{{ $master_industry->industry_id }}">
+                                            {{ $master_industry->industry_name }}
+                                        </option>
+                                    @endforeach
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Website</label>
+                            <div class="col-md-7">
+                            <input type="text" name="website" class="form-control"                             
+                                placeholder="Website" value="{{ old('website') }}">
                             </div>
                         </div>
                         
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Working Hours</label>
+                            <div class="col-md-7">
+                            <input type="text" name="working_hours" class="form-control"                             
+                                placeholder="Working Hours" value="{{ old('working_hours') }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Benefit Details</label>
+                            <div class="col-md-8">
+                                <textarea rows="3" name="benefit_details" 
+                                class="form-control no-border-radius" value="{{ old('benefit_details') }}"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Language</label>
+                            <div class="col-md-7">
+                            <div id="default-selects2">
+                                    <select id="language" name="language">
+                                        <option value="">All Category</option>
+                                        <option value="Indonesia">Indonesia</option>
+                                        <option value="English">English</option>
+                                    </select>
+                                </div>	
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label">Summary</label>
                             <div class="col-md-8">

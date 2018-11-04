@@ -43,7 +43,7 @@ class auth_controller extends Controller
         }
 
     	if($isAuthenticated) {
-    		return redirect()->to('/');
+    		return redirect()->to('/user_home');
     	}
     	else {
     		return back()->withErrors('Your email & password did not match. Please try again!');
@@ -83,7 +83,7 @@ class auth_controller extends Controller
         }
 
     	if($isAuthenticated) {
-    		return redirect()->to('/job_creator_home');
+    		return redirect()->to('/user_home');
     	}
     	else {
     		return back()->withErrors('Your email & password did not match. Please try again!');

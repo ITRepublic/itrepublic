@@ -12,11 +12,9 @@
         <div class="row fullscreen d-flex align-items-center justify-content-center">
             <div class="banner-content col-lg-12">
                 <h1 class="text-white">
-                    <span>This is Job Seeker Home</span>			
+                {{ $title }}
                 </h1>	
-                
-                
-            </div>											
+                </div>											
         </div>
     </div>
 </section>

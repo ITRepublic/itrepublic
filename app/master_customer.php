@@ -15,6 +15,17 @@ class master_customer extends Model
     	'company_name', 
     	'phone',
 		'summary',
+		'authorized_person_name',
+		'logo',
+		'province_id',
+		'address',
+		'total_employee',
+		'apply_process_time',
+		'industry_id',
+		'website',
+		'working_hours',
+		'benefit_details',
+		'language',
 		'status_id'
     ];
 }

@@ -14,7 +14,7 @@
                 <h1 class="text-white">
                     <span>1500+</span> Jobs posted last week				
                 </h1>	
-                <form action="search.html" class="serach-form-area">
+                <form action="{{ route('advance_search_home') }}" class="search-form-area">
                     <div class="row justify-content-center form-wrap">
                         <div class="col-lg-4 form-cols">
                             <input type="text" 

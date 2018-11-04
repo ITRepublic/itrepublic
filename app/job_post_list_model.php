@@ -14,12 +14,13 @@ class job_post_list_model extends Model
     	'job_name', 
         'benefit_details',
         'description',
+        'category_id',
         'has_seen_id', 
         'payment_range_minimum', 
         'payment_range_maximum',
         'experience',
         'job_status',
-        'jc_email_address'
+        'jc_user_id'
     ];
 
 }

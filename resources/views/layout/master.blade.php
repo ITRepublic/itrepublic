@@ -54,4 +54,11 @@
     <script src="{{ asset('public/themes/js/mail-script.js') }}"></script>	
     <script src="{{ asset('public/themes/js/main.js') }}"></script>	
     </body>
+        <script>
+        $(function() {
+            $('#datepicker').datepicker({
+                format: 'dd/mm/yyyy'
+            });
+        });
+    </script>
 </html>

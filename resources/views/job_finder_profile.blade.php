@@ -11,13 +11,7 @@
     <div class="container">
         <div class="row d-flex align-items-center justify-content-center">
             <div class="about-content col-lg-12">
-                <h1 class="text-white">
-                    Job post				
-                </h1>	
-                <p class="text-white link-nav"><a href="{{ route('user_home') }}">Home </a>  
-                <span class="lnr lnr-arrow-right"></span>  
-                <a href="{{ route('get_job') }}" class="text-white"> Job post</a>
-                </p>											
+                {{ $title }}											
         </div>
     </div>
 </section>
@@ -26,46 +20,111 @@
 <!-- Start post Area -->
 <section class="post-area section-gap">
     <div class="container">
+    <div class="col-lg-8 offset-md-2">@include('error.template')</div>
         <div class="row justify-content-center d-flex">
             <div class="col-lg-8 post-list">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="{{ route('submit_profile') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
-                    <?php $edit_session = session()->get('apply_job_post_session'); ?>
+                    <?php $user_id = session()->get('user_id'); ?>
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Company Name</label>
-                        <div class="col-md-6">
-                            <input type="text" name="job_name" class="form-control" readonly=true                            
-                                placeholder="Job Name" value="{{ $job_post_list_model->company_name }}">
+                        <label class="col-md-4 col-form-label">Full Name</label>
+                        <div class="col-md-7">
+                            <input type="text" name="full_name" class="form-control"                             
+                            placeholder="Full Name" value="{{ $job_finder_model->full_name }}">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Job Name</label>
-                        <div class="col-md-6">
-                            <input type="text" name="job_name" class="form-control" readonly=true                            
-                            placeholder="Job Name" value="{{ $job_post_list_model->job_name }}">
+                    <label class="col-md-4 col-form-label">Email Address</label>
+                        <div class="col-md-7">
+                            <input type="email" name="email_address" readonly="true"
+                            class="form-control" value="{{ $job_finder_model->email_address }}">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Description</label>
-                        <div class="col-md-6">
-                            <textarea rows="3" name="description" class="form-control" readonly=true
-                            placeholder="Description">{{ $job_post_list_model->description }}</textarea>
+                        <label class="col-md-4 col-form-label">Address</label>
+                        <div class="col-md-7">
+                            <textarea rows="3" name="address" 
+                            class="form-control">{{ $job_finder_model->address }}</textarea>
+                        </div>
+                    </div>
+                        
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Phone</label>
+                        <div class="col-md-7">
+                            <input type="text" name="phone" 
+                            class="form-control" value="{{ $job_finder_model->phone }}">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Benefit Details</label>
-                        <div class="col-md-6">
-                            <textarea rows="3" name="benefit_details" class="form-control" readonly=true
-                            placeholder="Benefit Details">{{ $job_post_list_model->benefit_details }}</textarea>
+                        <label class="col-md-4 col-form-label">Gender</label>
+                        <div class="col-md-7">
+                            <select id="gender" name="gender">
+                                <option value="">All Category</option>
+                                    @if ($job_finder_model->gender == 'man')
+                                        <option selected="selected" value="man">Man</option>
+                                        <option value="woman">Woman</option>
+                                    @else
+                                        <option value="man">Man</option>
+                                        <option selected="selected" value="woman">Woman</option>
+                                    @endif
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Birth Date</label>
+                        <div class="col-md-7">
+                            <input type="date" name="birth_date" id="datepicker" class="form-control" 
+                            placeholder="Birth Date" value="{{ $job_finder_model->birth_date }}">
+                        </div>
+                    </div>                    
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Province</label>
+                        <div class="col-md-7">
+                        <select id="province_id" name="province_id">
+                                <option value="">Select area</option>
+                                @foreach ($master_province as $master_province)
+                                    @if ($master_province->province_id == $job_finder_model->province_id)
+                                    <option selected="selected" value="{{ $master_province->province_id }}">
+                                        {{ $master_province->province_name }}
+                                    </option>
+                                    @else
+                                    <option value="{{ $master_province->province_id }}">
+                                        {{ $master_province->province_name }}
+                                    </option>
+                                    @endif
+                                @endforeach
+                                </select>
+                        </div>
+                    </div>        
+                    <div class="form-group row">
+                    <label class="col-md-4 col-form-label">Last Position</label>
+                        <div class="col-md-7">
+                            <input type="text" name="last_position" class="form-control"                             
+                            placeholder="Last Position" value="{{ $job_finder_model->last_position }}">
+                        </div>
+                    </div>             
+                    <div class="form-group row">
+                    <label class="col-md-4 col-form-label">Last Level</label>
+                        <div class="col-md-7">
+                            <input type="text" name="last_level" class="form-control"                             
+                            placeholder="Last Level" value="{{ $job_finder_model->last_level }}">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Job Category</label>
-                        <div class="col-md-6">
-                        <select id="category_id" name="category_id" disabled='disabled'>
-                            <option value="">Select category</option>
+                        <label class="col-md-4 col-form-label">Last Work History</label>
+                        <div class="col-md-7">
+                            <textarea rows="3" name="last_work_history" 
+                            class="form-control">{{ $job_finder_model->last_work_history }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Last Work Category</label>
+                        <div class="col-md-7">
+                            <select id="last_work_category" name="last_work_category">
+                                <option value="">Select category</option>
                                 @foreach ($master_tech_type as $master_tech_type)
-                                    @if ($master_tech_type->tech_type_id == $job_post_list_model->category_id)
+                                    @if ($master_tech_type->tech_type_id == $job_finder_model->last_work_category)
                                         <option selected="selected" value="{{ $master_tech_type->tech_type_id }}">
                                             {{ $master_tech_type->tech_type_name }}
                                         </option>
@@ -79,35 +138,53 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Payment Range Minimum</label>
-                        <div class="col-md-6">
-                            <input type="text" name="payment_range_minimum" class="form-control" readonly=true
-                            placeholder="Payment Range Minimum" value="{{ $job_post_list_model->payment_range_minimum }}">
+                        <label class="col-md-4 col-form-label">Upload Your Latest CV Here</label>
+                        <div class="col-md-7">
+                            <input type="file" class="form-control-file" name="cv_file_name">
                         </div>
-                    </div>                    
+                    </div>
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Payment Range Maximum</label>
-                        <div class="col-md-6">
-                            <input type="text" name="payment_range_maximum" class="form-control" readonly=true
-                            placeholder="Payment Range Maximum" value="{{ $job_post_list_model->payment_range_maximum }}">
+                        <label class="col-md-4 col-form-label">Profile Picture</label>
+                        <div class="col-md-7">
+                            <input type="file" class="form-control-file" name="profile_pict">
                         </div>
-                    </div>        
+                    </div>
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Experience</label>
-                        <div class="col-md-6">
-                            <textarea rows="3" name="experience" class="form-control" readonly=true
-                            placeholder="Experience">{{ $job_post_list_model->experience }}</textarea>
+                        <label class="col-md-4 col-form-label">University</label>
+                        <div class="col-md-7">
+                        <input type="text" name="university" class="form-control"                             
+                            placeholder="University" value="{{ $job_finder_model->university }}">
                         </div>
-                    </div>             
+                    </div>
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Email Address</label>
-                        <div class="col-md-6">
-                            <input type="email" name="jc_email_address" readonly="true" class="form-control" 
-                            value="{{ $job_post_list_model->email_address }}">
+                        <label class="col-md-4 col-form-label">Language</label>
+                        <div class="col-md-7">
+                        <div id="default-selects2">
+                                <select id="language" name="language">
+                                    <option value="">All Category</option>
+                                    @if ($job_finder_model->language == 'Indonesia')                                        
+                                        <option selected="selected" value="Indonesia">Indonesia</option>
+                                        <option value="English">English</option>
+                                    @else
+                                        <option value="Indonesia">Indonesia</option>
+                                        <option selected="selected" value="English">English</option>
+                                    @endif
+                                </select>
+                            </div>	
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Last Salary</label>
+                        <div class="col-md-7">
+                        <input type="text" name="last_salary" class="form-control" 
+                            placeholder="Last Salary" value="{{ $job_finder_model->last_salary }}">
                         </div>
                     </div>
                     
-                    <a class="btn btn-outline-primary col-md-4" href="{{ route('get_job') }}" class="text-white"> Back</a>
+                    <div class="form-group">
+                        <a class="btn btn-outline-primary col-md-4" href="{{ route('user_home') }}" class="text-white"> Back</a>
+                        <button type="submit" class="btn btn-outline-primary col-md-4">Submit</button>
+                    </div>
                 </form>
             </div>
             <div class="col-lg-4 sidebar">

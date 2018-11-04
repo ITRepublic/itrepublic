@@ -14,7 +14,7 @@
                 <h1 class="text-white">
                     Maintain User				
                 </h1>	
-                <p class="text-white link-nav"><a href="{{ route('job_creator_home') }}">Home </a>  
+                <p class="text-white link-nav"><a href="{{ route('user_home') }}">Home </a>  
                 <span class="lnr lnr-arrow-right"></span>  
                 <a href="{{ route('job_creator_maintain_user') }}" class="text-white"> Maintain User</a>
                 <br>
