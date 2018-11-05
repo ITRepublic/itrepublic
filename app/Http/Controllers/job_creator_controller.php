@@ -82,7 +82,7 @@ class job_creator_controller extends Controller
         // Mail::to($item['email'])->send(new VerifyRegistration($item));
         
         // redirect
-        return redirect('/')->withSuccess("Thank you for registering. Account verification's link has been sent to your email.");
+        return back()->withSuccess("Thank you for registering. Account verification's link has been sent to your email.");
     }
     public function company_profile() {
 

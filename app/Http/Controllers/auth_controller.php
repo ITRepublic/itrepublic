@@ -25,9 +25,9 @@ class auth_controller extends Controller
     	$this->validate($request,$rules);
 
         $credentials = [
-            'user_email_address' => $request->email,
-            'password' => md5($request->password),
-            'status' => 'active'
+            'master_user.user_email_address' => $request->email,
+            'master_user.password' => md5($request->password),
+            'master_user.status_id' => 'active'
         ];
         
         $isAuthenticated = master_user_model::join('job_finder','master_user.user_id', '=', 'job_finder.finder_id')
@@ -66,9 +66,9 @@ class auth_controller extends Controller
     	$this->validate($request,$rules);
 
         $credentials = [
-            'user_email_address' => $request->email,
-            'password' => md5($request->password),
-            'status' => 'active'
+            'master_user.user_email_address' => $request->email,
+            'master_user.password' => md5($request->password),
+            'master_user.status_id' => 'active'
         ];
         $isAuthenticated = master_user_model::join('job_creator','master_user.user_id', '=', 'job_creator.user_id')
                            ->where($credentials)->first();

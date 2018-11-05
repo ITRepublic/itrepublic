@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\job_finder_model;
 use App\master_user_model;
+use App\Mail\VerifyRegistration;
 
 class job_finder_controller extends Controller
 {
@@ -55,8 +56,8 @@ class job_finder_controller extends Controller
         ];
 
     	// send email to user
-        Mail::to($item['email'])->send(new VerifyRegistration($item));
+        // Mail::to($item['email'])->send(new VerifyRegistration($item));
 
-        return redirect('/')->withSuccess("Thank you for registering. Account verification's link has been sent to your email.");
+        return back()->withSuccess("Thank you for registering. Account verification's link has been sent to your email.");
     }
 }
