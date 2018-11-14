@@ -31,34 +31,35 @@
                     <h3 class="py-1">Job Recruiter</h3> <hr>	
                     <form action="{{ route('create_job_creator_submit') }}" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label">Email Address</label>
-                            <div class="col-md-8">
-                                <input type="email" name="email_address" placeholder="Email Address"
-                                class="form-control no-border-radius" value="{{ old('email_address') }}">
-                            </div>
-                        </div>
+
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label">Company Name</label>
                             <div class="col-md-8">
-                                <input type="text" name="company_name" placeholder="Company Name"
+                                <input type="text" name="company_name"
                                 class="form-control no-border-radius" value="{{ old('company_name') }}">
                             </select>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label">Phone</label>
+                            <label class="col-md-4 col-form-label">Email Address</label>
                             <div class="col-md-8">
-                                <input type="text" name="phone" class="form-control no-border-radius" 
-                                placeholder="Phone" value="{{ old('phone') }}">
+                                <input type="email" name="email_address"
+                                class="form-control no-border-radius" value="{{ old('email_address') }}">
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Phone</label>
+                            <div class="col-md-8">
+                                <input type="text" name="phone" class="form-control no-border-radius" value="{{ old('phone') }}">
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label">Authorized Person Name</label>
                             <div class="col-md-8">
-                                <input type="text" name="authorized_person_name" placeholder="Authorized Person Name"
-                                class="form-control no-border-radius" value="{{ old('authorized_person_name') }}">
+                                <input type="text" name="authorized_person_name" class="form-control no-border-radius" value="{{ old('authorized_person_name') }}">
                             </select>
                             </div>
                         </div>
@@ -68,7 +69,8 @@
                             <div class="col-md-7">
                                 <input type="file" class="form-control-file" name="logo">
                             </div>
-                        </div>              
+                        </div>         
+
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label">Province</label>
                             <div class="col-md-7">
@@ -81,28 +83,30 @@
                                     @endforeach
                                     </select>
                             </div>
-                        </div>       
+                        </div>    
+
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label">Address</label>
                             <div class="col-md-7">
-                                <textarea rows="3" name="address" 
+                                <textarea rows="5" name="address" 
                                 class="form-control">{{ old('address') }}</textarea>
                             </div>
                         </div> 
+
                         <div class="form-group row">
                         <label class="col-md-4 col-form-label">Total Employee</label>
                             <div class="col-md-7">
-                                <input type="text" name="total_employee" class="form-control"                             
-                                placeholder="Total Employee" value="{{ old('total_employee') }}">
+                                <input type="text" name="total_employee" class="form-control" value="{{ old('total_employee') }}">
                             </div>
-                        </div>             
+                        </div>    
+
                         <div class="form-group row">
                         <label class="col-md-4 col-form-label">Apply Process Time</label>
                             <div class="col-md-7">
-                                <input type="text" name="apply_process_time" class="form-control"                             
-                                placeholder="Apply Process Time" value="{{ old('apply_process_time') }}">
+                                <input type="text" name="apply_process_time" class="form-control" value="{{ old('apply_process_time') }}">
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label">Industry</label>
                             <div class="col-md-7">
@@ -116,25 +120,24 @@
                                     </select>
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label">Website</label>
                             <div class="col-md-7">
-                            <input type="text" name="website" class="form-control"                             
-                                placeholder="Website" value="{{ old('website') }}">
+                            <input type="text" name="website" class="form-control" value="{{ old('website') }}">
                             </div>
                         </div>
                         
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label">Working Hours</label>
                             <div class="col-md-7">
-                            <input type="text" name="working_hours" class="form-control"                             
-                                placeholder="Working Hours" value="{{ old('working_hours') }}">
+                            <input type="text" name="working_hours" class="form-control" value="{{ old('working_hours') }}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label">Benefit Details</label>
                             <div class="col-md-8">
-                                <textarea rows="3" name="benefit_details" 
+                                <textarea rows="5" name="benefit_details" 
                                 class="form-control no-border-radius" value="{{ old('benefit_details') }}"></textarea>
                             </div>
                         </div>
@@ -151,9 +154,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label">Summary</label>
+                            <label class="col-md-4 col-form-label">Company Description (Summary)</label>
                             <div class="col-md-8">
-                                <textarea rows="3" name="summary" class="form-control no-border-radius" value="{{ old('summary') }}"></textarea>
+                                <textarea rows="5" name="summary" class="form-control no-border-radius" value="{{ old('summary') }}"></textarea>
                             </div>
                         </div>
                         <div class="form-group">

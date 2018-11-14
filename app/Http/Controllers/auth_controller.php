@@ -43,7 +43,7 @@ class auth_controller extends Controller
         }
 
     	if($isAuthenticated) {
-    		return redirect()->to('/user_home');
+    		return redirect()->to('/');
     	}
     	else {
     		return back()->withErrors('Your email & password did not match. Please try again!');

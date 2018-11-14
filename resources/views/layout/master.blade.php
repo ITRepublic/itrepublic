@@ -27,17 +27,6 @@
     <link rel="stylesheet" href="{{ asset('public/themes/css/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('public/themes/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
-</head>
-<body>
-    @include('layout.header')
-
-    @yield('content')
-        
-    @include('layout.call-to-action')
-
-    {{-- @include('layout.download-apps') --}}
-
-    @include('layout.footer')
 
     <script src="{{ asset('public/themes/js/vendor/jquery-2.2.4.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -53,6 +42,18 @@
     <script src="{{ asset('public/themes/js/parallax.min.js') }}"></script>
     <script src="{{ asset('public/themes/js/mail-script.js') }}"></script>	
     <script src="{{ asset('public/themes/js/main.js') }}"></script>	
+</head>
+<body>
+    @include('layout.header')
+
+    @yield('content')
+        
+    @include('layout.call-to-action')
+
+    {{-- @include('layout.download-apps') --}}
+
+    @include('layout.footer')
+
     </body>
         <script>
         $(function() {

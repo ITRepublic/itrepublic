@@ -20,9 +20,9 @@
 <!-- Start post Area -->
 <section class="post-area section-gap">
     <div class="container">
-    <div class="col-lg-8 offset-md-2">@include('error.template')</div>
+    <div class="col-lg-12">@include('error.template')</div>
         <div class="row justify-content-center d-flex">
-            <div class="col-lg-8 post-list">
+            <div class="col-lg-12">
                 <form action="{{ route('submit_profile') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <?php $user_id = session()->get('user_id'); ?>
@@ -33,18 +33,28 @@
                             placeholder="Full Name" value="{{ $job_finder_model->full_name }}">
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Gender</label>
+                        <div class="col-md-7">
+                            <select id="gender" name="gender">
+                                <option value="">Choose Gender</option>
+                                    @if ($job_finder_model->gender == 'Male')
+                                        <option selected="selected" value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    @else
+                                        <option value="Male">Male</option>
+                                        <option selected="selected" value="Female">Female</option>
+                                    @endif
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                     <label class="col-md-4 col-form-label">Email Address</label>
                         <div class="col-md-7">
                             <input type="email" name="email_address" readonly="true"
                             class="form-control" value="{{ $job_finder_model->email_address }}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Address</label>
-                        <div class="col-md-7">
-                            <textarea rows="3" name="address" 
-                            class="form-control">{{ $job_finder_model->address }}</textarea>
                         </div>
                     </div>
                         
@@ -55,21 +65,6 @@
                             class="form-control" value="{{ $job_finder_model->phone }}">
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Gender</label>
-                        <div class="col-md-7">
-                            <select id="gender" name="gender">
-                                <option value="">All Category</option>
-                                    @if ($job_finder_model->gender == 'man')
-                                        <option selected="selected" value="man">Man</option>
-                                        <option value="woman">Woman</option>
-                                    @else
-                                        <option value="man">Man</option>
-                                        <option selected="selected" value="woman">Woman</option>
-                                    @endif
-                            </select>
-                        </div>
-                    </div>
                     
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Birth Date</label>
@@ -77,7 +72,8 @@
                             <input type="date" name="birth_date" id="datepicker" class="form-control" 
                             placeholder="Birth Date" value="{{ $job_finder_model->birth_date }}">
                         </div>
-                    </div>                    
+                    </div>  
+
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Province</label>
                         <div class="col-md-7">
@@ -96,7 +92,16 @@
                                 @endforeach
                                 </select>
                         </div>
-                    </div>        
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Address</label>
+                        <div class="col-md-7">
+                            <textarea rows="3" name="address" 
+                            class="form-control">{{ $job_finder_model->address }}</textarea>
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                     <label class="col-md-4 col-form-label">Last Position</label>
                         <div class="col-md-7">
@@ -176,140 +181,92 @@
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Last Salary</label>
                         <div class="col-md-7">
-                        <input type="text" name="last_salary" class="form-control" 
-                            placeholder="Last Salary" value="{{ $job_finder_model->last_salary }}">
+                        <input type="text" name="last_salary" class="form-control" value="{{ $job_finder_model->last_salary }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Expected Salary</label>
+                        <div class="col-md-7">
+                        <input type="text" name="expected_salary" class="form-control" value="">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <h3>Working Experience</h3>
+                         
+                        <div class="table-responsive">
+                            <div style="padding: 10px 0;">
+                                <button type="button" class="btn btn-info no-border-radius addExperience">add</button>
+                                <button type="button" class="btn btn-info no-border-radius removeExperience">remove</button>
+                             </div>
+                            <table class="table table-bordered experience-table">
+                                <tr>
+                                    <th>Company Name</th>
+                                    <th>Period</th>
+                                    <th>Job Title</th>
+                                    <th>Job Description</th>
+                                    <th>Job Position</th>
+                                    <th>Industry</th>
+                                    <th>Specialization</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <h3>Skills</h3>
+                            
+                        <div class="table-responsive">
+                            <div style="padding: 10px 0;">
+                                <button type="button" class="btn btn-info no-border-radius addSkill">add</button>
+                                <button type="button" class="btn btn-info no-border-radius removeSkill">remove</button>
+                            </div>
+                            <table class="table table-bordered skill-table">
+                                <tr>
+                                    <th>Skill (Java, PHP, Laravel, Angular Js, Node Js, etc.)<th>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <a class="btn btn-outline-primary col-md-4" href="{{ route('user_home') }}" class="text-white"> Back</a>
-                        <button type="submit" class="btn btn-outline-primary col-md-4">Submit</button>
+                        <button type="submit" class="btn btn-info no-border-radius">Update</button>
                     </div>
                 </form>
-            </div>
-            <div class="col-lg-4 sidebar">
-                <div class="single-slidebar">
-                    <h4>Jobs by Location</h4>
-                    <ul class="cat-list">
-                        <li><a class="justify-content-between d-flex" href="category.html"><p>New York</p><span>37</span></a></li>
-                        <li><a class="justify-content-between d-flex" href="category.html"><p>Park Montana</p><span>57</span></a></li>
-                        <li><a class="justify-content-between d-flex" href="category.html"><p>Atlanta</p><span>33</span></a></li>
-                        <li><a class="justify-content-between d-flex" href="category.html"><p>Arizona</p><span>36</span></a></li>
-                        <li><a class="justify-content-between d-flex" href="category.html"><p>Florida</p><span>47</span></a></li>
-                        <li><a class="justify-content-between d-flex" href="category.html"><p>Rocky Beach</p><span>27</span></a></li>
-                        <li><a class="justify-content-between d-flex" href="category.html"><p>Chicago</p><span>17</span></a></li>
-                    </ul>
-                </div>
-
-                <div class="single-slidebar">
-                    <h4>Top rated job posts</h4>
-                    <div class="active-relatedjob-carusel">
-                        <div class="single-rated">
-                            <img class="img-fluid" src="{{ asset('public/themes/img/pages/r1.jpg') }}" alt="">
-                            <a href="{{ route('get_job_per_customer') }}"><h4>Creative Art Designer</h4></a>
-                            <h6>Premium Labels Limited</h6>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
-                            </p>
-                            <h5>Job Nature: Full time</h5>
-                            <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-                            <p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
-                            <a href="#" class="btns text-uppercase">Apply job</a>
-                        </div>
-                        <div class="single-rated">
-                            <img class="img-fluid" src="{{ asset('public/themes/img/pages/r1.jpg') }}" alt="">
-                            <a href="{{ route('get_job_per_customer') }}"><h4>Creative Art Designer</h4></a>
-                            <h6>Premium Labels Limited</h6>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
-                            </p>
-                            <h5>Job Nature: Full time</h5>
-                            <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-                            <p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
-                            <a href="#" class="btns text-uppercase">Apply job</a>
-                        </div>
-                        <div class="single-rated">
-                            <img class="img-fluid" src="{{ asset('public/themes/img/pages/r1.jpg') }}" alt="">
-                            <a href="{{ route('get_job_per_customer') }}"><h4>Creative Art Designer</h4></a>
-                            <h6>Premium Labels Limited</h6>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
-                            </p>
-                            <h5>Job Nature: Full time</h5>
-                            <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-                            <p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
-                            <a href="#" class="btns text-uppercase">Apply job</a>
-                        </div>																		
-                    </div>
-                </div>							
-
-                <div class="single-slidebar">
-                    <h4>Jobs by Category</h4>
-                    <ul class="cat-list">
-                        <li><a class="justify-content-between d-flex" href="category.html"><p>Technology</p><span>37</span></a></li>
-                        <li><a class="justify-content-between d-flex" href="category.html"><p>Media & News</p><span>57</span></a></li>
-                        <li><a class="justify-content-between d-flex" href="category.html"><p>Goverment</p><span>33</span></a></li>
-                        <li><a class="justify-content-between d-flex" href="category.html"><p>Medical</p><span>36</span></a></li>
-                        <li><a class="justify-content-between d-flex" href="category.html"><p>Restaurants</p><span>47</span></a></li>
-                        <li><a class="justify-content-between d-flex" href="category.html"><p>Developer</p><span>27</span></a></li>
-                        <li><a class="justify-content-between d-flex" href="category.html"><p>Accounting</p><span>17</span></a></li>
-                    </ul>
-                </div>
-
-                <div class="single-slidebar">
-                    <h4>Carrer Advice Blog</h4>
-                    <div class="blog-list">
-                        <div class="single-blog " style="background:#000 url(public/themes/img/blog1.jpg);">
-                            <a href="{{ route('get_job_per_customer') }}"><h4>Home Audio Recording <br>
-                            For Everyone</h4></a>
-                            <div class="meta justify-content-between d-flex">
-                                <p>
-                                    02 Hours ago
-                                </p>
-                                <p>
-                                    <span class="lnr lnr-heart"></span>
-                                    06
-                                     <span class="lnr lnr-bubble"></span>
-                                    02
-                                </p>
-                            </div>
-                        </div>
-                        <div class="single-blog " style="background:#000 url(public/themes/img/blog2.jpg);">
-                            <a href="{{ route('get_job_per_customer') }}"><h4>Home Audio Recording <br>
-                            For Everyone</h4></a>
-                            <div class="meta justify-content-between d-flex">
-                                <p>
-                                    02 Hours ago
-                                </p>
-                                <p>
-                                    <span class="lnr lnr-heart"></span>
-                                    06
-                                     <span class="lnr lnr-bubble"></span>
-                                    02
-                                </p>
-                            </div>
-                        </div>
-                        <div class="single-blog " style="background:#000 url(public/themes/img/blog1.jpg);">
-                            <a href="{{ route('get_job_per_customer') }}"><h4>Home Audio Recording <br>
-                            For Everyone</h4></a>
-                            <div class="meta justify-content-between d-flex">
-                                <p>
-                                    02 Hours ago
-                                </p>
-                                <p>
-                                    <span class="lnr lnr-heart"></span>
-                                    06
-                                     <span class="lnr lnr-bubble"></span>
-                                    02
-                                </p>
-                            </div>
-                        </div>																		
-                    </div>
-                </div>							
-
             </div>
         </div>
     </div>	
 </section>
 <!-- End post Area -->
+
+<script>
+    $(".addExperience").on('click', function() {
+        jQuery.get('{{ route("industries") }}', function(industries) {
+            industries.forEach(industry => {
+                $('.industry').append('<option value="'+industry.industry_id+'">'+industry.industry_name+'</option>');
+            });
+        });
+
+        jQuery.get('{{ route("specializations") }}', function(specializations) {
+            specializations.forEach(specialization => {
+                $('.specialization').append('<option value="'+specialization.tech_type_id+'">'+specialization.tech_type_name+'</option>');
+            });
+        });
+
+        $('.experience-table').append('<tr class="experience-row"><td><input type="text" name="company_name[]" class="form-control"></td><td><input type="date" name="from[]" class="form-control"> until <input type="date" name="to[]" class="form-control"></td><td><input type="text" name="job_title[]" class="form-control"></td><td><textarea name="job_description[]" class="form-control"></textarea></td><td><input type="text" name="job_position[]" class="form-control"></td><td><select name="industry[]" class="form-control industry"></select></td><td><select name="specialization[]" class="form-control specialization"></select></td></tr>');
+    });
+
+    $(".removeExperience").on('click', function() {
+        $('.experience-row:last').remove();
+    });
+
+    $(".addSkill").on("click", function() {
+        $('.skill-table').append('<tr class="skill-row"><td><input type="text" name="skill[]" class="form-control"</td></tr>');
+    });
+
+    $(".removeSkill").on("click", function() {
+        $('.skill-row:last').remove();
+    });
+</script>
+
 @endsection

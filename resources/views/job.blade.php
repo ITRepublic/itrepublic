@@ -59,7 +59,7 @@
                             <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
                             <p class="address"><span class="lnr lnr-database"></span> {{ $item->payment_range_minimum }} - {{ $item->payment_range_maximum }}</p>
                             <ul class="btns">
-                                    <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
+                                    {{-- <li><a href="#"><span class="lnr lnr-heart"></span></a></li> --}}
                                         <li>
                                             <a href="{{ route('apply_detail_job', $item->job_post_id) }}">
                                                 Apply
@@ -89,7 +89,7 @@
                     </ul>
                 </div>
 
-                <div class="single-slidebar">
+                {{-- <div class="single-slidebar">
                     <h4>Top rated job posts</h4>
                     <div class="active-relatedjob-carusel">
                         <div class="single-rated">
@@ -129,7 +129,7 @@
                             <a href="#" class="btns text-uppercase">Apply job</a>
                         </div>																		
                     </div>
-                </div>							
+                </div>							 --}}
 
                 <div class="single-slidebar">
                     <h4>Jobs by Category</h4>
@@ -144,7 +144,7 @@
                     </ul>
                 </div>
 
-                <div class="single-slidebar">
+                {{-- <div class="single-slidebar">
                     <h4>Carrer Advice Blog</h4>
                     <div class="blog-list">
                         <div class="single-blog " style="background:#000 url(public/themes/img/blog1.jpg);">
@@ -193,7 +193,7 @@
                             </div>
                         </div>																		
                     </div>
-                </div>							
+                </div>							 --}}
 
             </div>
         </div>

@@ -32,28 +32,30 @@
                     <form action="{{ route('create_job_finder_submit') }}" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label">Email Address</label>
-                            <div class="col-md-8">
-                                <input type="email" name="email_address" class="form-control no-border-radius" value="{{ old('email_address') }}">
-                            </div>
-                        </div>
-                        <div class="form-group row">
                             <label class="col-md-4 col-form-label">Full Name</label>
                             <div class="col-md-8">
                                 <input type="text" name="name" class="form-control no-border-radius" value="{{ old('name') }}">
                             </div>
                         </div>
+
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label">Address</label>
+                            <label class="col-md-4 col-form-label">Email Address</label>
                             <div class="col-md-8">
-                                <textarea rows="3" name="address" class="form-control no-border-radius" value="{{ old('address') }}"></textarea>
+                                <input type="email" name="email_address" class="form-control no-border-radius" value="{{ old('email_address') }}">
                             </div>
                         </div>
-                        
+
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label">Phone</label>
                             <div class="col-md-8">
                                 <input type="text" name="phone" class="form-control no-border-radius" value="{{ old('phone') }}">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Address</label>
+                            <div class="col-md-8">
+                                <textarea rows="3" name="address" class="form-control no-border-radius" value="{{ old('address') }}"></textarea>
                             </div>
                         </div>
                         

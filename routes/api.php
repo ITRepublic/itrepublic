@@ -13,6 +13,5 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/industries', 'profile_controller@getIndustry')->name('industries');
+Route::get('/specializations', 'profile_controller@getSpecialization')->name('specializations');

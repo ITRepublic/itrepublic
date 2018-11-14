@@ -124,7 +124,7 @@
                     </ul>
                 </div>
 
-                <div class="single-slidebar">
+                {{-- <div class="single-slidebar">
                     <h4>Top rated job posts</h4>
                     <div class="active-relatedjob-carusel">
                         <div class="single-rated">
@@ -164,7 +164,7 @@
                             <a href="#" class="btns text-uppercase">Apply job</a>
                         </div>																		
                     </div>
-                </div>							
+                </div>							 --}}
 
                 <div class="single-slidebar">
                     <h4>Jobs by Category</h4>
@@ -179,7 +179,7 @@
                     </ul>
                 </div>
 
-                <div class="single-slidebar">
+                {{-- <div class="single-slidebar">
                     <h4>Carrer Advice Blog</h4>
                     <div class="blog-list">
                         <div class="single-blog " style="background:#000 url(public/themes/img/blog1.jpg);">
@@ -228,7 +228,7 @@
                             </div>
                         </div>																		
                     </div>
-                </div>							
+                </div>							 --}}
 
             </div>
         </div>

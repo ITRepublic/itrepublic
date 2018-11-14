@@ -7,6 +7,7 @@ use App\job_finder_model;
 use App\master_user_model;
 use App\master_province;
 use App\master_tech_type;
+use App\master_industry;
 use Illuminate\Support\Facades\Mail;
 
 class profile_controller extends Controller
@@ -15,13 +16,26 @@ class profile_controller extends Controller
     public function create()
     {
         $master_province = master_province::get(['province_id','province_name']);
-        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);   
+        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);
         $user_id = session()->get('user_id');
         $job_finder_model = job_finder_model::join('master_user','job_finder.finder_id', '=', 'master_user.user_id')
         ->where('job_finder.finder_id', '=', $user_id)
         ->get()->first();
         return view('job_finder_profile',array('job_finder_model' => $job_finder_model, 'master_province' => $master_province, 'master_tech_type' => $master_tech_type))->withTitle('Your Profile');
     }
+
+    // API
+    public function getIndustry() {
+        $industries = master_industry::orderBy('industry_name','asc')->get();
+
+        return response()->json($industries);
+    }
+    public function getSpecialization() {
+        $specializations = master_tech_type::orderBy('tech_type_name','asc')->get();
+        return response()->json($specializations);
+    }
+    // END API
+
     public function store(Request $request)
     {
         $user_id = session()->get('user_id');
