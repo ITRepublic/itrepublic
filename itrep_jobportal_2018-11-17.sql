@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.7.21)
 # Database: itrep_jobportal
-# Generation Time: 2018-11-05 14:39:50 +0000
+# Generation Time: 2018-11-17 05:19:45 +0000
 # ************************************************************
 
 
@@ -99,14 +99,14 @@ DROP TABLE IF EXISTS `job_creator`;
 
 CREATE TABLE `job_creator` (
   `user_id` int(11) NOT NULL,
-  `company_id` int(11) DEFAULT NULL,
-  `email_address` varchar(255) DEFAULT '',
-  `company_name` varchar(255) DEFAULT '',
-  `company_address` varchar(255) DEFAULT '',
-  `company_profile` varchar(255) DEFAULT '',
-  `phone` varchar(20) DEFAULT '',
-  `group_id` varchar(5) DEFAULT '',
-  `status` enum('active','inactive') DEFAULT 'inactive',
+  `company_id` int(11) NOT NULL,
+  `email_address` varchar(255) NOT NULL,
+  `company_name` varchar(255) NOT NULL,
+  `company_address` varchar(255) NOT NULL,
+  `company_profile` varchar(255) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `group_id` varchar(5) NOT NULL,
+  `status` enum('active','inactive') NOT NULL DEFAULT 'inactive',
   `updated_at` varchar(30) NOT NULL,
   `created_at` varchar(30) NOT NULL,
   PRIMARY KEY (`user_id`)
@@ -132,25 +132,25 @@ DROP TABLE IF EXISTS `job_finder`;
 
 CREATE TABLE `job_finder` (
   `finder_id` int(11) NOT NULL,
-  `email_address` varchar(255) DEFAULT '',
-  `full_name` varchar(255) DEFAULT '',
-  `address` varchar(255) DEFAULT '',
-  `phone` varchar(50) DEFAULT '',
-  `gender` varchar(50) DEFAULT '',
-  `birth_date` varchar(50) DEFAULT '',
-  `province_id` varchar(3) DEFAULT '',
-  `last_position` varchar(50) DEFAULT '',
-  `last_level` varchar(50) DEFAULT '',
-  `last_work_history` text,
-  `last_work_category` text,
-  `cv_file_name` varchar(255) DEFAULT '',
-  `university` varchar(255) DEFAULT '',
-  `language` varchar(50) DEFAULT '',
-  `last_salary` varchar(255) DEFAULT '',
-  `group_id` varchar(5) DEFAULT '',
-  `total_rating` varchar(50) DEFAULT '',
-  `status` enum('active','inactive') DEFAULT 'inactive',
-  `profile_pict` varchar(255) DEFAULT '',
+  `email_address` varchar(255) NOT NULL,
+  `full_name` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `gender` varchar(50) NOT NULL,
+  `birth_date` varchar(50) NOT NULL,
+  `province_id` varchar(3) NOT NULL,
+  `last_position` varchar(50) NOT NULL,
+  `last_level` varchar(50) NOT NULL,
+  `last_work_history` text NOT NULL,
+  `last_work_category` text NOT NULL,
+  `cv_file_name` varchar(255) NOT NULL,
+  `university` varchar(255) NOT NULL,
+  `language` varchar(50) NOT NULL,
+  `last_salary` varchar(255) NOT NULL,
+  `group_id` varchar(5) NOT NULL,
+  `total_rating` varchar(50) NOT NULL DEFAULT '',
+  `status` enum('active','inactive') NOT NULL DEFAULT 'inactive',
+  `profile_pict` varchar(255) NOT NULL,
   `updated_at` varchar(30) NOT NULL,
   `created_at` varchar(30) NOT NULL,
   PRIMARY KEY (`finder_id`)
@@ -161,11 +161,49 @@ LOCK TABLES `job_finder` WRITE;
 
 INSERT INTO `job_finder` (`finder_id`, `email_address`, `full_name`, `address`, `phone`, `gender`, `birth_date`, `province_id`, `last_position`, `last_level`, `last_work_history`, `last_work_category`, `cv_file_name`, `university`, `language`, `last_salary`, `group_id`, `total_rating`, `status`, `profile_pict`, `updated_at`, `created_at`)
 VALUES
-	(6,'123@gmail.com','users1234','bambu betung','123456','man','2018-11-07','3','Tekjon','Senior','Coba Coba','2','storage/app/resume/8ksGYcBIAIqj7R3S9F8ToYbrx8sh1bI6LCONC59k.docx','Binus','English','12300000','jf','0','active','storage/app/image/hUcSk3qRZyZbkTPduwmIkaBJjvQ6kcQSygJzvYes.png','2018-11-05 13:35:14','2018-09-25 11:16:03'),
-	(7,'vincent_gk@yahoo.com','wakakakaa','bambu betung','123456','','','','','','','','','','','','jf','0','active','','2018-09-25 11:24:00','2018-09-25 11:24:00'),
-	(18,'jordy@grosir.one','jordy','citra','0000','','','','','',NULL,NULL,'','','','','jf','0','inactive','','2018-11-05 13:30:57','2018-11-05 13:30:57');
+	(6,'123@gmail.com','users123','bambu betung','123456','Female','2018-11-07','3','Tekjon','Senior','Coba Coba','2','storage/app/resume/tqo5REVbsxEfCNQJUfOwTCtB9ZlJD9jxSUOcGhwN.docx','Binus','English','12300000','jf','0','active','storage/app/image/x5GiPqimmENumfUnmeH1jnqNy7TwnrbpxFsWzIZV.jpeg','2018-11-16 13:48:32','2018-09-25 11:16:03'),
+	(7,'vincent_gk@yahoo.com','wakakakaa','bambu betung','123456','Male','2007-02-07','1','Tekjon','Senior','Coba cek','2','storage/app/resume/NoujLXnOosJzXzrUaHPwLOJx7ZL6ONM2Qx0pM3gr.docx','Binus','English','12300000','jf','0','active','storage/app/image/fDhz8Ha7ROiQQZ8Y3Fg8UCzOSGPbCIhx9dhrWDL6.jpeg','2018-11-16 11:40:11','2018-09-25 11:24:00');
 
 /*!40000 ALTER TABLE `job_finder` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table job_finder_experience
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `job_finder_experience`;
+
+CREATE TABLE `job_finder_experience` (
+  `detail_id` int(11) NOT NULL AUTO_INCREMENT,
+  `finder_id` int(11) NOT NULL,
+  `company_name` varchar(255) NOT NULL,
+  `period_from` varchar(30) NOT NULL,
+  `period_to` varchar(30) NOT NULL,
+  `job_title` varchar(255) NOT NULL,
+  `job_description` varchar(255) NOT NULL,
+  `job_position` varchar(255) NOT NULL,
+  `industry_id` int(11) NOT NULL,
+  `tech_type_id` int(11) NOT NULL,
+  `updated_at` varchar(50) NOT NULL,
+  `created_at` varchar(50) NOT NULL,
+  PRIMARY KEY (`detail_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+LOCK TABLES `job_finder_experience` WRITE;
+/*!40000 ALTER TABLE `job_finder_experience` DISABLE KEYS */;
+
+INSERT INTO `job_finder_experience` (`detail_id`, `finder_id`, `company_name`, `period_from`, `period_to`, `job_title`, `job_description`, `job_position`, `industry_id`, `tech_type_id`, `updated_at`, `created_at`)
+VALUES
+	(3,6,'Tokped','2015-06-02','2016-06-07','Programmer','Cek Doloe','Junior Doloe',1,2,'2018-11-16 00:13:00','2018-11-15 15:13:52'),
+	(4,6,'Shopee','2017-06-06','2018-11-15','Document','Dolo','Senior',2,4,'2018-11-15 15:13:52','2018-11-15 15:13:52'),
+	(5,7,'Tokped','2014-02-06','2017-02-08','Programmer','Coba','Junior',1,3,'2018-11-16 11:40:12','2018-11-16 11:40:12'),
+	(6,7,'Shopee','2017-02-07','2018-11-16','Documenter','Cek dolo','Senior',2,2,'2018-11-16 11:40:12','2018-11-16 11:40:12'),
+	(7,6,'Gojek','2018-07-12','2019-02-05','Programmer','Kesimpen','woi',1,1,'2018-11-16 13:15:32','2018-11-16 13:15:32'),
+	(8,6,'Jd','2018-11-20','2018-11-29','saya','Wi9','Woi',2,2,'2018-11-16 13:15:32','2018-11-16 13:15:32'),
+	(9,6,'Astra','2020-02-04','2020-02-04','kayak','woi','nikah',1,3,'2018-11-16 13:48:32','2018-11-16 13:48:32'),
+	(10,6,'asda','2018-11-15','2018-07-19','mau nikah','gmanajor','nikah',2,2,'2018-11-16 13:48:32','2018-11-16 13:48:32');
+
+/*!40000 ALTER TABLE `job_finder_experience` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -306,14 +344,16 @@ CREATE TABLE `job_post_list` (
   `updated_at` varchar(30) NOT NULL,
   `jc_user_id` varchar(50) NOT NULL,
   PRIMARY KEY (`job_post_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `job_post_list` WRITE;
 /*!40000 ALTER TABLE `job_post_list` DISABLE KEYS */;
 
 INSERT INTO `job_post_list` (`job_post_id`, `job_name`, `benefit_details`, `description`, `category_id`, `has_seen_id`, `payment_range_minimum`, `payment_range_maximum`, `experience`, `job_status`, `created_at`, `updated_at`, `jc_user_id`)
 VALUES
-	(1,'test job 1','asuransi 1','cek job 1','3',0,3500000,7000000,'test job 1',1,'2018-10-07 16:24:05','2018-11-04 18:36:57','1');
+	(1,'test job 1','asuransi 1','cek job 1','3',0,3500000,7000000,'test job 1',1,'2018-10-07 16:24:05','2018-11-04 18:36:57','1'),
+	(2,'Colosseum','Gile lu','Cek dolo','1',0,2500000,7000000,'CobA COBA',1,'2018-11-16 12:06:18','2018-11-16 12:06:18','1'),
+	(3,'Kampret','Lupa ye','Woi','1',0,2500000,7000000,'Province',1,'2018-11-16 13:31:54','2018-11-16 13:31:54','14');
 
 /*!40000 ALTER TABLE `job_post_list` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -465,7 +505,7 @@ INSERT INTO `master_customer` (`company_id`, `email_address`, `company_name`, `p
 VALUES
 	(1,'123@gmail.com','Jekardah','123456','','','','','','','','','','','','cekidot',9,'2018-09-26 15:58:28','2018-09-26 15:58:28'),
 	(2,'testvacan@yahoo.com','Jekardah','123456','','','','','','','','','','','','cekidot',9,'2018-09-26 15:59:34','2018-09-26 15:59:34'),
-	(3,'perusahaan1@yahoo.com','Coba Cobas','123456','Dasar Biadab','D:\\xampp\\tmp\\phpCE3D.tmp','3','Jakartas','123','12','2','www.123.com','12','asuransi','English','Perusahaan bergerak di bidang jasas',9,'2018-11-04 18:09:56','2018-11-04 16:59:08');
+	(3,'perusahaan1@yahoo.com','Coba Cobas','123456','Dasar Biadab','D:\\xampp\\tmp\\php2B38.tmp','8','Jakartas','123','12','2','www.123.com','12','asuransi','English','Perusahaan bergerak di bidang jasas',9,'2018-11-16 13:34:40','2018-11-04 16:59:08');
 
 /*!40000 ALTER TABLE `master_customer` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -670,30 +710,28 @@ DROP TABLE IF EXISTS `master_tech_type`;
 CREATE TABLE `master_tech_type` (
   `tech_type_id` int(11) NOT NULL AUTO_INCREMENT,
   `tech_type_name` varchar(255) NOT NULL,
-  `updated_at` varchar(30) NOT NULL,
-  `created_at` varchar(30) NOT NULL,
   PRIMARY KEY (`tech_type_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `master_tech_type` WRITE;
 /*!40000 ALTER TABLE `master_tech_type` DISABLE KEYS */;
 
-INSERT INTO `master_tech_type` (`tech_type_id`, `tech_type_name`, `updated_at`, `created_at`)
+INSERT INTO `master_tech_type` (`tech_type_id`, `tech_type_name`)
 VALUES
-	(1,'Frontend Developer','2018-09-15 12:07:38','2018-09-15 12:07:38'),
-	(2,'Backend Developer','2018-09-15 12:07:38','2018-09-15 12:07:38'),
-	(3,'Full Stack Developer','2018-09-15 12:07:38','2018-09-15 12:07:38'),
-	(4,'iOS Developer','2018-09-15 12:07:38','2018-09-15 12:07:38'),
-	(5,'Android Developer','',''),
-	(6,'IT Project Manager','',''),
-	(7,'IT Consultant','',''),
-	(8,'IT Database','',''),
-	(9,'IT Networking','',''),
-	(10,'System Analyst','',''),
-	(11,'Business Analyst','',''),
-	(12,'IT Security','',''),
-	(13,'Quality Engineer','',''),
-	(15,'IT Designer UI/UX','','');
+	(1,'Frontend Developer'),
+	(2,'Backend Developer'),
+	(3,'Full Stack Developer'),
+	(4,'iOS Developer'),
+	(5,'Android Developer'),
+	(6,'IT Project Manager'),
+	(7,'IT Consultant'),
+	(8,'IT Database'),
+	(9,'IT Networking'),
+	(10,'System Analyst'),
+	(11,'Business Analyst'),
+	(12,'IT Security'),
+	(13,'Quality Engineer'),
+	(15,'IT Designer UI/UX');
 
 /*!40000 ALTER TABLE `master_tech_type` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -714,7 +752,7 @@ CREATE TABLE `master_user` (
   `created_at` varchar(30) NOT NULL,
   `updated_at` varchar(30) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `master_user` WRITE;
 /*!40000 ALTER TABLE `master_user` DISABLE KEYS */;
@@ -725,8 +763,7 @@ VALUES
 	(6,'123@gmail.com','123@gmail.com','e10adc3949ba59abbe56e057f20f883e','jf','active','2018-09-25 11:16:02','2018-11-04 11:17:28'),
 	(7,'vincent_gk@yahoo.com','vincent_gk@yahoo.com','e10adc3949ba59abbe56e057f20f883e','jf','active','2018-09-25 11:24:00','2018-09-25 11:24:00'),
 	(13,'testanak3123@gmail.com','anak buah 1','e10adc3949ba59abbe56e057f20f883e','jc','active','2018-10-16 14:47:33','2018-10-17 15:31:52'),
-	(14,'orgil@yahoo.com','Orang Gila','e10adc3949ba59abbe56e057f20f883e','jc','active','',''),
-	(18,'jordy@grosir.one','jordy@grosir.one','e10adc3949ba59abbe56e057f20f883e','jf','active','2018-11-05 13:30:57','2018-11-05 13:30:57');
+	(14,'orgil@yahoo.com','Orang Gila','e10adc3949ba59abbe56e057f20f883e','jc','active','','');
 
 /*!40000 ALTER TABLE `master_user` ENABLE KEYS */;
 UNLOCK TABLES;

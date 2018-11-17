@@ -258,6 +258,7 @@
 
 <script>
     $(".addExperience").on('click', function() {
+        $('.experience-table').append('<tr class="experience-row"><td><input type="text" name="company_name[]" class="form-control"></td><td><input type="date" name="period_from[]" class="form-control"> until <input type="date" name="period_to[]" class="form-control"></td><td><input type="text" name="job_title[]" class="form-control"></td><td><textarea name="job_description[]" class="form-control"></textarea></td><td><input type="text" name="job_position[]" class="form-control"></td><td><select name="industry[]" class="form-control industry"></select></td><td><select name="specialization[]" class="form-control specialization"></select></td></tr>');
         jQuery.get('{{ route("industries") }}', function(industries) {
             industries.forEach(industry => {
                 $('.industry').append('<option value="'+industry.industry_id+'">'+industry.industry_name+'</option>');
@@ -269,8 +270,6 @@
                 $('.specialization').append('<option value="'+specialization.tech_type_id+'">'+specialization.tech_type_name+'</option>');
             });
         });
-
-        $('.experience-table').append('<tr class="experience-row"><td><input type="text" name="company_name[]" class="form-control"></td><td><input type="date" name="period_from[]" class="form-control"> until <input type="date" name="period_to[]" class="form-control"></td><td><input type="text" name="job_title[]" class="form-control"></td><td><textarea name="job_description[]" class="form-control"></textarea></td><td><input type="text" name="job_position[]" class="form-control"></td><td><select name="industry[]" class="form-control industry"></select></td><td><select name="specialization[]" class="form-control specialization"></select></td></tr>');
     });
 
     $(".removeExperience").on('click', function() {
