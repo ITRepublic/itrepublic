@@ -11,15 +11,8 @@
     <div class="container">
         <div class="row d-flex align-items-center justify-content-center">
             <div class="about-content col-lg-12">
-                <h1 class="text-white">
-                    Resume				
-                </h1>	
-                <p class="text-white link-nav"><a href="{{ route('user_home') }}">Home </a>  
-                <span class="lnr lnr-arrow-right"></span>  
-                <a href="{{ route('resume') }}" class="text-white"> Resume</a>
-                </p>											
-        </div>  
-    </div>			
+                {{ $title }}											
+        </div>
     </div>
 </section>
 <!-- End banner Area -->	
@@ -27,41 +20,72 @@
 <!-- Start post Area -->
 <section class="post-area section-gap">
     <div class="container">
+    <div class="col-lg-8 offset-md-2">@include('error.template')</div>
         <div class="row justify-content-center d-flex">
-        
             <div class="col-lg-8 post-list">
-            <a class="btn btn-outline-primary col-md-4" href="{{ route('resume_advance_search') }}" class="text-white">Advance Search</a>
-            <a class="btn btn-outline-primary col-md-4" href="{{ route('resume_simple_search') }}" class="text-white">Simple Search</a>
-                @foreach($job_finder_model as $index => $item)
-                    <div class="single-post d-flex flex-row">
-                        <div class="thumb">
-                            <img src="{{ asset('public/themes/img/post.png') }}" alt="">
-                        </div>
-                        <div class="details">
-                            <div class="title d-flex flex-row justify-content-between">
-                                <div class="titles">
-                                    <h4>{{ $item->full_name }}</h4>				
-                                </div>
-                                &nbsp;
-                                
-                            </div>
-                            <p>
-                                Email Address: {{ $item->email_address }}
-                            </p>
-                            <h5>Last Working As: {{ $item->tech_type_name }}</h5>
-                            <p class="address"><span class="lnr lnr-map"></span> {{ $item->address }} at {{ $item->province_name }}</p>
-                            <p class="address"><span class="lnr lnr-database"></span> IDR {{ $item->last_salary }}</p>
-                            <ul class="btns">
-                                    <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-                                        <li>
-                                            <a href="{{ route('resume_detail', $item->finder_id) }}">
-                                                View Detail
-                                            </a>
-                                        </li>
-                                </ul>
+                <form action="{{ route('resume_simple_search_submit') }}" method="post" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Company Name</label>
+                        <div class="col-md-6">
+                            <input type="text" name="company_name" class="form-control"                            
+                                placeholder="Company Name" value="">
                         </div>
                     </div>
-                @endforeach
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Job Title</label>
+                        <div class="col-md-6">
+                            <input type="text" name="job_title" class="form-control"                            
+                                placeholder="Job Title" value="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Job Description</label>
+                        <div class="col-md-6">
+                            <textarea rows="3" name="job_description" class="form-control"
+                            placeholder="Job Description"></textarea>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Job Position</label>
+                        <div class="col-md-6">
+                            <input type="text" name="job_position" class="form-control"                            
+                                placeholder="Job Position" value="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-5 col-form-label">Industry</label>
+                        <div class="col-md-6">
+                        <select id="industry_id" name="industry_id">
+                            <option value="">Select category</option>
+                            @foreach ($master_industry as $master_industry)
+                                <option value="{{ $master_industry->industry_id }}">
+                                    {{ $master_industry->industry_name }}
+                                </option>
+                            @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Specialization</label>
+                        <div class="col-md-6">
+                        <select id="tech_type_id" name="tech_type_id">
+                            <option value="">Select category</option>
+                            @foreach ($master_tech_type as $master_tech_type)
+                                <option value="{{ $master_tech_type->tech_type_id }}">
+                                    {{ $master_tech_type->tech_type_name }}
+                                </option>
+                            @endforeach
+                            </select>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <a class="btn btn-outline-primary col-md-4" href="{{ route('resume') }}" class="text-white"> Back</a>
+                        <button type="submit" class="btn btn-outline-primary col-md-4">Submit</button>
+                    </div>
+                </form>
             </div>
             <div class="col-lg-4 sidebar">
                 <div class="single-slidebar">

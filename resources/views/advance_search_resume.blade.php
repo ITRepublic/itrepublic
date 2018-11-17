@@ -120,18 +120,7 @@
                                 </select>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Upload Your Latest CV Here</label>
-                        <div class="col-md-7">
-                            <input type="file" class="form-control-file" name="cv_file_name">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Profile Picture</label>
-                        <div class="col-md-7">
-                            <input type="file" class="form-control-file" name="profile_pict">
-                        </div>
-                    </div>
+
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">University</label>
                         <div class="col-md-7">

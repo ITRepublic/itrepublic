@@ -93,7 +93,6 @@ class job_creator_controller extends Controller
         ->leftJoin('master_province','master_customer.province_id', '=', 'master_province.province_id')
         ->where('master_customer.company_id', '=', $company_id)
         ->get()->first();
-
         return view('company_profile', array('master_customer' => $master_customer, 'master_province' => $master_province, 'master_industry' => $master_industry))->withTitle('Company Profile');
     }
     public function submit_company_profile(Request $request) 

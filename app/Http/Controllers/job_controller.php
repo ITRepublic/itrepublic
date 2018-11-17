@@ -32,6 +32,8 @@ class job_controller extends Controller
     }
 
     public function job_creator_post_store(Request $request) {
+
+        $user_id = session()->get('user_id');
         $rules = [
             'job_name'  => 'required',
             'description'   => 'required',
@@ -51,7 +53,7 @@ class job_controller extends Controller
         $data['payment_range_minimum'] = $request->payment_range_minimum;
         $data['payment_range_maximum'] = $request->payment_range_maximum;
         $data['experience'] = $request->experience;
-        $data['jc_user_id'] = $request->jc_user_id;
+        $data['jc_user_id'] = $user_id;
         $data['has_seen_id'] = '0';
         $data['job_status'] = '1';
 
@@ -181,11 +183,14 @@ class job_controller extends Controller
         return view('job',array('job_post_list_model' => $job_post_list_model))->withTitle('Job Post');
     }
 
-    public function detail_applicant_job_post()
+    public function detail_applicant_job_post($id)
     {
         $job_post_search = job_post_search::join('job_post_list','job_post_list.job_post_id', '=', 'job_post_search.job_post_id')
         ->join('job_finder','job_finder.finder_id', '=', 'job_post_search.jf_user_id')
-        ->where('job_status', '=', '1')
+        ->where([
+            ['job_post_list.job_post_id', '=', $id],
+            ['job_status', '=', '1']
+            ])
         ->get();
 
         return view('job_detail_applicant',array('job_post_search' => $job_post_search))->withTitle('Job Post Applicant');

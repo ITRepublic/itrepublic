@@ -35,7 +35,7 @@ Route::get('/logout', 'auth_controller@destroy')->name('logout');
 // Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
 
     Route::get('/user_home', 'home_controller@user_home')->name('user_home');
-    Route::get('/advance_search_home', 'home_controller@advance_search_home')->name('advance_search_home');
+    Route::post('/advance_search_home', ['uses' => 'home_controller@advance_search_home', 'before' => 'csrf'])->name('advance_search_home');
     //for job finder
     Route::get('/job_finder_about_us', 'home_controller@job_finder_about_us')->name('job_finder_about_us');
     Route::get('/profile', 'profile_controller@create')->name('profile');
@@ -44,6 +44,8 @@ Route::get('/logout', 'auth_controller@destroy')->name('logout');
     Route::get('/job_finder_contact', 'home_controller@job_finder_contact')->name('job_finder_contact');
     
     Route::post('/submit_profile', ['uses' => 'profile_controller@store', 'before' => 'csrf'])->name('submit_profile');
+    Route::get('edit_detail_experience/{id}/detail', 'profile_controller@edit_detail_experience')->name('edit_detail_experience');
+    Route::post('/submit_detail_experience', ['uses' => 'profile_controller@submit_detail_experience', 'before' => 'csrf'])->name('submit_detail_experience');
     Route::get('/job/{id}/detail', 'job_controller@get_job_detail')->name('job_detail');
     Route::get('get_detail_job/{id}/edit', 'job_controller@get_detail_job')->name('get_detail_job');
     Route::get('apply_detail_job/{id}/edit', 'job_controller@apply_detail_job')->name('apply_detail_job');
@@ -61,7 +63,9 @@ Route::get('/logout', 'auth_controller@destroy')->name('logout');
 
     //job post
     Route::post('submit_company_profile', ['uses' => 'job_creator_controller@submit_company_profile', 'before' => 'csrf'])->name('submit_company_profile');
-    Route::get('resume_detail/{id}/detail', 'resume_controller@detail_resume')->name('resume_detail');
+    Route::get('resume_detail/{id}/detail', 'resume_controller@resume_detail')->name('resume_detail');
+    Route::get('resume_simple_search', 'resume_controller@get_simple_search')->name('resume_simple_search');
+    Route::post('resume_simple_search_submit', ['uses' => 'resume_controller@simple_search_submit', 'before' => 'csrf'])->name('resume_simple_search_submit');
     Route::get('resume_advance_search', 'resume_controller@get_advance_search')->name('resume_advance_search');
     Route::post('resume_advance_search_submit', ['uses' => 'resume_controller@advance_search_submit', 'before' => 'csrf'])->name('resume_advance_search_submit');
     Route::get('get_detail_job_post/{id}/edit', 'job_controller@get_detail_job_post')->name('get_detail_job_post');
@@ -70,7 +74,7 @@ Route::get('/logout', 'auth_controller@destroy')->name('logout');
     
     Route::get('delete_detail_job_post/{id}/edit', 'job_controller@delete_detail_job_post')->name('delete_detail_job_post');
 
-    Route::get('detail_applicant_job_post', 'job_controller@detail_applicant_job_post')->name('detail_applicant_job_post');
+    Route::get('detail_applicant_job_post/{id}/view_detail', 'job_controller@detail_applicant_job_post')->name('detail_applicant_job_post');
     Route::get('get_detail_applicant_job_post/{id}/view_applicant', 'job_controller@get_detail_applicant_job_post')->name('get_detail_applicant_job_post');  
 
     Route::get('/job_creator_post_register', 'job_controller@job_creator_post_register')->name('job_creator_post_register');

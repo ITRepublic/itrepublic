@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\job_finder_model;
 use App\master_user_model;
 use App\master_province;
+use App\master_industry;
 use App\master_tech_type;
+use App\job_finder_experience;
 
 class resume_controller extends Controller
 {
@@ -26,21 +28,33 @@ class resume_controller extends Controller
         session()->forget('detail_job_post_session');
         session()->put('detail_job_post_session', 'view');
 
-        $job_post_list_model = job_post_list_model::join('master_status','job_post_list.job_status', '=', 'master_status.status_id')
-        ->join('job_creator', 'job_post_list.jc_user_id', '=', 'job_creator.user_id')
-        ->where('job_post_id', $id)
+        $master_province = master_province::get(['province_id','province_name']);
+        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);
+
+        $job_finder_model = job_finder_model::join('master_user','master_user.user_id', '=', 'job_finder.finder_id')
+        ->leftJoin('master_tech_type','job_finder.last_work_category', '=', 'master_tech_type.tech_type_id')
+        ->leftJoin('master_province','job_finder.province_id', '=', 'master_province.province_id')
+        ->where('finder_id', $id)
         ->first();
 
-        return view('job_creator_post_detail', array('job_post_list_model' => $job_post_list_model))->withTitle($job_post_list_model->job_name);
+        $job_finder_experience = job_finder_experience::join('job_finder','job_finder.finder_id', '=', 'job_finder_experience.finder_id')
+        ->join('master_tech_type','master_tech_type.tech_type_id', '=', 'job_finder_experience.tech_type_id')
+        ->join('master_industry','master_industry.industry_id', '=', 'job_finder_experience.industry_id')
+        ->where('job_finder_experience.finder_id', '=', $id)
+        ->get();
+
+        return view('resume_detail', array('job_finder_experience' => $job_finder_experience,'job_finder_model' => $job_finder_model, 'master_province' => $master_province, 'master_tech_type' => $master_tech_type))->withTitle($job_finder_model->full_name);
 
     }
+    
     public function get_advance_search()
     {
         $master_province = master_province::get(['province_id','province_name']);
         $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);   
   
-        return view('advance_search_resume', array('master_province' => $master_province, 'master_tech_type' => $master_tech_type))->withTitle('Advance Search');
+        return view('advance_search_resume', array('master_province' => $master_province, 'master_tech_type' => $master_tech_type))->withTitle('Simple Search');
     }
+    
     public function advance_search_submit(Request $request)
     {
         $full_name = $request->full_name;
@@ -106,5 +120,53 @@ class resume_controller extends Controller
         ->get();
         
         return view('resume_grid', array('job_finder_model' => $job_finder_model, 'master_province' => $master_province, 'master_tech_type' => $master_tech_type))->withTitle('Resume');
+    }
+
+    public function get_simple_search()
+    {
+        $master_industry = master_industry::get(['industry_id','industry_name']);
+        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);   
+  
+        return view('simple_search_resume', array('master_industry' => $master_industry, 'master_tech_type' => $master_tech_type))->withTitle('Advance Search');
+    }
+    
+    public function simple_search_submit(Request $request)
+    {
+        $company_name = $request->company_name;
+        $job_title = $request->job_title;
+        $job_description = $request->job_description;
+        $job_position = $request->job_position;
+        $industry_id = $request->industry_id;
+        $tech_type_id = $request->tech_type_id;
+
+        $industry_id_condition = '=';
+        $tech_type_id_condition = '=';
+
+        if ($industry_id == ""){
+            $industry_id_condition = 'like';
+            $industry_id = '%' . $industry_id . '%';
+        }
+
+        if ($tech_type_id == ""){
+            $tech_type_id_condition = 'like';
+            $tech_type_id = '%' . $tech_type_id . '%';
+        }
+
+        $master_industry = master_industry::get(['industry_id','industry_name']);
+        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);   
+        $job_finder_model = job_finder_model::join('job_finder_experience','job_finder_experience.finder_id', '=', 'job_finder.finder_id')
+        ->leftJoin('master_tech_type','job_finder_experience.tech_type_id', '=', 'master_tech_type.tech_type_id')
+        ->leftJoin('master_industry','job_finder_experience.industry_id', '=', 'master_industry.industry_id')
+        ->where([
+            ['job_finder_experience.company_name', 'like', '%' . $company_name . '%'],
+            ['job_finder_experience.job_title', 'like', '%' . $job_title . '%'],
+            ['job_finder_experience.job_description', 'like', '%' . $job_description . '%'],
+            ['job_finder_experience.job_position', 'like', '%' . $job_position . '%'],
+            ['job_finder_experience.industry_id', $industry_id_condition, $industry_id],
+            ['job_finder_experience.tech_type_id', $tech_type_id_condition, $tech_type_id]
+            ])
+        ->get();
+        
+        return view('resume_grid', array('job_finder_model' => $job_finder_model, 'master_industry' => $master_industry, 'master_tech_type' => $master_tech_type))->withTitle('Resume');
     }
 }

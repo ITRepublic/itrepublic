@@ -23,13 +23,12 @@
     <div class="col-lg-12">@include('error.template')</div>
         <div class="row justify-content-center d-flex">
             <div class="col-lg-12">
-                <form action="{{ route('submit_profile') }}" method="post" enctype="multipart/form-data">
+                <form action="" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
-                    <?php $user_id = session()->get('user_id'); ?>
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Full Name</label>
                         <div class="col-md-7">
-                            <input type="text" name="full_name" class="form-control"                             
+                            <input type="text" name="full_name" class="form-control" readonly=true                             
                             placeholder="Full Name" value="{{ $job_finder_model->full_name }}">
                         </div>
                     </div>
@@ -37,7 +36,7 @@
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Gender</label>
                         <div class="col-md-7">
-                            <select id="gender" name="gender">
+                            <select id="gender" name="gender" disabled>
                                 <option value="">Choose Gender</option>
                                     @if ($job_finder_model->gender == 'Male')
                                         <option selected="selected" value="Male">Male</option>
@@ -61,7 +60,7 @@
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Phone</label>
                         <div class="col-md-7">
-                            <input type="text" name="phone" 
+                            <input type="text" name="phone" readonly="true"
                             class="form-control" value="{{ $job_finder_model->phone }}">
                         </div>
                     </div>
@@ -69,15 +68,15 @@
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Birth Date</label>
                         <div class="col-md-7">
-                            <input type="date" name="birth_date" id="datepicker" class="form-control" 
-                            placeholder="Birth Date" value="{{ $job_finder_model->birth_date }}">
+                            <input type="date" name="birth_date" id="datepicker" readonly="true"
+                            class="form-control" placeholder="Birth Date" value="{{ $job_finder_model->birth_date }}">
                         </div>
                     </div>  
 
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Province</label>
                         <div class="col-md-7">
-                        <select id="province_id" name="province_id">
+                        <select id="province_id" name="province_id" disabled>
                                 <option value="">Select area</option>
                                 @foreach ($master_province as $master_province)
                                     @if ($master_province->province_id == $job_finder_model->province_id)
@@ -97,7 +96,7 @@
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Address</label>
                         <div class="col-md-7">
-                            <textarea rows="3" name="address" 
+                            <textarea rows="3" name="address" readonly
                             class="form-control">{{ $job_finder_model->address }}</textarea>
                         </div>
                     </div>
@@ -105,28 +104,28 @@
                     <div class="form-group row">
                     <label class="col-md-4 col-form-label">Last Position</label>
                         <div class="col-md-7">
-                            <input type="text" name="last_position" class="form-control"                             
+                            <input type="text" name="last_position" class="form-control" readonly                            
                             placeholder="Last Position" value="{{ $job_finder_model->last_position }}">
                         </div>
                     </div>             
                     <div class="form-group row">
                     <label class="col-md-4 col-form-label">Last Level</label>
                         <div class="col-md-7">
-                            <input type="text" name="last_level" class="form-control"                             
+                            <input type="text" name="last_level" class="form-control" readonly                           
                             placeholder="Last Level" value="{{ $job_finder_model->last_level }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Last Work History</label>
                         <div class="col-md-7">
-                            <textarea rows="3" name="last_work_history" 
+                            <textarea rows="3" name="last_work_history" readonly
                             class="form-control">{{ $job_finder_model->last_work_history }}</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Last Work Category</label>
                         <div class="col-md-7">
-                            <select id="last_work_category" name="last_work_category">
+                            <select id="last_work_category" name="last_work_category" disabled>
                                 <option value="">Select category</option>
                                 @foreach ($master_tech_type as $master_tech_type)
                                     @if ($master_tech_type->tech_type_id == $job_finder_model->last_work_category)
@@ -145,19 +144,19 @@
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Upload Your Latest CV Here</label>
                         <div class="col-md-7">
-                            <input type="file" class="form-control-file" name="cv_file_name">
+                            <input type="file" class="form-control-file" readonly name="cv_file_name">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Profile Picture</label>
                         <div class="col-md-7">
-                            <input type="file" class="form-control-file" name="profile_pict">
+                            <input type="file" class="form-control-file" readonly name="profile_pict">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">University</label>
                         <div class="col-md-7">
-                        <input type="text" name="university" class="form-control"                             
+                        <input type="text" name="university" class="form-control" readonly                          
                             placeholder="University" value="{{ $job_finder_model->university }}">
                         </div>
                     </div>
@@ -165,7 +164,7 @@
                         <label class="col-md-4 col-form-label">Language</label>
                         <div class="col-md-7">
                         <div id="default-selects2">
-                                <select id="language" name="language">
+                                <select id="language" name="language" disabled>
                                     <option value="">All Category</option>
                                     @if ($job_finder_model->language == 'Indonesia')                                        
                                         <option selected="selected" value="Indonesia">Indonesia</option>
@@ -181,13 +180,13 @@
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Last Salary</label>
                         <div class="col-md-7">
-                        <input type="text" name="last_salary" class="form-control" value="{{ $job_finder_model->last_salary }}">
+                        <input type="text" name="last_salary" readonly class="form-control" value="{{ $job_finder_model->last_salary }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Expected Salary</label>
                         <div class="col-md-7">
-                        <input type="text" name="expected_salary" class="form-control" value="">
+                        <input type="text" name="expected_salary" readonly class="form-control" value="">
                         </div>
                     </div>
 
@@ -195,10 +194,6 @@
                         <h3>Working Experience</h3>
                          
                         <div class="table-responsive">
-                            <div style="padding: 10px 0;">
-                                <button type="button" class="btn btn-info no-border-radius addExperience">add</button>
-                                <button type="button" class="btn btn-info no-border-radius removeExperience">remove</button>
-                             </div>
                             <table class="table table-bordered experience-table">
                                 <tr>
                                     <th>Company Name</th>
@@ -212,7 +207,6 @@
                                 
                                 @foreach ($job_finder_experience as $job_finder_experience)
                                 <tr>
-                                    <input type="hidden" id="detail_id[]" name="detail_id[]" value="{{ $job_finder_experience->detail_id }}">
                                     <td>{{ $job_finder_experience->company_name }}</td>
                                     <td>{{ $job_finder_experience->period_from }} - {{ $job_finder_experience->period_to }}</td>
                                     <td>{{ $job_finder_experience->job_title }}</td>
@@ -220,9 +214,6 @@
                                     <td>{{ $job_finder_experience->job_position }}</td>
                                     <td>{{ $job_finder_experience->industry_name }}</td>
                                     <td>{{ $job_finder_experience->tech_type_name }}</td>
-                                    <td><a href="{{ route('edit_detail_experience', $job_finder_experience->detail_id) }}">
-                                                Edit Detail
-                                        </a></td>
                                 </tr>
                                 @endforeach
                                 
@@ -234,20 +225,12 @@
                         <h3>Skills</h3>
                             
                         <div class="table-responsive">
-                            <div style="padding: 10px 0;">
-                                <button type="button" class="btn btn-info no-border-radius addSkill">add</button>
-                                <button type="button" class="btn btn-info no-border-radius removeSkill">remove</button>
-                            </div>
                             <table class="table table-bordered skill-table">
                                 <tr>
                                     <th>Skill (Java, PHP, Laravel, Angular Js, Node Js, etc.)<th>
                                 </tr>
                             </table>
                         </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-info no-border-radius">Update</button>
                     </div>
                 </form>
             </div>
