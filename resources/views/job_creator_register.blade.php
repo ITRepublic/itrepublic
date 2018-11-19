@@ -75,7 +75,7 @@
                             <label class="col-md-4 col-form-label">Province</label>
                             <div class="col-md-7">
                             <select id="province_id" name="province_id">
-                                    <option value="">Select area</option>
+                                    <option value="">choose province</option>
                                     @foreach ($master_province as $master_province)
                                         <option value="{{ $master_province->province_id }}">
                                             {{ $master_province->province_name }}
@@ -111,7 +111,7 @@
                             <label class="col-md-4 col-form-label">Industry</label>
                             <div class="col-md-7">
                             <select id="industry_id" name="industry_id">
-                                    <option value="">Select category</option>
+                                    <option value="">Choose industry</option>
                                     @foreach ($master_industry as $master_industry)
                                         <option value="{{ $master_industry->industry_id }}">
                                             {{ $master_industry->industry_name }}

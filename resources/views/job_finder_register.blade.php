@@ -39,6 +39,17 @@
                         </div>
 
                         <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Gender</label>
+                            <div class="col-md-8">
+                                <select id="gender" class="form-control no-border-radius" name="gender">
+                                    <option value="">Choose Gender</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Male">Male</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label class="col-md-4 col-form-label">Email Address</label>
                             <div class="col-md-8">
                                 <input type="email" name="email_address" class="form-control no-border-radius" value="{{ old('email_address') }}">
@@ -49,6 +60,27 @@
                             <label class="col-md-4 col-form-label">Phone</label>
                             <div class="col-md-8">
                                 <input type="text" name="phone" class="form-control no-border-radius" value="{{ old('phone') }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Birth Date</label>
+                            <div class="col-md-8">
+                                <input type="date" name="birth_date" id="datepicker" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Province</label>
+                            <div class="col-md-8">
+                            <select id="province_id" class="form-control no-border-radius" name="province_id">
+                                    <option value="">Choose province</option>
+                                    @foreach ($master_province as $master_province)
+                                        <option value="{{ $master_province->province_id }}">
+                                            {{ $master_province->province_name }}
+                                        </option>
+                                    @endforeach
+                                    </select>
                             </div>
                         </div>
                         

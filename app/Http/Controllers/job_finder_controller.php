@@ -7,12 +7,14 @@ use Illuminate\Support\Facades\Mail;
 use App\job_finder_model;
 use App\master_user_model;
 use App\Mail\VerifyRegistration;
+use App\master_province;
 
 class job_finder_controller extends Controller
 {
     public function create()
     {
-        return view('job_finder_register')->withTitle('Register Job Finder');
+        $master_province = master_province::orderBy('province_name','asc')->get(['province_id','province_name']);
+        return view('job_finder_register', compact('master_province'))->withTitle('Register Job Finder');
     }
 
     public function store(Request $request)

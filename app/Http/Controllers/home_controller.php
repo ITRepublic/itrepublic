@@ -10,8 +10,8 @@ use App\job_post_list_model;
 class home_controller extends Controller
 {
     public function get_home() {
-        $master_province = master_province::get(['province_id','province_name']);
-        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);    
+        $master_province = master_province::orderBy('province_name','asc')->get(['province_id','province_name']);
+        $master_tech_type = master_tech_type::orderBy('tech_type_name','asc')->get(['tech_type_id','tech_type_name']);    
         
         $job_post_list_model = job_post_list_model::join('job_creator','job_post_list.jc_user_id', '=', 'job_creator.user_id')
         ->join('master_customer','job_creator.company_id', '=', 'master_customer.company_id')

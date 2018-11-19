@@ -16,7 +16,7 @@
                       <li><a href="{{ route('about_us') }}">About Us</a></li>
                       <li><a href="{{ route('get_job') }}">Job Posting</a></li>
                       <li><a href="http://blog.itrepublic.id" target="_blank">Blog</a></li>
-                      <li><a href="{{ route('job_finder_contact') }}">Contact</a></li>
+                      {{-- <li><a href="{{ route('job_finder_contact') }}">Contact</a></li> --}}
                       <li><a href="{{ route('profile') }}">Profile</a></li>
                       <li><a href="{{ route('logout') }}">Logout</a></li>
                   @elseif ($group == "jc")

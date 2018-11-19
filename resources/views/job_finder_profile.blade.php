@@ -11,7 +11,11 @@
     <div class="container">
         <div class="row d-flex align-items-center justify-content-center">
             <div class="about-content col-lg-12">
-                {{ $title }}											
+                    <h1 class="text-white">
+                        Profile				
+                    </h1>	
+                    <p class="text-white link-nav"><a href="{{ route('home') }}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="#"> Profile</a></p>
+            </div>											
         </div>
     </div>
 </section>
@@ -23,6 +27,9 @@
     <div class="col-lg-12">@include('error.template')</div>
         <div class="row justify-content-center d-flex">
             <div class="col-lg-12">
+                <div style="text-align: center; margin-bottom: 50px; margin-top: -80px;">
+                    <img src="https://via.placeholder.com/150" class="img-responsive" alt="profile picture" width="150">
+                </div>
                 <form action="{{ route('submit_profile') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <?php $user_id = session()->get('user_id'); ?>
@@ -102,7 +109,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                     <label class="col-md-4 col-form-label">Last Position</label>
                         <div class="col-md-7">
                             <input type="text" name="last_position" class="form-control"                             
@@ -141,26 +148,27 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Upload Your Latest CV Here</label>
-                        <div class="col-md-7">
-                            <input type="file" class="form-control-file" name="cv_file_name">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Profile Picture</label>
-                        <div class="col-md-7">
-                            <input type="file" class="form-control-file" name="profile_pict">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">University</label>
+                        <label class="col-md-4 col-form-label">University/School</label>
                         <div class="col-md-7">
                         <input type="text" name="university" class="form-control"                             
                             placeholder="University" value="{{ $job_finder_model->university }}">
                         </div>
                     </div>
+                    <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Highest Qualification</label>
+                            <div class="col-md-7">
+                                <select name="highest_qualification" class="form-control">
+                                    <option value="">Choose highest qualification</option>
+                                    <option value="SMA">SMA</option>
+                                    <option value="Diploma">Diploma / D3</option>
+                                    <option value="S1">Bachelor's Degree / S1</option>
+                                    <option value="S2">Master's Degree / S2</option>
+                                    <option value="S3">Doctorals / S3</option>
+                                </select>
+                            </div>
+                        </div>
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Language</label>
                         <div class="col-md-7">
@@ -192,6 +200,19 @@
                     </div>
 
                     <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Upload Your Latest CV Here</label>
+                        <div class="col-md-7">
+                            <input type="file" class="form-control-file" name="cv_file_name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Upload Profile Picture</label>
+                        <div class="col-md-7">
+                            <input type="file" class="form-control-file" name="profile_pict">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <h3>Working Experience</h3>
                          
                         <div class="table-responsive">
@@ -214,15 +235,17 @@
                                 <tr>
                                     <input type="hidden" id="detail_id[]" name="detail_id[]" value="{{ $job_finder_experience->detail_id }}">
                                     <td>{{ $job_finder_experience->company_name }}</td>
-                                    <td>{{ $job_finder_experience->period_from }} - {{ $job_finder_experience->period_to }}</td>
+                                    <td>{{ Carbon\Carbon::parse($job_finder_experience->period_from)->format('d M Y') }} - {{ Carbon\Carbon::parse($job_finder_experience->period_to)->format('d M Y') }}</td>
                                     <td>{{ $job_finder_experience->job_title }}</td>
                                     <td>{{ $job_finder_experience->job_description }}</td>
                                     <td>{{ $job_finder_experience->job_position }}</td>
                                     <td>{{ $job_finder_experience->industry_name }}</td>
                                     <td>{{ $job_finder_experience->tech_type_name }}</td>
-                                    <td><a href="{{ route('edit_detail_experience', $job_finder_experience->detail_id) }}">
-                                                Edit Detail
-                                        </a></td>
+                                    <td>
+                                        <a class="btn btn-info btn-sm" href="{{ route('edit_detail_experience', $job_finder_experience->detail_id) }}">
+                                           Edit
+                                        </a>
+                                    </td>
                                 </tr>
                                 @endforeach
                                 
@@ -259,6 +282,7 @@
 <script>
     $(".addExperience").on('click', function() {
         $('.experience-table').append('<tr class="experience-row"><td><input type="text" name="company_name[]" class="form-control"></td><td><input type="date" name="period_from[]" class="form-control"> until <input type="date" name="period_to[]" class="form-control"></td><td><input type="text" name="job_title[]" class="form-control"></td><td><textarea name="job_description[]" class="form-control"></textarea></td><td><input type="text" name="job_position[]" class="form-control"></td><td><select name="industry[]" class="form-control industry"></select></td><td><select name="specialization[]" class="form-control specialization"></select></td></tr>');
+        
         jQuery.get('{{ route("industries") }}', function(industries) {
             industries.forEach(industry => {
                 $('.industry').append('<option value="'+industry.industry_id+'">'+industry.industry_name+'</option>');

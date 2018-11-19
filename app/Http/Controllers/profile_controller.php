@@ -17,7 +17,7 @@ class profile_controller extends Controller
     //
     public function create()
     {
-        $master_province = master_province::get(['province_id','province_name']);
+        $master_province = master_province::orderBy('province_name','asc')->get(['province_id','province_name']);
         $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);
         $user_id = session()->get('user_id');
         $job_finder_model = job_finder_model::join('master_user','job_finder.finder_id', '=', 'master_user.user_id')

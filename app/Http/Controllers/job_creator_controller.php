@@ -14,8 +14,8 @@ class job_creator_controller extends Controller
 {
     public function create() 
     {
-        $master_province = master_province::get(['province_id','province_name']);
-        $master_industry = master_industry::get(['industry_id','industry_name']);
+        $master_province = master_province::orderBy('province_name','asc')->get(['province_id','province_name']);
+        $master_industry = master_industry::orderBy('industry_name','asc')->get(['industry_id','industry_name']);
     	return view('job_creator_register', array('master_province' => $master_province, 'master_industry' => $master_industry))->withTitle('Register Job Creator');
     }
     
