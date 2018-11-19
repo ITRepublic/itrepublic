@@ -20,7 +20,7 @@
                       <li><a href="{{ route('profile') }}">Profile</a></li>
                       <li><a href="{{ route('logout') }}">Logout</a></li>
                   @elseif ($group == "jc")
-                      <li class="menu-active"><a href="{{ route('home') }}">Home</a></li>
+                      <li class="menu-active"><a href="{{ route('user_home') }}">Home</a></li>
                       <li><a href="{{ route('company_profile') }}">Company Profile</a></li>
                       <li><a href="{{ route('get_job_per_customer') }}">Job Posting</a></li>
                       <li><a href="{{ route('resume') }}">Resume</a></li>
