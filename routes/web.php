@@ -45,6 +45,7 @@ Route::get('/logout', 'auth_controller@destroy')->name('logout');
     
     Route::post('/submit_profile', ['uses' => 'profile_controller@store', 'before' => 'csrf'])->name('submit_profile');
     Route::get('edit_detail_experience/{id}/detail', 'profile_controller@edit_detail_experience')->name('edit_detail_experience');
+    Route::get('delete_skill/{id}/detail', 'profile_controller@delete_skill')->name('delete_skill');
     Route::post('/submit_detail_experience', ['uses' => 'profile_controller@submit_detail_experience', 'before' => 'csrf'])->name('submit_detail_experience');
     Route::get('/job/{id}/detail', 'job_controller@get_job_detail')->name('job_detail');
     Route::get('get_detail_job/{id}/edit', 'job_controller@get_detail_job')->name('get_detail_job');

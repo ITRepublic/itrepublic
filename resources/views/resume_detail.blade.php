@@ -23,7 +23,7 @@
     <div class="col-lg-12">@include('error.template')</div>
         <div class="row justify-content-center d-flex">
             <div class="col-lg-12">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Full Name</label>
@@ -101,63 +101,33 @@
                         </div>
                     </div>
 
+                    
                     <div class="form-group row">
-                    <label class="col-md-4 col-form-label">Last Position</label>
-                        <div class="col-md-7">
-                            <input type="text" name="last_position" class="form-control" readonly                            
-                            placeholder="Last Position" value="{{ $job_finder_model->last_position }}">
-                        </div>
-                    </div>             
-                    <div class="form-group row">
-                    <label class="col-md-4 col-form-label">Last Level</label>
-                        <div class="col-md-7">
-                            <input type="text" name="last_level" class="form-control" readonly                           
-                            placeholder="Last Level" value="{{ $job_finder_model->last_level }}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Last Work History</label>
-                        <div class="col-md-7">
-                            <textarea rows="3" name="last_work_history" readonly
-                            class="form-control">{{ $job_finder_model->last_work_history }}</textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Last Work Category</label>
-                        <div class="col-md-7">
-                            <select id="last_work_category" name="last_work_category" disabled>
-                                <option value="">Select category</option>
-                                @foreach ($master_tech_type as $master_tech_type)
-                                    @if ($master_tech_type->tech_type_id == $job_finder_model->last_work_category)
-                                        <option selected="selected" value="{{ $master_tech_type->tech_type_id }}">
-                                            {{ $master_tech_type->tech_type_name }}
-                                        </option>
-                                    @else
-                                        <option value="{{ $master_tech_type->tech_type_id }}">
-                                            {{ $master_tech_type->tech_type_name }}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Upload Your Latest CV Here</label>
-                        <div class="col-md-7">
-                            <input type="file" class="form-control-file" readonly name="cv_file_name">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Profile Picture</label>
-                        <div class="col-md-7">
-                            <input type="file" class="form-control-file" readonly name="profile_pict">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">University</label>
+                        <label class="col-md-4 col-form-label">University/School</label>
                         <div class="col-md-7">
                         <input type="text" name="university" class="form-control" readonly                          
                             placeholder="University" value="{{ $job_finder_model->university }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Highest Qualification</label>
+                        <div class="col-md-7">
+                            <div id="default-selects2">
+                                <select name="highest_qualification" disabled>
+                                    <option value="">Choose highest qualification</option>
+                                    @foreach ($master_highest_qualification as $master_highest_qualification)
+                                        @if ($master_highest_qualification->highest_qualification_id == $job_finder_model->highest_qualification)
+                                        <option selected="selected" value="{{ $master_highest_qualification->highest_qualification_id }}">
+                                            {{ $master_highest_qualification->highest_qualification_name }}
+                                        </option>
+                                        @else
+                                        <option value="{{ $master_highest_qualification->highest_qualification_id }}">
+                                            {{ $master_highest_qualification->highest_qualification_name }}
+                                        </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -186,10 +156,10 @@
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Expected Salary</label>
                         <div class="col-md-7">
-                        <input type="text" name="expected_salary" readonly class="form-control" value="">
+                        <input type="text" name="expected_salary" readonly class="form-control" value="{{ $job_finder_model->expected_salary }}">
                         </div>
                     </div>
-
+                    
                     <div class="form-group row">
                         <h3>Working Experience</h3>
                          
@@ -229,6 +199,13 @@
                                 <tr>
                                     <th>Skill (Java, PHP, Laravel, Angular Js, Node Js, etc.)<th>
                                 </tr>
+                                @foreach ($skill_job_finder as $skill_job_finder)
+                                <tr>
+                                    <input type="hidden" id="skill_job_finder_id[]" name="skill_job_finder_id[]" value="{{ $skill_job_finder->skill_job_finder_id }}">
+                                    <td>{{ $skill_job_finder->skill_name }}</td>
+
+                                </tr>
+                                @endforeach
                             </table>
                         </div>
                     </div>

@@ -108,47 +108,6 @@
                             class="form-control">{{ $job_finder_model->address }}</textarea>
                         </div>
                     </div>
-
-                    {{-- <div class="form-group row">
-                    <label class="col-md-4 col-form-label">Last Position</label>
-                        <div class="col-md-7">
-                            <input type="text" name="last_position" class="form-control"                             
-                            placeholder="Last Position" value="{{ $job_finder_model->last_position }}">
-                        </div>
-                    </div>             
-                    <div class="form-group row">
-                    <label class="col-md-4 col-form-label">Last Level</label>
-                        <div class="col-md-7">
-                            <input type="text" name="last_level" class="form-control"                             
-                            placeholder="Last Level" value="{{ $job_finder_model->last_level }}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Last Work History</label>
-                        <div class="col-md-7">
-                            <textarea rows="3" name="last_work_history" 
-                            class="form-control">{{ $job_finder_model->last_work_history }}</textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Last Work Category</label>
-                        <div class="col-md-7">
-                            <select id="last_work_category" name="last_work_category">
-                                <option value="">Select category</option>
-                                @foreach ($master_tech_type as $master_tech_type)
-                                    @if ($master_tech_type->tech_type_id == $job_finder_model->last_work_category)
-                                        <option selected="selected" value="{{ $master_tech_type->tech_type_id }}">
-                                            {{ $master_tech_type->tech_type_name }}
-                                        </option>
-                                    @else
-                                        <option value="{{ $master_tech_type->tech_type_id }}">
-                                            {{ $master_tech_type->tech_type_name }}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div> --}}
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">University/School</label>
                         <div class="col-md-7">
@@ -157,18 +116,26 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                            <label class="col-md-4 col-form-label">Highest Qualification</label>
-                            <div class="col-md-7">
-                                <select name="highest_qualification" class="form-control">
+                        <label class="col-md-4 col-form-label">Highest Qualification</label>
+                        <div class="col-md-7">
+                            <div id="default-selects2">
+                                <select name="highest_qualification">
                                     <option value="">Choose highest qualification</option>
-                                    <option value="SMA">SMA</option>
-                                    <option value="Diploma">Diploma / D3</option>
-                                    <option value="S1">Bachelor's Degree / S1</option>
-                                    <option value="S2">Master's Degree / S2</option>
-                                    <option value="S3">Doctorals / S3</option>
+                                    @foreach ($master_highest_qualification as $master_highest_qualification)
+                                        @if ($master_highest_qualification->highest_qualification_id == $job_finder_model->highest_qualification)
+                                        <option selected="selected" value="{{ $master_highest_qualification->highest_qualification_id }}">
+                                            {{ $master_highest_qualification->highest_qualification_name }}
+                                        </option>
+                                        @else
+                                        <option value="{{ $master_highest_qualification->highest_qualification_id }}">
+                                            {{ $master_highest_qualification->highest_qualification_name }}
+                                        </option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
+                    </div>
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Language</label>
                         <div class="col-md-7">
@@ -195,7 +162,7 @@
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Expected Salary</label>
                         <div class="col-md-7">
-                        <input type="text" name="expected_salary" class="form-control" value="">
+                        <input type="text" name="expected_salary" class="form-control" value="{{ $job_finder_model->expected_salary }}">
                         </div>
                     </div>
 
@@ -265,6 +232,17 @@
                                 <tr>
                                     <th>Skill (Java, PHP, Laravel, Angular Js, Node Js, etc.)<th>
                                 </tr>
+                                @foreach ($skill_job_finder as $skill_job_finder)
+                                <tr>
+                                    <input type="hidden" id="skill_job_finder_id[]" name="skill_job_finder_id[]" value="{{ $skill_job_finder->skill_job_finder_id }}">
+                                    <td>{{ $skill_job_finder->skill_name }}</td>
+                                    <td>
+                                        <a class="btn btn-info btn-sm" href="{{ route('delete_skill', $skill_job_finder->skill_job_finder_id) }}">
+                                           Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                                @endforeach
                             </table>
                         </div>
                     </div>

@@ -21,6 +21,9 @@ class job_finder_controller extends Controller
     {
         $rules = [
     		'name'      => 'required',
+            'gender'       => 'required',
+            'birth_date'       => 'required',
+            'province_id'       => 'required',
             'address'       => 'required',
             'phone'         => 'required|numeric',
             'email_address'  => 'required|email|unique:master_user,user_email_address',
@@ -37,11 +40,15 @@ class job_finder_controller extends Controller
 
         $data['email_address'] = $request->email_address;
         $data['full_name'] = $request->name;
+        $data['gender'] = $request->gender;
+        $data['birth_date'] = $request->birth_date;
+        $data['province_id'] = $request->province_id;
         $data['address'] = $request->address;
         $data['phone'] = $request->phone;
         $data['group_id'] = 'jf';
         $data['total_rating'] = '0';
         $data['profile_pict'] = '';
+        $data['cv_file_name'] = '';
 
         master_user_model::create($datauser);
 
