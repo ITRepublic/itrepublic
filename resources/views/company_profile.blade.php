@@ -168,7 +168,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Summary</label>
+                        <label class="col-md-4 col-form-label">Summary <br> (Company Description)</label>
                         <div class="col-md-8">
                             <textarea rows="3" name="summary" class="form-control no-border-radius">{{ $master_customer->summary }}</textarea>
                         </div>

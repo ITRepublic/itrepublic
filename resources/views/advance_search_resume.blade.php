@@ -27,125 +27,210 @@
                 <form action="{{ route('resume_advance_search_submit') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <?php $user_id = session()->get('user_id'); ?>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Full Name</label>
-                        <div class="col-md-7">
-                            <input type="text" name="full_name" class="form-control"                             
-                            placeholder="Full Name" value="{{ old('full_name') }}">
-                        </div>
+
+                    <div class="form-group">
+                        <h3>Keyword Search</h3>
                     </div>
+
                     <div class="form-group row">
-                    <label class="col-md-4 col-form-label">Email Address</label>
-                        <div class="col-md-7">
-                            <input type="text" name="email_address"
-                            class="form-control" value="{{ old('email_address') }}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Address</label>
-                        <div class="col-md-7">
-                            <textarea rows="3" name="address" 
-                            class="form-control">{{ old('Address') }}</textarea>
-                        </div>
-                    </div>
-                        
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Phone</label>
-                        <div class="col-md-7">
-                            <input type="text" name="phone" 
-                            class="form-control" value="{{ old('Phone') }}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Gender</label>
-                        <div class="col-md-7">
-                            <select id="gender" name="gender">
-                                <option value="">All Category</option>
-                                <option value="man">Man</option>
-                                <option value="woman">Woman</option>
+                        <label class="col-md-2 col-form-label">Search In</label>
+                        <div class="col-md-5">
+                            <select name="search_in" class="form-control">
+                                <option value="all">Skills, Position Title</option>
+                                <option value="skills">Skills</option>
+                                <option value="position_title">Position Title</option>
                             </select>
                         </div>
                     </div>
                     
                     <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Birth Date</label>
-                        <div class="col-md-7">
-                            <input type="text" name="birth_date" id="datepicker" class="form-control" 
-                            placeholder="Birth Date" value="{{ old('birth_date') }}">
-                        </div>
-                    </div>                    
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Province</label>
-                        <div class="col-md-7">
-                        <select id="province_id" name="province_id">
-                                <option value="">Select area</option>
-                                @foreach ($master_province as $master_province)
-                                    <option value="{{ $master_province->province_id }}">
-                                        {{ $master_province->province_name }}
-                                    </option>
-                                @endforeach
-                                </select>
-                        </div>
-                    </div>        
-                    <div class="form-group row">
-                    <label class="col-md-4 col-form-label">Last Position</label>
-                        <div class="col-md-7">
-                            <input type="text" name="last_position" class="form-control"                             
-                            placeholder="Last Position" value="{{ old('last_position') }}">
-                        </div>
-                    </div>             
-                    <div class="form-group row">
-                    <label class="col-md-4 col-form-label">Last Level</label>
-                        <div class="col-md-7">
-                            <input type="text" name="last_level" class="form-control"                             
-                            placeholder="Last Level" value="{{ old('last_level') }}">
+                        <label class="col-md-2 col-form-label">Keyword</label>
+                        <div class="col-md-5">
+                            <input type="text" name="keyword" class="form-control"                            
+                                placeholder="for example: 'Android Developer','PHP','Angular JS'" value="">
                         </div>
                     </div>
+                    
                     <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Last Work History</label>
-                        <div class="col-md-7">
-                            <textarea rows="3" name="last_work_history" 
-                            class="form-control">{{ old('last_work_history') }}</textarea>
+                        <label class="col-md-2 col-form-label">Resume active in the last</label>
+                        <div class="col-md-5">
+                            <select name="search_in" class="form-control">
+                                <option value="">All</option>
+                                <option value="1">1 month</option>
+                                <option value="3">3 months</option>
+                                <option value="6">6 months</option>
+                                <option value="9">9 months</option>
+                                <option value="12">12 months</option>
+                            </select>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <h3>Work Experience</h3>
+                    </div>
+
                     <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Last Work Category</label>
-                        <div class="col-md-7">
-                        <select id="last_work_category" name="last_work_category">
-                                <option value="">Select category</option>
-                                @foreach ($master_tech_type as $master_tech_type)
-                                    <option value="{{ $master_tech_type->tech_type_id }}">
-                                        {{ $master_tech_type->tech_type_name }}
-                                    </option>
-                                @endforeach
-                                </select>
+                        <label class="col-md-2 col-form-label">Year of Experience</label>
+                        <div class="col-md-5">
+                            <select name="year_of_experience" class="form-control">
+                                <option value="">All</option>
+                                <option value="1 year">1 year</option>
+                                <option value="2 years">2 years</option>
+                                <option value="3 years">3 years</option>
+                                <option value="4 years">4 years</option>
+                                <option value="5 years">5 years</option>
+                                <option value="above 5 years">Above 5 years</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-md-4 col-form-label">University</label>
-                        <div class="col-md-7">
-                        <input type="text" name="university" class="form-control"                             
-                            placeholder="University" value="{{ old('university') }}">
+                        <label class="col-md-2 col-form-label">Current Position Level</label>
+                        <div class="col-md-5">
+                            <select name="current_position_level" class="form-control">
+                                <option value="">All</option>
+                                <option value="CEO / GM / Director / Senior Manager">CEO / GM / Director / Senior Manager</option>
+                                <option value="Manager / Assistant Manager">Manager / Assistant Manager</option>
+                                <option value="Supervisor / Coordinator">Supervisor / Coordinator</option>
+                                <option value="Staff (non-management & non-supervisor)">Staff (non-management & non-supervisor)</option>
+                                <option value="Fresh Grad / Less than 1 year experience">Fresh Grad / Less than 1 year experience</option>
+                            </select>
                         </div>
                     </div>
+
                     <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Language</label>
-                        <div class="col-md-7">
-                        <div id="default-selects2">
-                                <select id="language" name="language">
-                                    <option value="">All Category</option>
-                                    <option value="Indonesia">Indonesia</option>
-                                    <option value="English">English</option>
-                                </select>
-                            </div>	
+                        <label class="col-md-2 col-form-label">Company Name</label>
+                        <div class="col-md-5">
+                            <input type="text" name="company_name" class="form-control"                            
+                                placeholder="input company name" value="">
                         </div>
                     </div>
+
                     <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Last Salary</label>
-                        <div class="col-md-7">
-                        <input type="text" name="last_salary" class="form-control" 
-                            placeholder="Last Salary" value="{{ old('last_salary') }}">
+                        <label class="col-md-2 col-form-label">Specialization</label>
+                        <div class="col-md-5">
+                        <select id="tech_type_id" class="form-control" name="tech_type_id">
+                            <option value="">All</option>
+                            @foreach ($master_tech_type as $master_tech_type)
+                                <option value="{{ $master_tech_type->tech_type_id }}">
+                                    {{ $master_tech_type->tech_type_name }}
+                                </option>
+                            @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Industry</label>
+                        <div class="col-md-5">
+                        <select class="form-control" name="industry">
+                            <option value="">All</option>
+                            @foreach ($master_industry as $mi)
+                                <option value="{{ $mi->industry_id }}">
+                                    {{ $mi->industry_name }}
+                                </option>
+                            @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h3>Education Level (Highest)</h3>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Highest Qualification</label>
+                        <div class="col-md-5">
+                            <select name="current_position_level" class="form-control">
+                                <option value="">All</option>
+                                @foreach($master_highest_qualification as $mhq)
+                                <option value="{{ $mhq->highest_qualification_id }}">{{ $mhq->highest_qualification_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Field of Study</label>
+                        <div class="col-md-5">
+                            <input type="text" name="field_of_study" class="form-control"                            
+                                placeholder="for example: 'Database','Networking'" value="">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Grade (GPA)</label>
+                        <div class="col-md-5">
+                            <input type="text" name="grade" class="form-control" placeholder="for example: 3.5">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">University</label>
+                        <div class="col-md-5">
+                            <input type="text" name="university" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h3>Location</h3>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Residing In</label>
+                        <div class="col-md-5">
+                        <select id="residing_in" class="form-control" name="residing_in">
+                            <option value="all">Any Indonesia State</option>
+                            @foreach ($master_province as $mp)
+                                <option value="{{ $mp->province_id }}">
+                                    {{ $mp->province_name }}
+                                </option>
+                            @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">City</label>
+                        <div class="col-md-5">
+                            <input type="text" name="city" class="form-control" placeholder="for example: 'Jakarta','Bandung'">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h3>Personal Data / Others</h3>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Age</label>
+                        <div class="col-md-5 form-inline">
+                            <input type="text" class="form-control" name="min_age" placeholder="min">
+                            <input type="text" class="form-control" name="max_age" placeholder="max">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-md-2 col-form-label">Gender</label>
+                        <div class="col-md-5">
+                            <select name="gender" class="form-control">
+                                <option value="">Any</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-md-2 col-form-label">Language</label>
+                        <div class="col-md-5">
+                            <select name="language" class="form-control">
+                                <option value="">Any</option>
+                                <option value="Indonesia">Indonesia</option>
+                                <option value="English">English</option>
+                                <option value="Mandarin">Mandarin</option>
+                                <option value="Japanese">Japanese</option>
+                                <option value="Korean">Korean</option>
+                            </select>
                         </div>
                     </div>
                     

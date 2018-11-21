@@ -27,58 +27,79 @@
                 <form action="{{ route('resume_simple_search_submit') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Company Name</label>
-                        <div class="col-md-6">
-                            <input type="text" name="company_name" class="form-control"                            
-                                placeholder="Company Name" value="">
+                        <label class="col-md-2 col-form-label">Keyword</label>
+                        <div class="col-md-5">
+                            <input type="text" name="keyword" class="form-control"                            
+                                placeholder="for example: 'Android Developer'" value="">
                         </div>
                     </div>
+
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Job Title</label>
-                        <div class="col-md-6">
-                            <input type="text" name="job_title" class="form-control"                            
-                                placeholder="Job Title" value="">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Job Description</label>
-                        <div class="col-md-6">
-                            <textarea rows="3" name="job_description" class="form-control"
-                            placeholder="Job Description"></textarea>
-                        </div>
-                    </div> 
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Job Position</label>
-                        <div class="col-md-6">
-                            <input type="text" name="job_position" class="form-control"                            
-                                placeholder="Job Position" value="">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-5 col-form-label">Industry</label>
-                        <div class="col-md-6">
-                        <select id="industry_id" name="industry_id">
-                            <option value="">Select category</option>
-                            @foreach ($master_industry as $master_industry)
-                                <option value="{{ $master_industry->industry_id }}">
-                                    {{ $master_industry->industry_name }}
-                                </option>
-                            @endforeach
+                        <label class="col-md-2 col-form-label">Year of Experience</label>
+                        <div class="col-md-5">
+                            <select name="year_of_experience" class="form-control">
+                                <option value="">All</option>
+                                <option value="1 year">1 year</option>
+                                <option value="2 years">2 years</option>
+                                <option value="3 years">3 years</option>
+                                <option value="4 years">4 years</option>
+                                <option value="5 years">5 years</option>
+                                <option value="above 5 years">Above 5 years</option>
                             </select>
                         </div>
                     </div>
+
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Specialization</label>
-                        <div class="col-md-6">
-                        <select id="tech_type_id" name="tech_type_id">
-                            <option value="">Select category</option>
+                        <label class="col-md-2 col-form-label">Current Position Level</label>
+                        <div class="col-md-5">
+                            <select name="current_position_level" class="form-control">
+                                <option value="">All</option>
+                                <option value="CEO / GM / Director / Senior Manager">CEO / GM / Director / Senior Manager</option>
+                                <option value="Manager / Assistant Manager">Manager / Assistant Manager</option>
+                                <option value="Supervisor / Coordinator">Supervisor / Coordinator</option>
+                                <option value="Staff (non-management & non-supervisor)">Staff (non-management & non-supervisor)</option>
+                                <option value="Fresh Grad / Less than 1 year experience">Fresh Grad / Less than 1 year experience</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Specialization</label>
+                        <div class="col-md-5">
+                        <select id="tech_type_id" class="form-control" name="tech_type_id">
+                            <option value="">All</option>
                             @foreach ($master_tech_type as $master_tech_type)
                                 <option value="{{ $master_tech_type->tech_type_id }}">
                                     {{ $master_tech_type->tech_type_name }}
                                 </option>
                             @endforeach
                             </select>
-                            
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Highest Qualification</label>
+                        <div class="col-md-5">
+                            <select name="current_position_level" class="form-control">
+                                <option value="">Choose Highest Qualification</option>
+                                @foreach($master_highest_qualification as $mhq)
+                                <option value="{{ $mhq->highest_qualification_id }}">{{ $mhq->highest_qualification_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Residing In</label>
+                        <div class="col-md-5">
+                        <select id="residing_in" class="form-control" name="residing_in">
+                            <option value="all">Any Indonesia State</option>
+                            @foreach ($master_province as $mp)
+                                <option value="{{ $mp->province_id }}">
+                                    {{ $mp->province_name }}
+                                </option>
+                            @endforeach
+                            </select>
                         </div>
                     </div>
                     

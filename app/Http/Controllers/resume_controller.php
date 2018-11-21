@@ -20,8 +20,8 @@ class resume_controller extends Controller
         $job_finder_model = job_finder_model::join('master_user','master_user.user_id', '=', 'job_finder.finder_id')
         ->leftJoin('master_province','job_finder.province_id', '=', 'master_province.province_id')
         ->get();
-        $master_province = master_province::get(['province_id','province_name']);
-        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);   
+        $master_province = master_province::orderBy('province_name','asc')->get(['province_id','province_name']);
+        $master_tech_type = master_tech_type::orderBy('tech_type_name','asc')->get(['tech_type_id','tech_type_name']);   
         $master_highest_qualification = master_highest_qualification::get(['highest_qualification_id','highest_qualification_name']);
 
         return view('resume_grid', array('master_highest_qualification' => $master_highest_qualification, 'job_finder_model' => $job_finder_model, 'master_province' => $master_province, 'master_tech_type' => $master_tech_type))->withTitle('Resume');
@@ -33,8 +33,8 @@ class resume_controller extends Controller
 
         $master_highest_qualification = master_highest_qualification::get(['highest_qualification_id','highest_qualification_name']);
 
-        $master_province = master_province::get(['province_id','province_name']);
-        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);
+        $master_province = master_province::orderBy('province_name','asc')->get(['province_id','province_name']);
+        $master_tech_type = master_tech_type::orderBy('tech_type_name','asc')->get(['tech_type_id','tech_type_name']); 
 
         $job_finder_model = job_finder_model::join('master_user','master_user.user_id', '=', 'job_finder.finder_id')
         ->leftJoin('master_province','job_finder.province_id', '=', 'master_province.province_id')
@@ -60,10 +60,11 @@ class resume_controller extends Controller
     public function get_advance_search()
     {
         $master_highest_qualification = master_highest_qualification::get(['highest_qualification_id','highest_qualification_name']);
-        $master_province = master_province::get(['province_id','province_name']);
-        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);   
+        $master_province = master_province::orderBy('province_name','asc')->get(['province_id','province_name']);
+        $master_tech_type = master_tech_type::orderBy('tech_type_name','asc')->get(['tech_type_id','tech_type_name']); 
+        $master_industry = master_industry::orderBy('industry_name','asc')->get(['industry_id','industry_name']);
   
-        return view('advance_search_resume', array('master_highest_qualification' => $master_highest_qualification, 'master_province' => $master_province, 'master_tech_type' => $master_tech_type))->withTitle('Simple Search');
+        return view('advance_search_resume', array('master_highest_qualification' => $master_highest_qualification, 'master_province' => $master_province, 'master_tech_type' => $master_tech_type, 'master_industry' => $master_industry))->withTitle('Advanced Search');
     }
     
     public function advance_search_submit(Request $request)
@@ -99,7 +100,8 @@ class resume_controller extends Controller
         }
 
         $master_province = master_province::get(['province_id','province_name']);
-        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);   
+        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);  
+        $master_industry = master_industry::orderBy('industry_name','asc')->get(['industry_id','industry_name']); 
         $job_finder_model = job_finder_model::join('master_user','master_user.user_id', '=', 'job_finder.finder_id')
         ->leftJoin('master_tech_type','job_finder.last_work_category', '=', 'master_tech_type.tech_type_id')
         ->leftJoin('master_province','job_finder.province_id', '=', 'master_province.province_id')
@@ -118,16 +120,16 @@ class resume_controller extends Controller
 
         $master_highest_qualification = master_highest_qualification::get(['highest_qualification_id','highest_qualification_name']);
         
-        return view('resume_grid', array('master_highest_qualification' => $master_highest_qualification, 'job_finder_model' => $job_finder_model, 'master_province' => $master_province, 'master_tech_type' => $master_tech_type))->withTitle('Resume');
+        return view('resume_grid', array('master_highest_qualification' => $master_highest_qualification, 'job_finder_model' => $job_finder_model, 'master_province' => $master_province, 'master_tech_type' => $master_tech_type, 'master_industry' => $master_industry))->withTitle('Resume');
     }
 
     public function get_simple_search()
     {
-        $master_industry = master_industry::get(['industry_id','industry_name']);
-        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);   
+        $master_industry = master_industry::orderBy('industry_name','asc')->get(['industry_id','industry_name']);
+        $master_province = master_province::orderBy('province_name','asc')->get(['province_id','province_name']);
+        $master_tech_type = master_tech_type::orderBy('tech_type_name','asc')->get(['tech_type_id','tech_type_name']); 
         $master_highest_qualification = master_highest_qualification::get(['highest_qualification_id','highest_qualification_name']);
-
-        return view('simple_search_resume', array('master_highest_qualification' => $master_highest_qualification, 'master_industry' => $master_industry, 'master_tech_type' => $master_tech_type))->withTitle('Advance Search');
+        return view('simple_search_resume', array('master_highest_qualification' => $master_highest_qualification, 'master_industry' => $master_industry, 'master_tech_type' => $master_tech_type, 'master_province' => $master_province))->withTitle('Simple Search');
     }
     
     public function simple_search_submit(Request $request)
@@ -152,8 +154,8 @@ class resume_controller extends Controller
             $tech_type_id = '%' . $tech_type_id . '%';
         }
 
-        $master_industry = master_industry::get(['industry_id','industry_name']);
-        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);   
+        $master_industry = master_industry::orderBy('industry_name','asc')->get(['industry_id','industry_name']);
+        $master_tech_type = master_tech_type::orderBy('tech_type_name','asc')->get(['tech_type_id','tech_type_name']);   
         $job_finder_model = job_finder_model::join('job_finder_experience','job_finder_experience.finder_id', '=', 'job_finder.finder_id')
         ->leftJoin('master_tech_type','job_finder_experience.tech_type_id', '=', 'master_tech_type.tech_type_id')
         ->leftJoin('master_industry','job_finder_experience.industry_id', '=', 'master_industry.industry_id')
