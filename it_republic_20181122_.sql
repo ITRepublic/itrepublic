@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2018 at 04:08 PM
+-- Generation Time: Nov 22, 2018 at 02:04 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -395,6 +395,28 @@ CREATE TABLE `job_user_rating` (
   `updated_at` varchar(30) NOT NULL,
   `created_at` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login_history`
+--
+
+CREATE TABLE `login_history` (
+  `login_history_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `last_login_date` varchar(50) NOT NULL,
+  `updated_at` varchar(50) NOT NULL,
+  `created_at` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `login_history`
+--
+
+INSERT INTO `login_history` (`login_history_id`, `user_id`, `last_login_date`, `updated_at`, `created_at`) VALUES
+(1, 6, '11/21/2018', '2018-11-21 23:36:07', '2018-11-21 23:36:07'),
+(2, 1, '11/22/2018', '2018-11-22 12:03:57', '2018-11-22 12:03:57');
 
 -- --------------------------------------------------------
 
@@ -889,6 +911,12 @@ ALTER TABLE `job_user_rating`
   ADD PRIMARY KEY (`rating_id`);
 
 --
+-- Indexes for table `login_history`
+--
+ALTER TABLE `login_history`
+  ADD PRIMARY KEY (`login_history_id`);
+
+--
 -- Indexes for table `master_admin`
 --
 ALTER TABLE `master_admin`
@@ -1067,6 +1095,12 @@ ALTER TABLE `job_type`
 --
 ALTER TABLE `job_user_rating`
   MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `login_history`
+--
+ALTER TABLE `login_history`
+  MODIFY `login_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `master_admin`

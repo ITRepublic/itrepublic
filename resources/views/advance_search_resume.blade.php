@@ -36,9 +36,10 @@
                         <label class="col-md-2 col-form-label">Search In</label>
                         <div class="col-md-5">
                             <select name="search_in" class="form-control">
-                                <option value="all">Skills, Position Title</option>
-                                <option value="skills">Skills</option>
-                                <option value="position_title">Position Title</option>
+                                <option value="all">Skills, Position, Title</option>
+                                <option value="skill_name">Skills</option>
+                                <option value="job_position">Position</option>
+                                <option value="job_title">Title</option>
                             </select>
                         </div>
                     </div>
@@ -54,7 +55,7 @@
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label">Resume active in the last</label>
                         <div class="col-md-5">
-                            <select name="search_in" class="form-control">
+                            <select name="search_last_active" class="form-control">
                                 <option value="">All</option>
                                 <option value="1">1 month</option>
                                 <option value="3">3 months</option>
@@ -74,12 +75,12 @@
                         <div class="col-md-5">
                             <select name="year_of_experience" class="form-control">
                                 <option value="">All</option>
-                                <option value="1 year">1 year</option>
-                                <option value="2 years">2 years</option>
-                                <option value="3 years">3 years</option>
-                                <option value="4 years">4 years</option>
-                                <option value="5 years">5 years</option>
-                                <option value="above 5 years">Above 5 years</option>
+                                <option value="1">1 year</option>
+                                <option value="2">2 years</option>
+                                <option value="3">3 years</option>
+                                <option value="4">4 years</option>
+                                <option value="5">5 years</option>
+                                <option value="6">Above 5 years</option>
                             </select>
                         </div>
                     </div>
@@ -87,14 +88,8 @@
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label">Current Position Level</label>
                         <div class="col-md-5">
-                            <select name="current_position_level" class="form-control">
-                                <option value="">All</option>
-                                <option value="CEO / GM / Director / Senior Manager">CEO / GM / Director / Senior Manager</option>
-                                <option value="Manager / Assistant Manager">Manager / Assistant Manager</option>
-                                <option value="Supervisor / Coordinator">Supervisor / Coordinator</option>
-                                <option value="Staff (non-management & non-supervisor)">Staff (non-management & non-supervisor)</option>
-                                <option value="Fresh Grad / Less than 1 year experience">Fresh Grad / Less than 1 year experience</option>
-                            </select>
+                            <input type="text" name="current_position_level" class="form-control"                            
+                                placeholder="input current position" value="">
                         </div>
                     </div>
 
@@ -123,7 +118,7 @@
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label">Industry</label>
                         <div class="col-md-5">
-                        <select class="form-control" name="industry">
+                        <select class="form-control" name="industry_id">
                             <option value="">All</option>
                             @foreach ($master_industry as $mi)
                                 <option value="{{ $mi->industry_id }}">
@@ -141,7 +136,7 @@
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label">Highest Qualification</label>
                         <div class="col-md-5">
-                            <select name="current_position_level" class="form-control">
+                            <select name="highest_qualification_id" class="form-control">
                                 <option value="">All</option>
                                 @foreach($master_highest_qualification as $mhq)
                                 <option value="{{ $mhq->highest_qualification_id }}">{{ $mhq->highest_qualification_name }}</option>
@@ -150,7 +145,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
                         <label class="col-md-2 col-form-label">Field of Study</label>
                         <div class="col-md-5">
                             <input type="text" name="field_of_study" class="form-control"                            
@@ -163,7 +158,7 @@
                         <div class="col-md-5">
                             <input type="text" name="grade" class="form-control" placeholder="for example: 3.5">
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label">University</label>

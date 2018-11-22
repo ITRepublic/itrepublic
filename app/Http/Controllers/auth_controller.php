@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\job_create_model;
 use App\job_finder_model;
 use App\master_user_model;
+use App\login_history;
+use Carbon\Carbon;
 
 class auth_controller extends Controller
 {
@@ -43,6 +45,9 @@ class auth_controller extends Controller
         }
 
     	if($isAuthenticated) {
+            $history['user_id'] = $isAuthenticated->finder_id;
+            $history['last_login_date'] = Carbon::now()->format('m/d/Y');
+            $login_history = login_history::create($history);
     		return redirect()->to('/');
     	}
     	else {
@@ -83,6 +88,9 @@ class auth_controller extends Controller
         }
 
     	if($isAuthenticated) {
+            $history['user_id'] = $isAuthenticated->user_id;
+            $history['last_login_date'] = Carbon::now()->format('m/d/Y');
+            $login_history = login_history::create($history);
     		return redirect()->to('/user_home');
     	}
     	else {
