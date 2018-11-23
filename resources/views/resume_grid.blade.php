@@ -29,6 +29,11 @@
     <div class="container">
         <div class="row justify-content-center d-flex">
 
+            <div class="col-lg-12 text-center" style="margin-bottom: 20px;">
+                <a class="btn btn-info" href="{{ route('bookmarked_resume') }}">Bookmarked Resume</a>
+                <a class="btn btn-info" href="{{ route('retrieved_resume') }}">Retrieved Resume</a>
+            </div>
+
             <div class="col-lg-12" style="margin-bottom: 20px;">
                 <a class="btn btn-info" href="{{ route('resume_advance_search') }}">Advance Search</a>
                 <a class="btn btn-info" href="{{ route('resume_simple_search') }}">Simple Search</a>

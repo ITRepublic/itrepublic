@@ -287,4 +287,12 @@ class resume_controller extends Controller
 
         return view('resume_grid', array('master_highest_qualification' => $master_highest_qualification, 'job_finder_model' => $job_finder_model, 'master_industry' => $master_industry, 'master_tech_type' => $master_tech_type))->withTitle('Resume');
     }
+
+    public function get_bookmarked_resume() {
+        return view('bookmarked_resume')->withTitle('Bookmarked Resume');
+    }
+
+    public function get_retrieved_resume() {
+        return view('retrieved_resume')->withTitle('Retrieved Resume');
+    }
 }

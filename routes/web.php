@@ -88,4 +88,7 @@ Route::get('/logout', 'auth_controller@destroy')->name('logout');
 
     Route::post('/update_detail_user', ['uses' => 'maintain_user_controller@update_detail_user', 'before' => 'csrf'])->name('update_detail_user');
 
+    Route::get('/resume/bookmark', 'resume_controller@get_bookmarked_resume')->name('bookmarked_resume');
+    Route::get('/resume/retrieved', 'resume_controller@get_retrieved_resume')->name('retrieved_resume');
+
 // });
