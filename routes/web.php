@@ -25,6 +25,7 @@ Route::get('/job-seeker/login', 'auth_controller@job_finder_login')->name('job_f
 Route::post('/job-seeker/login', ['uses' => 'auth_controller@job_finder_store', 'before' => 'csrf'])->name('job_finder_login_submit');
 Route::get('/job-seeker/register', 'job_finder_controller@create')->name('create_job_finder');
 Route::post('/job-seeker/register', ['uses' => 'job_finder_controller@store', 'before' => 'csrf'])->name('create_job_finder_submit');
+Route::get('/account/{id}/verification', ['uses' => 'job_finder_controller@verify_account', 'before' => 'csrf'])->name('account_verification');
 
 Route::get('/forgot-password', 'auth_controller@get_forgot_password')->name('forgot_password');
 Route::post('/forgot-password', 'auth_controller@do_forgot_password')->name('reset_password');

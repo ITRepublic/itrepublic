@@ -58,15 +58,35 @@ class job_finder_controller extends Controller
 
         $jf = job_finder_model::create($data);
 
+        if($_SERVER['SERVER_NAME'] == 'localhost') {
+            $link = "http://localhost/itrepublic/account/".$master_user_model->user_id."/verification";
+        }
+        else {
+            $link = "http://itrepublic.id/account/".$master_user_model->user_id."/verification";
+        }
+
         $item = [
             'email' => $request->email_address,
             'name' => $request->name,
-            'account_type' => 'jf'
+            'link' => $link
         ];
-
     	// send email to user
-        // Mail::to($item['email'])->send(new VerifyRegistration($item));
+        Mail::to($request->email_address)->send(new VerifyRegistration($item));
 
         return back()->withSuccess("Thank you for registering. Account verification's link has been sent to your email.");
+    }
+
+    public function verify_account($id) {
+        $user = master_user_model::where('user_id',$id)->update(['status_id' => 'active']);
+        $job_finder = job_finder_model::where('finder_id', $id)->update(['status' => 'active']);
+
+        if($_SERVER['SERVER_NAME'] == 'localhost') {
+            $link = 'http://localhost/itrepublic';
+        }
+        else {
+            $link = 'http://itrepublic.id';
+        }
+
+        return 'Account verified. Thank you. <a href="'.$link.'">redirect back</a>';
     }
 }
