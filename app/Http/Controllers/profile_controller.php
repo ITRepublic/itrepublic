@@ -202,7 +202,7 @@ class profile_controller extends Controller
     	// // send email to user
         // Mail::to($item['email'])->send(new VerifyRegistration($item));
 
-        return redirect('/user_home')->withSuccess("Thank you for registering. Account verification's link has been sent to your email.");
+        return redirect('/')->withSuccess("Thank you for registering. Account verification's link has been sent to your email.");
     }
     public function edit_detail_experience($id)
     {

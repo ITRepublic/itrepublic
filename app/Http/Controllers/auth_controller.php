@@ -93,7 +93,7 @@ class auth_controller extends Controller
             $history['user_id'] = $isAuthenticated->user_id;
             $history['last_login_date'] = Carbon::now()->format('m/d/Y');
             $login_history = login_history::create($history);
-    		return redirect()->to('/user_home');
+    		return redirect()->to('/corporate');
     	}
     	else {
     		return back()->withErrors('Your email & password did not match. Please try again!');
@@ -102,22 +102,8 @@ class auth_controller extends Controller
 
     public function destroy()
     {
-        $group = "";
-        if(session("group_check") == "admin") {
-            $group = "admin";
-        }
-        else {
-            $group = "user";
-        }
-
         session()->flush();
-
-        if($group != 'admin') {
-            return redirect()->to('/');
-        }
-        else {
-            return redirect()->to('/web_admin')->withSuccess('You have been logged out.');
-        }
+        return redirect()->to('/');
     }
 
     public function get_forgot_password() {
