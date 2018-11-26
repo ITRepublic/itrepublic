@@ -28,7 +28,7 @@
             <div class="col-md-8 offset-md-2">@include('error.template')</div>
             <div class="card col-md-8 offset-md-2 no-border-radius">
                 <div class="card-body">
-                    <h3 class="py-1">Job Recruiter</h3> <hr>	
+                    <h3 class="py-1">Corporate</h3> <hr>	
                     <form action="{{ route('create_job_creator_submit') }}" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
 

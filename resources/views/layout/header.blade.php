@@ -32,13 +32,13 @@
                     <li class="menu-has-children"><a href="#">Register</a>
                       <ul>
                         <li><a href="{{ route('create_job_finder') }}">Job Seeker</a></li>
-                        <li><a href="{{ route('create_job_creator') }}">Job Recruiter</a></li>
+                        <li><a href="{{ route('create_job_creator') }}">Corporate</a></li>
                       </ul>
                     </li>
                     <li class="menu-has-children"><a href="#">Login</a>
                       <ul>
                         <li><a href="{{ route('job_finder_login') }}">Job Seeker</a></li>
-                        <li><a href="{{ route('job_creator_login') }}">Job Recruiter</a></li>
+                        <li><a href="{{ route('job_creator_login') }}">Corporate</a></li>
                       </ul>
                     </li>				          				  
                 @endif

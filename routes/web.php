@@ -15,17 +15,19 @@ Route::get('/', 'home_controller@get_home')->name('home');
 Route::get('/about-us', 'about_controller@get_about')->name('about_us');
 Route::get('/blog', 'blog_controller@get_blog')->name('blog');
 Route::get('/blog/detail', 'blog_controller@get_blog_detail')->name('blog_detail');
-Route::get('/contact', 'contact_controller@get_contact')->name('contact');
 
-Route::get('/job-recruiter/login', 'auth_controller@job_creator_login')->name('job_creator_login');
-Route::post('/job-recruiter/login', ['uses' => 'auth_controller@job_creator_store', 'before' => 'csrf'])->name('job_creator_login_submit');
-Route::get('/job-recruiter/register', 'job_creator_controller@create')->name('create_job_creator');
-Route::post('/job-recruiter/register', ['uses' => 'job_creator_controller@store', 'before' => 'csrf'])->name('create_job_creator_submit');
+Route::get('/corporate/login', 'auth_controller@job_creator_login')->name('job_creator_login');
+Route::post('/corporate/login', ['uses' => 'auth_controller@job_creator_store', 'before' => 'csrf'])->name('job_creator_login_submit');
+Route::get('/corporate/register', 'job_creator_controller@create')->name('create_job_creator');
+Route::post('/corporate/register', ['uses' => 'job_creator_controller@store', 'before' => 'csrf'])->name('create_job_creator_submit');
 
 Route::get('/job-seeker/login', 'auth_controller@job_finder_login')->name('job_finder_login');
 Route::post('/job-seeker/login', ['uses' => 'auth_controller@job_finder_store', 'before' => 'csrf'])->name('job_finder_login_submit');
 Route::get('/job-seeker/register', 'job_finder_controller@create')->name('create_job_finder');
 Route::post('/job-seeker/register', ['uses' => 'job_finder_controller@store', 'before' => 'csrf'])->name('create_job_finder_submit');
+
+Route::get('/forgot-password', 'auth_controller@get_forgot_password')->name('forgot_password');
+Route::post('/forgot-password', 'auth_controller@do_forgot_password')->name('reset_password');
 
 //logout
 Route::get('/logout', 'auth_controller@destroy')->name('logout');

@@ -8,6 +8,8 @@ use App\job_finder_model;
 use App\master_user_model;
 use App\login_history;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ResetPassword;
 
 class auth_controller extends Controller
 {
@@ -115,6 +117,45 @@ class auth_controller extends Controller
         }
         else {
             return redirect()->to('/web_admin')->withSuccess('You have been logged out.');
+        }
+    }
+
+    public function get_forgot_password() {
+        return view('forgot_password')->withTitle('Forgot Password');
+    }
+
+    public function do_forgot_password(Request $request) {
+        $this->validate($request, [
+            'email' => 'required'
+        ]);
+
+        $user = master_user_model::where('user_email_address',$request->email)->first();
+        
+        if($user) {
+            if($user->status_id == 'inactive') {
+                return back()->withErrors('Your account is inactive. Please contact our service customer.');
+            }
+            else {
+                if($user->group_id == 'jf') {
+                    // generate new password
+                    $new_password = rand('100000','999999');
+
+                    // update password
+                    master_user_model::where('user_id', $user->user_id)->update(['password' => md5($new_password)]);
+
+                    // send new password to email
+                    $data = ['password' => $new_password];
+                    Mail::to($request->email)->send(new ResetPassword($data));
+
+                    return back()->withSuccess('Your new password has been sent to your e-mail. Please check your e-mail.');
+                }
+                else {
+                    return back()->withErrors('Invalid e-mail address. Please make sure to use your registered e-mail.');
+                }
+            }
+        }
+        else {
+            return back()->withErrors('Invalid e-mail address. Please make sure to use your registered e-mail.');
         }
     }
 }
