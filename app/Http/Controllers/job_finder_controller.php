@@ -47,6 +47,14 @@ class job_finder_controller extends Controller
         $data['phone'] = $request->phone;
         $data['group_id'] = 'jf';
         $data['total_rating'] = '0';
+        $data['university'] = '';
+        $data['highest_qualification'] = '';
+        $data['field_of_study'] = '';
+        $data['grade'] = '';
+        $data['expected_salary'] = '';
+        $data['language'] = '';
+        $data['city_name'] = '';
+        $data['last_salary'] = '';
         $data['profile_pict'] = '';
         $data['cv_file_name'] = '';
 

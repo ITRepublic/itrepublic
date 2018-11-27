@@ -39,7 +39,6 @@
                                 <option value="all">Skills, Position, Title</option>
                                 <option value="skill_name">Skills</option>
                                 <option value="job_position">Position</option>
-                                <option value="job_title">Title</option>
                             </select>
                         </div>
                     </div>
@@ -74,7 +73,7 @@
                         <label class="col-md-2 col-form-label">Year of Experience</label>
                         <div class="col-md-5">
                             <select name="year_of_experience" class="form-control">
-                                <option value="">All</option>
+                                <option value="0">All</option>
                                 <option value="1">1 year</option>
                                 <option value="2">2 years</option>
                                 <option value="3">3 years</option>
@@ -88,8 +87,16 @@
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label">Current Position Level</label>
                         <div class="col-md-5">
-                            <input type="text" name="current_position_level" class="form-control"                            
-                                placeholder="input current position" value="">
+                            <div id="default-selects2">
+                                <select id="current_position_level" name="current_position_level">
+                                    <option value="">Select category</option>
+                                    @foreach ($master_job_position as $master_job_position)
+                                        <option value="{{ $master_job_position->position_id }}">
+                                            {{ $master_job_position->position_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
 
@@ -145,7 +152,7 @@
                         </div>
                     </div>
 
-                    <!-- <div class="form-group row">
+                    <div class="form-group row">
                         <label class="col-md-2 col-form-label">Field of Study</label>
                         <div class="col-md-5">
                             <input type="text" name="field_of_study" class="form-control"                            
@@ -158,7 +165,7 @@
                         <div class="col-md-5">
                             <input type="text" name="grade" class="form-control" placeholder="for example: 3.5">
                         </div>
-                    </div> -->
+                    </div>
 
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label">University</label>
@@ -199,8 +206,8 @@
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label">Age</label>
                         <div class="col-md-5 form-inline">
-                            <input type="text" class="form-control" name="min_age" placeholder="min">
-                            <input type="text" class="form-control" name="max_age" placeholder="max">
+                            <input type="text" class="form-control" name="min_age" placeholder="min" value="0">
+                            <input type="text" class="form-control" name="max_age" placeholder="max" value="0">
                         </div>
                     </div>
 

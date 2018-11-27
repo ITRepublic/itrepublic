@@ -36,7 +36,7 @@
 
         <div class="row justify-content-center d-flex" style="padding: 15px 0">
             <div class="col-lg-12">
-                <form action="">
+                <form method="get" action="{{ route('get_bookmark_search') }}">
                     <div class="form-group">
                         <label for="">Keyword</label>
                         <input type="text" name="search" class="form-control" placeholder="search candidate">
@@ -45,16 +45,19 @@
                         <label for="">Resume Status</label>
                         <select name="status" class="form-control">
                             <option value="">All Status</option>
-                            <option value="Bookmarked">Bookmarked</option>
-                            <option value="Retrieved">Retrieved</option>
+                            <option value="bookmark">Bookmarked</option>
+                            <option value="retrieve">Retrieved</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="">Resumes Bookmarked by</label>
                         <select name="resume_bookmark_by" class="form-control">
                             <option value="">All</option>
-                            <option value="">Mr. Jekardah</option>
-                            <option value="">Mr. TestVacan</option>
+                            @foreach ($job_creator_model as $job_creator_model)
+                                <option value="{{ $job_creator_model->user_id }}">
+                                    {{ $job_creator_model->company_name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
@@ -87,76 +90,40 @@
                         </thead>
 
                         <tbody>
+                        @foreach($job_finder_model as $index => $item)
                             <tr>
                                 <td>1</td>
                                 <td>
-                                    <a href="#resume-detail"><strong>Jordy Jonatan</strong></a> <br>
-                                    25, Male, DKI Jakarta <br> <br>
+                                    <a href="#resume-detail"><strong>{{ $item->full_name }}</strong></a> <br>
+                                    {{ $item->birth_date }}, {{ $item->gender }}, {{ $item->province_name }} <br> <br>
                                     Laravel, Ionic Framework, Angular Js
                                 </td>
                                 <td>
-                                    <p>
-                                        <strong>Senior Developer</strong> <br>
-                                        PT. Mitra Grosir Nusantara
-                                    </p>
-                                    <p>
-                                        <strong>Senior Developer</strong> <br>
-                                        Emetra.io
-                                    </p>
-                                    <p>
-                                        <strong>Web & Mobile Application Developer</strong> <br>
-                                        Freelance
-                                    </p>
+                                    @if ($item->job_position != "")
+                                        @foreach(explode(',', $item->job_position) as $position) 
+                                        <p>
+                                            <strong>- {{ $position }}</strong>
+                                        </p>
+                                        @endforeach
+                                    @endif
+                                    
                                 </td>
                                 <td>
-                                    <strong>Bachelor's Degree / S1</strong> <br>
-                                    Information System <br>
-                                    Bina Nusantara University <br>
+                                    <strong>{{ $item->highest_qualification_name }}</strong> <br>
+                                    of {{ $item->field_of_study }} <br>
+                                    at {{ $item->university }} <br>
                                 </td>
                                 <td>
-                                    <p>Last Active: <br> 24 Nov 2018</p>
+                                    <p>Last Active: <br> {{ $item->last_login_date }}</p>
                                     <hr>
-                                    <p>Bookmarked Date: <br> 22/11/2018 10:53:26</p>
+                                    <p>Bookmarked Date: <br> {{ $item->created_at }}</p>
                                 </td>
                                 <td>Bookmarked</td>
-                                <td><a href="#" class="btn btn-info btn-small">Buy Resume</a></td>
+                                <td><a href="{{ route('retrieve_resume', $item->bookmark_resume_id) }}">
+                                        Buy resume
+                                    </a></td>
                             </tr>
-
-                            <tr>
-                                    <td>2</td>
-                                    <td>
-                                        <a href="#resume-detail"><strong>Joude Jonatan</strong></a> <br>
-                                        25, Male, DKI Jakarta <br> <br>
-                                        Laravel, Ionic Framework, Angular Js
-                                    </td>
-                                    <td>
-                                        <p>
-                                            <strong>Senior Developer</strong> <br>
-                                            PT. Mitra Grosir Nusantara
-                                        </p>
-                                        <p>
-                                            <strong>Senior Developer</strong> <br>
-                                            Emetra.io
-                                        </p>
-                                        <p>
-                                            <strong>Web & Mobile Application Developer</strong> <br>
-                                            Freelance
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <strong>Bachelor's Degree / S1</strong> <br>
-                                        Information System <br>
-                                        Bina Nusantara University <br>
-                                    </td>
-                                    <td>
-                                        <p>Last Active: <br> 24 Nov 2018</p>
-                                        <hr>
-                                        <p>Bookmarked Date: <br> 22/11/2018 10:53:26</p>
-                                        <p>Retrieved Date: <br> 22/11/2018 10:53:26</p>
-                                    </td>
-                                    <td>Retrieved</td>
-                                    <td>-</td>
-                                </tr>
+                        @endforeach
                         </tbody>
 
                         <tfoot>

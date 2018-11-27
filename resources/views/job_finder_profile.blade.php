@@ -100,7 +100,13 @@
                                 </select>
                         </div>
                     </div>
-
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">City</label>
+                        <div class="col-md-7">
+                            <input type="text" name="city" class="form-control" 
+                            placeholder="for example: 'Jakarta','Bandung'" value="{{ $job_finder_model->city_name }}">
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Address</label>
                         <div class="col-md-7">
@@ -134,6 +140,21 @@
                                     @endforeach
                                 </select>
                             </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Field of Study</label>
+                        <div class="col-md-7">
+                            <input type="text" name="field_of_study" class="form-control"                            
+                                placeholder="for example: 'Database','Networking'" value="{{ $job_finder_model->field_of_study }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Grade (GPA)</label>
+                        <div class="col-md-7">
+                            <input type="text" name="grade" class="form-control" 
+                            placeholder="for example: 3.5" value="{{ $job_finder_model->grade }}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -191,9 +212,8 @@
                                 <tr>
                                     <th>Company Name</th>
                                     <th>Period</th>
-                                    <th>Job Title</th>
-                                    <th>Job Description</th>
                                     <th>Job Position</th>
+                                    <th>Job Description</th>                                    
                                     <th>Industry</th>
                                     <th>Specialization</th>
                                 </tr>
@@ -203,9 +223,8 @@
                                     <input type="hidden" id="detail_id[]" name="detail_id[]" value="{{ $job_finder_experience->detail_id }}">
                                     <td>{{ $job_finder_experience->company_name }}</td>
                                     <td>{{ Carbon\Carbon::parse($job_finder_experience->period_from)->format('d M Y') }} - {{ Carbon\Carbon::parse($job_finder_experience->period_to)->format('d M Y') }}</td>
-                                    <td>{{ $job_finder_experience->job_title }}</td>
-                                    <td>{{ $job_finder_experience->job_description }}</td>
-                                    <td>{{ $job_finder_experience->job_position }}</td>
+                                    <td>{{ $job_finder_experience->position_name }}</td>
+                                    <td>{{ $job_finder_experience->job_description }}</td>                                   
                                     <td>{{ $job_finder_experience->industry_name }}</td>
                                     <td>{{ $job_finder_experience->tech_type_name }}</td>
                                     <td>
@@ -259,8 +278,14 @@
 
 <script>
     $(".addExperience").on('click', function() {
-        $('.experience-table').append('<tr class="experience-row"><td><input type="text" name="company_name[]" class="form-control"></td><td><input type="date" name="period_from[]" class="form-control"> until <input type="date" name="period_to[]" class="form-control"></td><td><input type="text" name="job_title[]" class="form-control"></td><td><textarea name="job_description[]" class="form-control"></textarea></td><td><input type="text" name="job_position[]" class="form-control"></td><td><select name="industry[]" class="form-control industry"></select></td><td><select name="specialization[]" class="form-control specialization"></select></td></tr>');
+        $('.experience-table').append('<tr class="experience-row"><td><input type="text" name="company_name[]" class="form-control"></td><td><input type="date" name="period_from[]" class="form-control"> until <input type="date" name="period_to[]" class="form-control"></td><td><select name="job_position[]" class="form-control job_position"></select></td><td><textarea name="job_description[]" class="form-control"></textarea></td><td><select name="industry[]" class="form-control industry"></select></td><td><select name="specialization[]" class="form-control specialization"></select></td></tr>');
         
+        jQuery.get('{{ route("job_positions") }}', function(job_positions) {
+            job_positions.forEach(job_position => {
+                $('.job_position').append('<option value="'+job_position.position_id+'">'+job_position.position_name+'</option>');
+            });
+        });
+
         jQuery.get('{{ route("industries") }}', function(industries) {
             industries.forEach(industry => {
                 $('.industry').append('<option value="'+industry.industry_id+'">'+industry.industry_name+'</option>');
@@ -272,6 +297,7 @@
                 $('.specialization').append('<option value="'+specialization.tech_type_id+'">'+specialization.tech_type_name+'</option>');
             });
         });
+        
     });
 
     $(".removeExperience").on('click', function() {

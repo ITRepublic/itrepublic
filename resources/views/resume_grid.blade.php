@@ -61,9 +61,16 @@
                             <p class="address"><span class="lnr lnr-database"></span> IDR {{ $item->last_salary }}</p>
                             <ul class="btns">
                                 <li>
-                                    <a href="{{ route('resume_detail', $item->finder_id) }}">
-                                        View Detail
+                                @if($item->jc_user_id == '')
+                                    <a href="{{ route('bookmark_resume', $item->finder_id) }}">
+                                        Bookmark
                                     </a>
+                                @else
+                                    <p>
+                                        Bookmarked
+                                    </p>
+                                @endif
+                                    
                                 </li>
                             </ul>
                         </div>

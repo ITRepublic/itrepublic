@@ -54,11 +54,11 @@
                         <div class="col-md-5">
                             <select name="current_position_level" class="form-control">
                                 <option value="">All</option>
-                                <option value="CEO / GM / Director / Senior Manager">CEO / GM / Director / Senior Manager</option>
-                                <option value="Manager / Assistant Manager">Manager / Assistant Manager</option>
-                                <option value="Supervisor / Coordinator">Supervisor / Coordinator</option>
-                                <option value="Staff (non-management & non-supervisor)">Staff (non-management & non-supervisor)</option>
-                                <option value="Fresh Grad / Less than 1 year experience">Fresh Grad / Less than 1 year experience</option>
+                                @foreach ($master_job_position as $master_job_position)
+                                    <option value="{{ $master_job_position->position_id }}">
+                                        {{ $master_job_position->position_name }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -80,10 +80,10 @@
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label">Highest Qualification</label>
                         <div class="col-md-5">
-                            <select name="current_position_level" class="form-control">
+                            <select name="highest_qualification" class="form-control">
                                 <option value="">Choose Highest Qualification</option>
                                 @foreach($master_highest_qualification as $mhq)
-                                <option value="{{ $mhq->highest_qualification_id }}">{{ $mhq->highest_qualification_name }}</option>
+                                    <option value="{{ $mhq->highest_qualification_id }}">{{ $mhq->highest_qualification_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -93,7 +93,7 @@
                         <label class="col-md-2 col-form-label">Residing In</label>
                         <div class="col-md-5">
                         <select id="residing_in" class="form-control" name="residing_in">
-                            <option value="all">Any Indonesia State</option>
+                            <option value="">Any Indonesia State</option>
                             @foreach ($master_province as $mp)
                                 <option value="{{ $mp->province_id }}">
                                     {{ $mp->province_name }}

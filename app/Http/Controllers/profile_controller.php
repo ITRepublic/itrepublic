@@ -11,6 +11,7 @@ use App\master_industry;
 use App\job_finder_experience;
 use App\master_highest_qualification;
 use App\skill_job_finder;
+use App\master_job_position;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Collection;
@@ -31,6 +32,7 @@ class profile_controller extends Controller
         $job_finder_experience = job_finder_experience::join('job_finder','job_finder.finder_id', '=', 'job_finder_experience.finder_id')
         ->join('master_tech_type','master_tech_type.tech_type_id', '=', 'job_finder_experience.tech_type_id')
         ->join('master_industry','master_industry.industry_id', '=', 'job_finder_experience.industry_id')
+        ->leftJoin('master_job_position','master_job_position.position_id', '=', 'job_finder_experience.job_position')
         ->where('job_finder_experience.finder_id', '=', $user_id)
         ->orderBy('job_finder_experience.period_to','DESC')
         ->get();
@@ -44,6 +46,11 @@ class profile_controller extends Controller
     }
 
     // API
+    public function getJobPosition() {
+        $job_positions = master_job_position::orderBy('position_name','asc')->get();
+
+        return response()->json($job_positions);
+    }
     public function getIndustry() {
         $industries = master_industry::orderBy('industry_name','asc')->get();
 
@@ -84,8 +91,11 @@ class profile_controller extends Controller
         $data['gender'] = $request->gender;
         $data['birth_date'] = $request->birth_date;
         $data['province_id'] = $request->province_id;
+        $data['city_name'] = $request->province_id;
 
         $data['highest_qualification'] = $request->highest_qualification;
+        $data['field_of_study'] = $request->field_of_study;
+        $data['grade'] = $request->grade;
         $data['expected_salary'] = $request->expected_salary;
         
         $data['university'] = $request->university;
@@ -139,11 +149,11 @@ class profile_controller extends Controller
                 $period_to[$k] = $to;
                 $k++;
             }
-            $l = 0;
-            foreach($request->get('job_title') as $title) {
-                $job_title[$l] = $title;
-                $l++;
-            }
+            // $l = 0;
+            // foreach($request->get('job_title') as $title) {
+            //     $job_title[$l] = $title;
+            //     $l++;
+            // }
             $m = 0;
             foreach($request->get('job_description') as $description) {
                 $job_description[$m] = $description;
@@ -171,9 +181,8 @@ class profile_controller extends Controller
                 $data_detail['period_from'] = $period_from[$a];
                 
                 $data_detail['period_to'] = $period_to[$a];
-                $data_detail['job_title'] = $job_title[$a];
-                $data_detail['job_description'] = $job_description[$a];
                 $data_detail['job_position'] = $job_position[$a];
+                $data_detail['job_description'] = $job_description[$a];               
                 $data_detail['industry_id'] = $industry[$a];
                 $data_detail['tech_type_id'] = $specialization[$a];
     
@@ -208,15 +217,17 @@ class profile_controller extends Controller
     {
         $master_industry = master_industry::orderBy('industry_name','asc')->get();
         $master_tech_type = master_tech_type::orderBy('tech_type_name','asc')->get();
-        
+        $master_job_position = master_job_position::orderBy('position_name','asc')->get(['position_id','position_name']);   
+
         $job_finder_experience = job_finder_experience::join('job_finder','job_finder.finder_id', '=', 'job_finder_experience.finder_id')
         ->join('master_tech_type','master_tech_type.tech_type_id', '=', 'job_finder_experience.tech_type_id')
         ->join('master_industry','master_industry.industry_id', '=', 'job_finder_experience.industry_id')
+        ->leftJoin('master_job_position','master_job_position.position_id', '=', 'job_finder_experience.job_position')
         ->where('job_finder_experience.detail_id', '=', $id)
         ->get()->first();
         
 
-        return view('detail_experience', array('job_finder_experience' => $job_finder_experience, 'master_industry' => $master_industry, 'master_tech_type' => $master_tech_type))->withTitle("Detail Experience");
+        return view('detail_experience', array('job_finder_experience' => $job_finder_experience, 'master_industry' => $master_industry, 'master_tech_type' => $master_tech_type, 'master_job_position' => $master_job_position))->withTitle("Detail Experience");
 
     }
     public function submit_detail_experience(Request $request) 
@@ -227,9 +238,8 @@ class profile_controller extends Controller
             'company_name'              => 'required',
             'period_from'               => 'required',
             'period_to'                 => 'required',
-            'job_title'                 => 'required',
-            'job_description'           => 'required',
             'job_position'              => 'required',
+            'job_description'           => 'required',       
             'industry_id'               => 'required',
             'tech_type_id'              => 'required'
         ];
@@ -240,9 +250,8 @@ class profile_controller extends Controller
         $data['company_name'] = $request->company_name;
         $data['period_from'] = $request->period_from;
         $data['period_to'] = $request->period_to;
-        $data['job_title'] = $request->job_title;
+        $data['job_position'] = $request->job_position;
         $data['job_description'] = $request->job_description;
-		$data['job_position'] = $request->job_position;
 		$data['industry_id'] = $request->industry_id;
 		$data['tech_type_id'] = $request->tech_type_id;
 

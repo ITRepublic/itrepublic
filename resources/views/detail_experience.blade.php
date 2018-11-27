@@ -45,13 +45,6 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Job Title</label>
-                        <div class="col-md-6">
-                            <input type="text" name="job_title" class="form-control"                            
-                                placeholder="Job Title" value="{{ $job_finder_experience->job_title }}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label class="col-sm-5 col-form-label">Job Description</label>
                         <div class="col-md-6">
                             <textarea rows="3" name="job_description" class="form-control"
@@ -61,14 +54,29 @@
                     <div class="form-group row">
                         <label class="col-sm-5 col-form-label">Job Position</label>
                         <div class="col-md-6">
-                            <input type="text" name="job_position" class="form-control"                            
-                                placeholder="Job Description" value="{{ $job_finder_experience->job_position }}">
+                        <div id="default-selects2">
+                            <select id="job_position" name="job_position">
+                                <option value="">Select category</option>
+                                @foreach ($master_job_position as $master_job_position)
+                                    @if ($master_job_position->position_id == $job_finder_experience->job_position)
+                                        <option selected="selected" value="{{ $master_job_position->position_id }}">
+                                            {{ $master_job_position->position_name }}
+                                        </option>
+                                    @else
+                                        <option value="{{ $master_job_position->position_id }}">
+                                            {{ $master_job_position->position_name }}
+                                        </option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-5 col-form-label">Industry</label>
                         <div class="col-md-6">
-                        <select id="industry_id" name="industry_id">
+                        <div id="default-selects2">
+                            <select id="industry_id" name="industry_id">
                                 <option value="">Select category</option>
                                 @foreach ($master_industry as $master_industry)
                                     @if ($master_industry->industry_id == $job_finder_experience->industry_id)
@@ -81,12 +89,14 @@
                                         </option>
                                     @endif
                                 @endforeach
-                                </select>
+                            </select>
+                        </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-5 col-form-label">Specialization</label>
                         <div class="col-md-6">
+                        <div id="default-selects2">
                         <select id="tech_type_id" name="tech_type_id">
                             <option value="">Select category</option>
                                 @foreach ($master_tech_type as $master_tech_type)
@@ -101,6 +111,7 @@
                                     @endif
                                 @endforeach
                             </select>
+                        </div>
                         </div>
                     </div>
                     <div class="form-group">

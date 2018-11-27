@@ -46,7 +46,7 @@ class auth_controller extends Controller
 
     	if($isAuthenticated) {
             $history['user_id'] = $isAuthenticated->finder_id;
-            $history['last_login_date'] = Carbon::now()->format('m/d/Y');
+            $history['last_login_date'] = Carbon::now();
             $login_history = login_history::create($history);
     		return redirect()->to('/');
     	}
@@ -89,7 +89,7 @@ class auth_controller extends Controller
 
     	if($isAuthenticated) {
             $history['user_id'] = $isAuthenticated->user_id;
-            $history['last_login_date'] = Carbon::now()->format('m/d/Y');
+            $history['last_login_date'] = Carbon::now();
             $login_history = login_history::create($history);
     		return redirect()->to('/user_home');
     	}

@@ -169,9 +169,8 @@
                                 <tr>
                                     <th>Company Name</th>
                                     <th>Period</th>
-                                    <th>Job Title</th>
-                                    <th>Job Description</th>
                                     <th>Job Position</th>
+                                    <th>Job Description</th>                            
                                     <th>Industry</th>
                                     <th>Specialization</th>
                                 </tr>
@@ -180,9 +179,8 @@
                                 <tr>
                                     <td>{{ $job_finder_experience->company_name }}</td>
                                     <td>{{ $job_finder_experience->period_from }} - {{ $job_finder_experience->period_to }}</td>
-                                    <td>{{ $job_finder_experience->job_title }}</td>
-                                    <td>{{ $job_finder_experience->job_description }}</td>
                                     <td>{{ $job_finder_experience->job_position }}</td>
+                                    <td>{{ $job_finder_experience->job_description }}</td>
                                     <td>{{ $job_finder_experience->industry_name }}</td>
                                     <td>{{ $job_finder_experience->tech_type_name }}</td>
                                 </tr>
