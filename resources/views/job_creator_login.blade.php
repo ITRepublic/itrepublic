@@ -28,7 +28,7 @@
             <div class="col-md-8 offset-md-2">@include('error.template')</div>
             <div class="card col-md-8 offset-md-2 no-border-radius">
                 <div class="card-body">
-                    <h3 class="py-3">Job Recruiter</h3> <hr>	
+                    <h3 class="py-3">Corporate</h3> <hr>	
                     <form action="{{ route('job_creator_login_submit') }}" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group row">
@@ -40,7 +40,6 @@
                             <div class="col-md-9"><input type="password" name="password" class="form-control no-border-radius"></div>
                         </div>
                         <div class="form-group">
-                            <p><a href="{{ url('/forgot-password') }}" style="font-size: 12px;">Forgot password?</a></p>
                             <button type="submit" class="btn btn-info no-border-radius">Login</button>
                         </div>
                     </form>

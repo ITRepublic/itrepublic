@@ -19,7 +19,7 @@
                 <a href="{{ route('get_job_per_customer') }}" class="text-white"> Job post</a>
                 <br>
                 <div style="text-align: center; margin: 0 auto; padding: 0 auto;" class="col-md-3">
-                    <a class="nav-link text-white btn btn-lg btn-info" href="{{ url('job_creator_post_register') }}">
+                    <a class="nav-link text-white btn btn-lg btn-info" href="{{ route('job_creator_post_register') }}">
                         Post a job
                     </a>
                 </div>

@@ -40,7 +40,7 @@
                         <div class="col-md-9"><input type="password" name="password" class="form-control no-border-radius"></div>
                     </div>
                     <div class="form-group">
-                        <p><a href="{{ url('/forgot-password') }}" style="font-size: 12px;">Forgot password?</a></p>
+                        <p><a href="{{ route('forgot_password') }}" style="font-size: 12px;">Forgot password?</a></p>
                         <button type="submit" class="btn btn-info no-border-radius">Login</button>
                     </div>
                 </form>
