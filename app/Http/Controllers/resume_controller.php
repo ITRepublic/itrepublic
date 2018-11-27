@@ -342,6 +342,7 @@ class resume_controller extends Controller
         $data['jc_user_id'] = $jc_user_id;
         $data['jf_user_id'] = $id;
         $data['bookmark_status'] = 'bookmark';
+        $data['retrieved_by'] = '';
         bookmark_resume::create($data);
         return redirect('/resume')->withSuccess("Resume has been bookmarked.");
 

@@ -109,7 +109,9 @@
                                     <hr>
                                     <p>Retrieved Date: <br> {{ $item->updated_at }}</p>
                                 </td>
-                                <td>Retrieved</td>
+                                <td><a href="{{ route('resume_detail', $item->finder_id) }}">
+                                        Detail
+                                    </a></td>
                             </tr>
                         @endforeach
                         </tbody>

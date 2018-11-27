@@ -58,7 +58,7 @@ class job_controller extends Controller
         $data['job_status'] = '1';
 
         job_post_list_model::create($data);
-        return redirect()->to('/get_job_per_customer')->withSuccess('Job Registration is done.');
+        return redirect()->to('/job-post')->withSuccess('Job Registration is done.');
     }
     // untuk detail view job
     public function get_detail_job_post($id)
@@ -114,7 +114,7 @@ class job_controller extends Controller
         $data['experience'] = $request->experience;
 
         $jp = job_post_list_model::where('job_post_id',$job_post_id)->update($data);
-        return redirect()->to('/get_job_per_customer')->withSuccess('Job Registration is updated.');
+        return redirect()->to('/job-post')->withSuccess('Job Registration is updated.');
     }
     //for job finder
     public function get_job() {
