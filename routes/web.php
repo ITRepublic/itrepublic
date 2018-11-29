@@ -88,5 +88,7 @@ Route::get('/logout', 'auth_controller@destroy')->name('logout');
     Route::get('/resume/retrieved', 'resume_controller@get_retrieved_resume')->name('retrieved_resume');
     Route::get('/resume/{id}/retrieve', 'resume_controller@retrieve_resume')->name('retrieve_resume');
     Route::get('/resume/retrieve/search', 'resume_controller@get_retrieve_search')->name('get_retrieve_search');
-
+    Route::get('/download_resume/{file}', function ($file='') {
+        return response()->download(storage_path('storage/app/resume/'.$file)); 
+    });
 // });

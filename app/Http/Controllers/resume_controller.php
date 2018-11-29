@@ -15,6 +15,7 @@ use App\skill_job_finder;
 use App\login_history;
 use App\bookmark_resume;
 use App\master_job_position;
+use App\resume_limit;
 use DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -24,12 +25,33 @@ class resume_controller extends Controller
 {
     public function create()
     {
-        $job_finder_model = job_finder_model::join('master_user','master_user.user_id', '=', 'job_finder.finder_id')
-        ->leftJoin('master_province','job_finder.province_id', '=', 'master_province.province_id')
-        ->leftJoin('bookmark_resume','job_finder.finder_id', '=', 'bookmark_resume.jf_user_id')
-        ->select('job_finder.*','bookmark_resume.jf_user_id')
-        ->distinct()
-        ->paginate(25);
+        $job_finder_model = DB::table('job_finder')
+            ->select("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","job_finder.address","master_province.province_name",
+            "job_finder.highest_qualification","master_highest_qualification.highest_qualification_name","job_finder.field_of_study","job_finder.university","lh.last_login_date",
+            "bookmark_resume.jc_user_id","bookmark_resume.created_at","bookmark_resume.bookmark_resume_id"
+            	,DB::raw("GROUP_CONCAT(
+                    DISTINCT CONCAT(`master_tech_type`.tech_type_name,' at ',`job_finder_experience`.`company_name`) 
+                    ORDER BY `job_finder_experience`.`company_name`
+                    SEPARATOR ','
+                  ) as `job_position`"))
+            ->leftjoin("job_finder_experience","job_finder_experience.finder_id","=","job_finder.finder_id")
+            ->leftjoin('master_tech_type','master_tech_type.tech_type_id', '=', 'job_finder_experience.tech_type_id')
+            ->leftjoin("master_job_position","job_finder_experience.job_position","=","master_job_position.position_id")
+            ->leftJoin('master_province','job_finder.province_id', '=', 'master_province.province_id')
+            ->leftJoin('master_highest_qualification','master_highest_qualification.highest_qualification_id', '=', 'job_finder.highest_qualification')
+            ->leftJoin('bookmark_resume','bookmark_resume.jf_user_id', '=', 'job_finder.finder_id')
+            ->join(DB::raw('(
+                SELECT    MAX(last_login_date) last_login_date, user_id
+                FROM      login_history 
+                GROUP BY  user_id
+                ) lh'),function($join)
+                {
+                   $join->on('lh.user_id', '=', 'job_finder.finder_id');
+                })
+            ->groupBy("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","job_finder.address","master_province.province_name",
+            "job_finder.highest_qualification","job_finder.field_of_study","job_finder.university","lh.last_login_date","bookmark_resume.created_at",
+            "master_highest_qualification.highest_qualification_name","bookmark_resume.jc_user_id","bookmark_resume.bookmark_resume_id")
+            ->paginate(25);
         
         return view('resume_grid', compact('job_finder_model'))->withTitle('Resume');
     }
@@ -230,19 +252,42 @@ class resume_controller extends Controller
         $master_province = master_province::get(['province_id','province_name']);
         $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);  
         $master_industry = master_industry::orderBy('industry_name','asc')->get(['industry_id','industry_name']); 
-        $job_finder_model_final = job_finder_model::join('master_user','master_user.user_id', '=', 'job_finder.finder_id')
+        $job_finder_model_final = DB::table('job_finder')
+        ->select("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","job_finder.address","master_province.province_name",
+        "job_finder.highest_qualification","master_highest_qualification.highest_qualification_name","job_finder.field_of_study","job_finder.university","lh.last_login_date",
+        "bookmark_resume.jc_user_id","bookmark_resume.created_at","bookmark_resume.bookmark_resume_id"
+            ,DB::raw("GROUP_CONCAT(
+                DISTINCT CONCAT(`master_tech_type`.tech_type_name,' at ',`job_finder_experience`.`company_name`) 
+                ORDER BY `job_finder_experience`.`company_name`
+                SEPARATOR ','
+              ) as `job_position`"))
+        ->leftjoin("job_finder_experience","job_finder_experience.finder_id","=","job_finder.finder_id")
+        ->leftjoin('master_tech_type','master_tech_type.tech_type_id', '=', 'job_finder_experience.tech_type_id')
+        ->leftjoin("master_job_position","job_finder_experience.job_position","=","master_job_position.position_id")
         ->leftJoin('master_province','job_finder.province_id', '=', 'master_province.province_id')
-        ->leftJoin('bookmark_resume','job_finder.finder_id', '=', 'bookmark_resume.jf_user_id')
+        ->leftJoin('master_highest_qualification','master_highest_qualification.highest_qualification_id', '=', 'job_finder.highest_qualification')
+        ->leftJoin('bookmark_resume','bookmark_resume.jf_user_id', '=', 'job_finder.finder_id')
+        ->join(DB::raw('(
+            SELECT    MAX(last_login_date) last_login_date, user_id
+            FROM      login_history 
+            GROUP BY  user_id
+            ) lh'),function($join)
+            {
+               $join->on('lh.user_id', '=', 'job_finder.finder_id');
+            })
         ->where([
             ['job_finder.province_id', $province_id_condition, $province_id],
             ['job_finder.city_name', 'like', '%' . $city_name . '%'], 
             ['job_finder.gender', $gender_condition, $gender],            
             ['job_finder.language', $language_condition, $language]
             ])
-        ->whereIn('finder_id',$jf_check)
-        ->whereIn('finder_id',$jf_check_active)
-        ->whereIn('finder_id',$jf_check_position)
-        ->whereIn('finder_id',$jf_check_qualifications)
+        ->whereIn('job_finder.finder_id',$jf_check)
+        ->whereIn('job_finder.finder_id',$jf_check_active)
+        ->whereIn('job_finder.finder_id',$jf_check_position)
+        ->whereIn('job_finder.finder_id',$jf_check_qualifications)
+        ->groupBy("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","job_finder.address","master_province.province_name",
+        "job_finder.highest_qualification","job_finder.field_of_study","job_finder.university","lh.last_login_date","bookmark_resume.created_at",
+        "master_highest_qualification.highest_qualification_name","bookmark_resume.jc_user_id","bookmark_resume.bookmark_resume_id")
         ->paginate(25);
         $master_highest_qualification = master_highest_qualification::get(['highest_qualification_id','highest_qualification_name']);
         
@@ -299,7 +344,7 @@ class resume_controller extends Controller
             $jf_check_position_simple = job_finder_model::leftJoin('job_finder_experience','job_finder_experience.finder_id', '=', 'job_finder.finder_id')
             ->where([
                 ['job_finder_experience.job_description', 'like', '%' . $keyword . '%'],
-                ['job_finder_experience.current_position_level', $current_position_level_condition, $current_position_level],
+                ['job_finder_experience.job_position', $current_position_level_condition, $current_position_level],
                 ['job_finder_experience.tech_type_id', $tech_type_id_condition, $tech_type_id]
                 ])
             ->whereYear('period_from', '<=', $dt_simple_year)
@@ -308,7 +353,7 @@ class resume_controller extends Controller
             $jf_check_position_simple = job_finder_model::leftJoin('job_finder_experience','job_finder_experience.finder_id', '=', 'job_finder.finder_id')
             ->where([
                 ['job_finder_experience.job_description', 'like', '%' . $keyword . '%'],
-                ['job_finder_experience.current_position_level', $current_position_level_condition, $current_position_level],
+                ['job_finder_experience.job_position', $current_position_level_condition, $current_position_level],
                 ['job_finder_experience.tech_type_id', $tech_type_id_condition, $tech_type_id]
                 ])
             ->pluck('job_finder.finder_id')->toArray();
@@ -319,14 +364,37 @@ class resume_controller extends Controller
         $master_industry = master_industry::orderBy('industry_name','asc')->get(['industry_id','industry_name']);
         $master_tech_type = master_tech_type::orderBy('tech_type_name','asc')->get(['tech_type_id','tech_type_name']);   
         
-        $job_finder_model_simple = job_finder_model::join('master_user','master_user.user_id', '=', 'job_finder.finder_id')
+        $job_finder_model_simple = DB::table('job_finder')
+        ->select("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","job_finder.address","master_province.province_name",
+        "job_finder.highest_qualification","master_highest_qualification.highest_qualification_name","job_finder.field_of_study","job_finder.university","lh.last_login_date",
+        "bookmark_resume.jc_user_id","bookmark_resume.created_at","bookmark_resume.bookmark_resume_id"
+            ,DB::raw("GROUP_CONCAT(
+                DISTINCT CONCAT(`master_tech_type`.tech_type_name,' at ',`job_finder_experience`.`company_name`) 
+                ORDER BY `job_finder_experience`.`company_name`
+                SEPARATOR ','
+              ) as `job_position`"))
+        ->leftjoin("job_finder_experience","job_finder_experience.finder_id","=","job_finder.finder_id")
+        ->leftjoin('master_tech_type','master_tech_type.tech_type_id', '=', 'job_finder_experience.tech_type_id')
+        ->leftjoin("master_job_position","job_finder_experience.job_position","=","master_job_position.position_id")
         ->leftJoin('master_province','job_finder.province_id', '=', 'master_province.province_id')
-        ->leftJoin('bookmark_resume','job_finder.finder_id', '=', 'bookmark_resume.jf_user_id')
+        ->leftJoin('master_highest_qualification','master_highest_qualification.highest_qualification_id', '=', 'job_finder.highest_qualification')
+        ->leftJoin('bookmark_resume','bookmark_resume.jf_user_id', '=', 'job_finder.finder_id')
+        ->join(DB::raw('(
+            SELECT    MAX(last_login_date) last_login_date, user_id
+            FROM      login_history 
+            GROUP BY  user_id
+            ) lh'),function($join)
+            {
+               $join->on('lh.user_id', '=', 'job_finder.finder_id');
+            })
         ->where([
             ['job_finder.highest_qualification', $highest_qualification_condition, $highest_qualification],
             ['job_finder.province_id', $residing_in_condition, $residing_in]
             ])
-        ->whereIn('finder_id',$jf_check_position_simple)
+        ->whereIn('job_finder.finder_id',$jf_check_position_simple)
+        ->groupBy("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","job_finder.address","master_province.province_name",
+        "job_finder.highest_qualification","job_finder.field_of_study","job_finder.university","lh.last_login_date","bookmark_resume.created_at",
+        "master_highest_qualification.highest_qualification_name","bookmark_resume.jc_user_id","bookmark_resume.bookmark_resume_id")
         ->paginate(25);
 
         $master_highest_qualification = master_highest_qualification::get(['highest_qualification_id','highest_qualification_name']);
@@ -384,7 +452,23 @@ class resume_controller extends Controller
             "job_finder.highest_qualification","job_finder.field_of_study","job_finder.university","lh.last_login_date","bookmark_resume.created_at",
             "master_highest_qualification.highest_qualification_name","bookmark_resume.bookmark_resume_id")
             ->paginate(25);
-        return view('bookmarked_resume', array('job_finder_model' => $job_finder_model_details, 'job_creator_model' => $job_creator_model))->withTitle('Bookmarked Resume');
+
+            $company_id = session()->get('company_id');
+            $current_limit = resume_limit::leftJoin('master_customer','master_customer.company_id', '=', 'resume_limit.company_id')
+            ->leftJoin('master_limit_group','master_limit_group.limit_group_id', '=', 'resume_limit.limit_group_id')
+            ->where('master_customer.company_id', '=', $company_id)
+            ->sum('limit_amount');
+            $current_bookmark = bookmark_resume::join('job_creator','job_creator.user_id', '=', 'bookmark_resume.jc_user_id')
+            ->join('master_customer','job_creator.company_id', '=', 'master_customer.company_id')
+            ->where('master_customer.company_id',$company_id)
+            ->distinct('jf_user_id')
+            ->count('jf_user_id');
+            if($current_limit == ''){
+                $current_limit = 0;
+            }
+            $exceed_resume = $current_limit - $current_bookmark;
+
+        return view('bookmarked_resume', array('exceed_resume' => $exceed_resume, 'job_finder_model' => $job_finder_model_details, 'job_creator_model' => $job_creator_model))->withTitle('Bookmarked Resume');
     }
     public function get_bookmark_search(Request $request) {
         $company_id = session()->get('company_id');
@@ -398,16 +482,16 @@ class resume_controller extends Controller
         $job_finder = job_finder_model::all();
 
         $keyword = $request->search;
-        $status = $request->status;
+        // $status = $request->status;
         $resume_bookmark_by = $request->resume_bookmark_by;
 
         $status_condition = '=';
         $resume_bookmark_by_condition = '=';
 
-        if ($status == ""){
-            $status_condition = 'like';
-            $status = '%' . $status . '%';
-        }
+        // if ($status == ""){
+        //     $status_condition = 'like';
+        //     $status = '%' . $status . '%';
+        // }
 
         if ($resume_bookmark_by == ""){
             $resume_bookmark_by_condition = 'like';
@@ -416,7 +500,7 @@ class resume_controller extends Controller
         $job_finder_model_details = DB::table('job_finder')
             ->select("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","master_province.province_name",
             "job_finder.highest_qualification","master_highest_qualification.highest_qualification_name","job_finder.field_of_study","job_finder.university","lh.last_login_date",
-            "bookmark_resume.created_at","bookmark_resume.bookmark_resume_id"
+            "bookmark_resume.created_at","bookmark_resume.bookmark_resume_id","job_finder.cv_file_name"
             	,DB::raw("GROUP_CONCAT(
                     DISTINCT CONCAT(`master_job_position`.position_name,' at ',`job_finder_experience`.`company_name`) 
                     ORDER BY `job_finder_experience`.`company_name`
@@ -437,23 +521,53 @@ class resume_controller extends Controller
                 })
             ->where([
                 ['full_name', 'like', '%' . $keyword . '%'],
-                ['bookmark_resume.bookmark_status', $status_condition, $status],
+                ['bookmark_resume.bookmark_status', '=', 'bookmark'],
                 ['jc_user_id', $resume_bookmark_by_condition, $resume_bookmark_by]
                 ])
             ->orderBy('full_name','asc')
             ->groupBy("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","master_province.province_name",
             "job_finder.highest_qualification","job_finder.field_of_study","job_finder.university","lh.last_login_date","bookmark_resume.created_at",
-            "master_highest_qualification.highest_qualification_name","bookmark_resume.bookmark_resume_id")
+            "master_highest_qualification.highest_qualification_name","bookmark_resume.bookmark_resume_id","job_finder.cv_file_name")
             ->paginate(25);
-        
-        return view('bookmarked_resume', array('job_finder_model' => $job_finder_model_details, 'job_creator_model' => $job_creator_model))->withTitle('Bookmarked Resume');
+             
+            $company_id = session()->get('company_id');
+            $current_limit = resume_limit::leftJoin('master_customer','master_customer.company_id', '=', 'resume_limit.company_id')
+            ->leftJoin('master_limit_group','master_limit_group.limit_group_id', '=', 'resume_limit.limit_group_id')
+            ->where('master_customer.company_id', '=', $company_id)
+            ->sum('limit_amount');
+            $current_bookmark = bookmark_resume::join('job_creator','job_creator.user_id', '=', 'bookmark_resume.jc_user_id')
+            ->join('master_customer','job_creator.company_id', '=', 'master_customer.company_id')
+            ->where('master_customer.company_id',$company_id)
+            ->distinct('jf_user_id')
+            ->count('jf_user_id');
+            if($current_limit == ''){
+                $current_limit = 0;
+            }
+            $exceed_resume = $current_limit - $current_bookmark;
+        return view('bookmarked_resume', array('exceed_resume' => $exceed_resume, 'job_finder_model' => $job_finder_model_details, 'job_creator_model' => $job_creator_model))->withTitle('Bookmarked Resume');
     }
     public function retrieve_resume($id)
     {
         $retrieved_by = session()->get('user_id');
-        $data['bookmark_status'] = 'retrieve';
-        $data['retrieved_by'] = $retrieved_by;
-        $br = bookmark_resume::where('bookmark_resume_id',$id)->update($data);
+        //check limit per customer
+        $company_id = session()->get('company_id');
+        $current_limit = resume_limit::leftJoin('master_customer','master_customer.company_id', '=', 'resume_limit.company_id')
+        ->leftJoin('master_limit_group','master_limit_group.limit_group_id', '=', 'resume_limit.limit_group_id')
+        ->where('master_customer.company_id', '=', $company_id)
+        ->sum('limit_amount');
+        $current_bookmark = bookmark_resume::join('job_creator','job_creator.user_id', '=', 'bookmark_resume.jc_user_id')
+        ->join('master_customer','job_creator.company_id', '=', 'master_customer.company_id')
+        ->where('master_customer.company_id',$company_id)
+        ->distinct('jf_user_id')
+        ->count('jf_user_id');
+
+        if($current_bookmark <=  $current_limit){
+            $data['bookmark_status'] = 'retrieve';
+            $data['retrieved_by'] = $retrieved_by;
+            $br = bookmark_resume::where('bookmark_resume_id',$id)->update($data);
+        }
+
+        
 
         // send email to company
         // $email = 'Email company';
@@ -478,7 +592,7 @@ class resume_controller extends Controller
         $job_finder_model_details = DB::table('job_finder')
             ->select("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","master_province.province_name",
             "job_finder.highest_qualification","master_highest_qualification.highest_qualification_name","job_finder.field_of_study","job_finder.university","lh.last_login_date",
-            "bookmark_resume.updated_at","bookmark_resume.bookmark_resume_id"
+            "bookmark_resume.updated_at","bookmark_resume.bookmark_resume_id","job_finder.cv_file_name"
             	,DB::raw("GROUP_CONCAT(
                     DISTINCT CONCAT(`master_job_position`.position_name,' at ',`job_finder_experience`.`company_name`) 
                     ORDER BY `job_finder_experience`.`company_name`
@@ -500,10 +614,24 @@ class resume_controller extends Controller
             ->where('bookmark_resume.bookmark_status', '=', 'retrieve')
             ->groupBy("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","master_province.province_name",
             "job_finder.highest_qualification","job_finder.field_of_study","job_finder.university","lh.last_login_date","bookmark_resume.updated_at",
-            "master_highest_qualification.highest_qualification_name","bookmark_resume.bookmark_resume_id")
+            "master_highest_qualification.highest_qualification_name","bookmark_resume.bookmark_resume_id","job_finder.cv_file_name")
             ->paginate(25);
-
-        return view('retrieved_resume', array('job_finder_model' => $job_finder_model_details, 'job_creator_model' => $job_creator_model))->withTitle('Retrieved Resume');
+            
+            $company_id = session()->get('company_id');
+            $current_limit = resume_limit::leftJoin('master_customer','master_customer.company_id', '=', 'resume_limit.company_id')
+            ->leftJoin('master_limit_group','master_limit_group.limit_group_id', '=', 'resume_limit.limit_group_id')
+            ->where('master_customer.company_id', '=', $company_id)
+            ->sum('limit_amount');
+            $current_bookmark = bookmark_resume::join('job_creator','job_creator.user_id', '=', 'bookmark_resume.jc_user_id')
+            ->join('master_customer','job_creator.company_id', '=', 'master_customer.company_id')
+            ->where('master_customer.company_id',$company_id)
+            ->distinct('jf_user_id')
+            ->count('jf_user_id');
+            if($current_limit == ''){
+                $current_limit = 0;
+            }
+            $exceed_resume = $current_limit - $current_bookmark;
+        return view('retrieved_resume', array('exceed_resume' => $exceed_resume, 'job_finder_model' => $job_finder_model_details, 'job_creator_model' => $job_creator_model))->withTitle('Retrieved Resume');
     }
     public function get_retrieve_search(Request $request) {
         $company_id = session()->get('company_id');
@@ -535,7 +663,7 @@ class resume_controller extends Controller
         $job_finder_model_details = DB::table('job_finder')
             ->select("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","master_province.province_name",
             "job_finder.highest_qualification","master_highest_qualification.highest_qualification_name","job_finder.field_of_study","job_finder.university","lh.last_login_date",
-            "bookmark_resume.updated_at","bookmark_resume.bookmark_resume_id"
+            "bookmark_resume.updated_at","bookmark_resume.bookmark_resume_id","job_finder.cv_file_name"
             	,DB::raw("GROUP_CONCAT(
                     DISTINCT CONCAT(`master_job_position`.position_name,' at ',`job_finder_experience`.`company_name`) 
                     ORDER BY `job_finder_experience`.`company_name`
@@ -562,9 +690,23 @@ class resume_controller extends Controller
             ->orderBy('full_name','asc')
             ->groupBy("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","master_province.province_name",
             "job_finder.highest_qualification","job_finder.field_of_study","job_finder.university","lh.last_login_date","bookmark_resume.updated_at",
-            "master_highest_qualification.highest_qualification_name","bookmark_resume.bookmark_resume_id")
+            "master_highest_qualification.highest_qualification_name","bookmark_resume.bookmark_resume_id","job_finder.cv_file_name")
             ->paginate(25);
-        
-        return view('retrieved_resume', array('job_finder_model' => $job_finder_model_details, 'job_creator_model' => $job_creator_model))->withTitle('Bookmarked Resume');
+            
+            $company_id = session()->get('company_id');
+            $current_limit = resume_limit::leftJoin('master_customer','master_customer.company_id', '=', 'resume_limit.company_id')
+            ->leftJoin('master_limit_group','master_limit_group.limit_group_id', '=', 'resume_limit.limit_group_id')
+            ->where('master_customer.company_id', '=', $company_id)
+            ->sum('limit_amount');
+            $current_bookmark = bookmark_resume::join('job_creator','job_creator.user_id', '=', 'bookmark_resume.jc_user_id')
+            ->join('master_customer','job_creator.company_id', '=', 'master_customer.company_id')
+            ->where('master_customer.company_id',$company_id)
+            ->distinct('jf_user_id')
+            ->count('jf_user_id');
+            if($current_limit == ''){
+                $current_limit = 0;
+            }
+            $exceed_resume = $current_limit - $current_bookmark;
+        return view('retrieved_resume', array('exceed_resume' => $exceed_resume, 'job_finder_model' => $job_finder_model_details, 'job_creator_model' => $job_creator_model))->withTitle('Bookmarked Resume');
     }
 }

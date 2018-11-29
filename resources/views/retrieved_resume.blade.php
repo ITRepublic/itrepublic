@@ -60,7 +60,7 @@
         </div>
 
         <div class="row justify-content-center d-flex">
-            <p>You have credits left for retrieving <strong>100</strong> resumes</p>
+            <p>You have credits left for retrieving <strong>{{ $exceed_resume }}</strong> resumes</p>
         </div>
 
         <div class="row justify-content-center d-flex">
@@ -111,7 +111,8 @@
                                     <p>Retrieved Date: <br> {{ $item->updated_at }}</p>
                                 </td>
                                 <td>Retrieved</td>
-                                <td><a href="#" class="btn btn-info btn-sm">Download</a></td>
+                                
+                                <td><a href="/download_resume/{{ substr($item->cv_file_name,19) }}" download="{{ substr($item->cv_file_name,19) }}" class="btn btn-info btn-sm">Download</a></td>
                             </tr>
                         @endforeach
                         </tbody>

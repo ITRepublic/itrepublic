@@ -173,7 +173,25 @@
                             <textarea rows="3" name="summary" class="form-control no-border-radius">{{ $master_customer->summary }}</textarea>
                         </div>
                     </div>
-                    
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Resume Limit</label>
+                        <div class="col-md-7">
+                        <select id="limit_group" name="limit_group">
+                                <option value="0">Select amount</option>
+                                @foreach ($master_limit_group as $master_limit_group)
+                                    <option value="{{ $master_limit_group->limit_group_id }}">
+                                        {{ $master_limit_group->limit_amount }} at {{ $master_limit_group->limit_group_price }}
+                                    </option>
+                                @endforeach
+                                </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Current Resume Limit</label>
+                        <div class="col-md-7">
+                            {{ $current_limit }}
+                        </div>
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-info">Update</button>
                     </div>

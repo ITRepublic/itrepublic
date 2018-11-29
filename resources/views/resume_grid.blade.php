@@ -57,11 +57,17 @@
                         <tr>
                             <td>{{ $job_finder_model->firstItem() + $index }}</td>
                             <td>
-                                <a href="{{ route('resume_detail', $item->finder_id) }}"><strong>{{ $item->full_name }}</strong></a> <br>
+                                <strong>{{ $item->full_name }}</strong><br>
                                 {{ $item->birth_date }}, {{ $item->gender }}, {{ $item->province_name }} <br> <br>
                             </td>
                             <td>
-                                {{ $item->tech_type_name }} <br> <br>
+                                    @if ($item->job_position != "")
+                                        @foreach(explode(',', $item->job_position) as $position) 
+                                        <p>
+                                            <strong>- {{ $position }}</strong>
+                                        </p>
+                                        @endforeach
+                                    @endif <br> <br>
                                 {{ $item->address }} at {{ $item->province_name }}
                             </td>
                             <td>

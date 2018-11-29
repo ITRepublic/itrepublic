@@ -41,14 +41,14 @@
                         <label for="">Keyword</label>
                         <input type="text" name="search" class="form-control" placeholder="search candidate">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="">Resume Status</label>
                         <select name="status" class="form-control">
                             <option value="">All Status</option>
                             <option value="bookmark">Bookmarked</option>
                             <option value="retrieve">Retrieved</option>
                         </select>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="">Resumes Bookmarked by</label>
                         <select name="resume_bookmark_by" class="form-control">
@@ -68,7 +68,7 @@
         </div>
 
         <div class="row justify-content-center d-flex">
-            <p>You have credits left for retrieving <strong>100</strong> resumes</p>
+            <p>You have credits left for retrieving <strong>{{ $exceed_resume }}</strong> resumes</p>
         </div>
 
         <div class="row justify-content-center d-flex">

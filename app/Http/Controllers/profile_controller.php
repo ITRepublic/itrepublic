@@ -110,12 +110,26 @@ class profile_controller extends Controller
             'name' => $request->name,
             'account_type' => 'jf'
         ];
+
+        $check_jf_cv_photo = job_finder_model::join('master_user','job_finder.finder_id', '=', 'master_user.user_id')
+        ->where('job_finder.finder_id', '=', $user_id)
+        ->first();
+
+        $checking_cv_file_name = $check_jf_cv_photo->cv_file_name;
+        $checking_profile_pict = $check_jf_cv_photo->profile_pict;
         if ($request->hasFile('cv_file_name')) {
     		// will store in folder storage/app/image
     		$path = 'storage/app/'.$request->file('cv_file_name')->store('resume');
         }
-        else {
-            $path = "";
+        else{
+            if($checking_cv_file_name ==''){
+                $path = "";
+            }
+            else
+            {
+                $path = $checking_cv_file_name;
+            }
+            
         }
 
         if ($request->hasFile('profile_pict')) {
@@ -123,7 +137,13 @@ class profile_controller extends Controller
     		$pathprof = 'storage/app/'.$request->file('profile_pict')->store('image');
         }
         else {
-            $pathprof = "";
+            if($checking_profile_pict ==''){
+                $pathprof = "";
+            }
+            else
+            {
+                $pathprof = $checking_profile_pict;
+            }
         }
 
         $data['profile_pict'] = $pathprof;

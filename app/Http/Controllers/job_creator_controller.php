@@ -9,6 +9,8 @@ use App\master_user_model;
 use App\master_customer;
 use App\master_province;
 use App\master_industry;
+use App\resume_limit;
+use App\master_limit_group;
 
 class job_creator_controller extends Controller
 {
@@ -88,12 +90,20 @@ class job_creator_controller extends Controller
 
         $master_province = master_province::get(['province_id','province_name']);
         $master_industry = master_industry::get(['industry_id','industry_name']);
+        $master_limit_group = master_limit_group::get(['limit_group_id','limit_amount','limit_group_price']);
+        
         $company_id = session()->get('company_id');
         $master_customer = master_customer::leftJoin('master_industry','master_customer.industry_id', '=', 'master_industry.industry_id')
         ->leftJoin('master_province','master_customer.province_id', '=', 'master_province.province_id')
         ->where('master_customer.company_id', '=', $company_id)
         ->get()->first();
-        return view('company_profile', array('master_customer' => $master_customer, 'master_province' => $master_province, 'master_industry' => $master_industry))->withTitle('Company Profile');
+
+        $current_limit = resume_limit::leftJoin('master_customer','master_customer.company_id', '=', 'resume_limit.company_id')
+        ->leftJoin('master_limit_group','master_limit_group.limit_group_id', '=', 'resume_limit.limit_group_id')
+        ->where('master_customer.company_id', '=', $company_id)
+        ->sum('limit_amount');
+
+        return view('company_profile', array('master_customer' => $master_customer, 'master_province' => $master_province, 'master_industry' => $master_industry, 'master_limit_group' => $master_limit_group, 'current_limit' => $current_limit))->withTitle('Company Profile');
     }
     public function submit_company_profile(Request $request) 
     {
@@ -104,7 +114,6 @@ class job_creator_controller extends Controller
             'phone'                     => 'required|numeric',
             'summary'                   => 'required',
             'authorized_person_name'    => 'required',
-            'logo'                      => 'required',
             'province_id'               => 'required',
             'address'                   => 'required',
             'total_employee'            => 'required',
@@ -115,7 +124,15 @@ class job_creator_controller extends Controller
             'benefit_details'           => 'required',
             'language'                  => 'required'
     	];
-    	$this->validate($request, $rules);
+        $this->validate($request, $rules);
+        
+        if ($request->hasFile('logo')) {
+    		// will store in folder storage/app/image
+    		$logo_path = 'storage/app/'.$request->file('logo')->store('company_logo');
+        }
+        else {
+            $logo_path = "";
+        }
 
         // store to DB
         $data['email_address'] = $request->email_address;
@@ -123,7 +140,7 @@ class job_creator_controller extends Controller
         $data['phone'] = $request->phone;
         $data['summary'] = $request->summary;
         $data['authorized_person_name'] = $request->authorized_person_name;
-		$data['logo'] = $request->logo;
+		$data['logo'] = $logo_path;
 		$data['province_id'] = $request->province_id;
 		$data['address'] = $request->address;
 		$data['total_employee'] = $request->total_employee;
@@ -136,6 +153,12 @@ class job_creator_controller extends Controller
         $data['status_id'] = '9';
 
         $mcp = master_customer::where('company_id',$company_id)->update($data);
+
+        //amount limit resume
+        $data_limit['company_id'] = $company_id;
+        $data_limit['limit_group_id'] = $request->limit_group;
+
+        resume_limit::create($data_limit);
 
         $item = [
             'email' => $request->email_address,

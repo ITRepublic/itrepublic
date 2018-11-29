@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2018 at 04:13 PM
+-- Generation Time: Nov 29, 2018 at 04:18 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -43,10 +43,8 @@ CREATE TABLE `bookmark_resume` (
 --
 
 INSERT INTO `bookmark_resume` (`bookmark_resume_id`, `jc_user_id`, `jf_user_id`, `retrieved_by`, `bookmark_status`, `created_at`, `updated_at`) VALUES
-(1, 1, 6, '1', 'retrieve', '2018-11-25 13:51:19', '2018-11-26 13:54:15'),
-(5, 1, 7, '0', 'bookmark', '2018-11-25 15:18:38', '2018-11-25 15:18:38'),
-(6, 1, 16, '13', 'retrieve', '2018-11-25 16:38:50', '2018-11-26 11:48:50'),
-(7, 1, 21, '1', 'retrieve', '2018-11-27 15:09:43', '2018-11-27 15:10:02');
+(7, 1, 21, '1', 'retrieve', '2018-11-27 15:09:43', '2018-11-27 15:10:02'),
+(8, 1, 22, '1', 'retrieve', '2018-11-29 14:58:18', '2018-11-29 15:04:14');
 
 -- --------------------------------------------------------
 
@@ -176,7 +174,7 @@ CREATE TABLE `job_finder` (
 --
 
 INSERT INTO `job_finder` (`finder_id`, `email_address`, `full_name`, `address`, `phone`, `gender`, `birth_date`, `province_id`, `city_name`, `cv_file_name`, `university`, `highest_qualification`, `field_of_study`, `grade`, `expected_salary`, `language`, `last_salary`, `group_id`, `total_rating`, `status`, `profile_pict`, `updated_at`, `created_at`) VALUES
-(21, '123@gmail.com', 'user 123', 'Jalan Bambu Betung 3 no. 18', '123213212131312', 'Male', '2018-11-03', '17', '17', 'storage/app/resume/6b0tonLBmM5y60YUIitaixrk7r2qV97lz8AT4isL.jpeg', 'Binus', '2', 'IT', '3.00', '15000000', 'English', '12300000', 'jf', '0', 'inactive', 'storage/app/image/kdAtamCSDEaOjM9OZkMlSJGmw85K39Asn8eWJmfs.jpeg', '2018-11-27 15:05:04', '2018-11-27 14:59:24'),
+(21, '123@gmail.com', 'user 123', 'Jalan Bambu Betung 3 no. 18', '123213212131312', 'Male', '2018-11-03', '17', '17', 'storage/app/resume/S92DUxV8Li8fchokEqd4ayCNUSquHvkZ5bqclbJk.docx', 'Binus', '2', 'IT', '3.00', '15000000', 'English', '12300000', 'jf', '0', 'inactive', 'storage/app/image/UEKPCsXltyWILCnws7G2shba9fHzhVc1mXnJfcGP.jpeg', '2018-11-29 13:59:28', '2018-11-27 14:59:24'),
 (22, '234@gmail.com', 'user 234', 'Kalteng', '123213212131312', 'Female', '2018-11-17', '13', '', '', '', '', '', '', '', '', '', 'jf', '0', 'inactive', '', '2018-11-27 15:00:24', '2018-11-27 15:00:24');
 
 -- --------------------------------------------------------
@@ -434,7 +432,16 @@ CREATE TABLE `login_history` (
 
 INSERT INTO `login_history` (`login_history_id`, `user_id`, `last_login_date`, `updated_at`, `created_at`) VALUES
 (23, 21, '2018-11-27 15:02:43', '2018-11-27 15:02:43', '2018-11-27 15:02:43'),
-(24, 1, '2018-11-27 15:05:32', '2018-11-27 15:05:32', '2018-11-27 15:05:32');
+(24, 1, '2018-11-27 15:05:32', '2018-11-27 15:05:32', '2018-11-27 15:05:32'),
+(25, 1, '2018-11-28 23:11:08', '2018-11-28 23:11:08', '2018-11-28 23:11:08'),
+(26, 1, '2018-11-29 13:16:54', '2018-11-29 13:16:54', '2018-11-29 13:16:54'),
+(27, 22, '2018-11-29 13:28:38', '2018-11-29 13:28:38', '2018-11-29 13:28:38'),
+(28, 1, '2018-11-29 13:28:50', '2018-11-29 13:28:50', '2018-11-29 13:28:50'),
+(29, 21, '2018-11-29 13:45:01', '2018-11-29 13:45:01', '2018-11-29 13:45:01'),
+(30, 21, '2018-11-29 13:49:37', '2018-11-29 13:49:37', '2018-11-29 13:49:37'),
+(31, 1, '2018-11-29 14:31:27', '2018-11-29 14:31:27', '2018-11-29 14:31:27'),
+(32, 22, '2018-11-29 15:04:44', '2018-11-29 15:04:44', '2018-11-29 15:04:44'),
+(33, 1, '2018-11-29 15:05:10', '2018-11-29 15:05:10', '2018-11-29 15:05:10');
 
 -- --------------------------------------------------------
 
@@ -490,7 +497,7 @@ CREATE TABLE `master_customer` (
 --
 
 INSERT INTO `master_customer` (`company_id`, `email_address`, `company_name`, `phone`, `authorized_person_name`, `logo`, `province_id`, `address`, `total_employee`, `apply_process_time`, `industry_id`, `website`, `working_hours`, `benefit_details`, `language`, `summary`, `status_id`, `updated_at`, `created_at`) VALUES
-(1, '123@gmail.com', 'Jekardah', '123456', '', '', '', '', '', '', '', '', '', '', '', 'cekidot', 9, '2018-09-26 15:58:28', '2018-09-26 15:58:28'),
+(1, '123@gmail.com', 'Jekardah', '123456', 'Dasar Biadab', '', '1', 'Aceh', '123', '12', '1', 'www.123.com', '12', 'Asuransi', 'English', 'cekidot 1', 9, '2018-11-28 23:54:56', '2018-09-26 15:58:28'),
 (2, 'testvacan@yahoo.com', 'Jekardah', '123456', '', '', '', '', '', '', '', '', '', '', '', 'cekidot', 9, '2018-09-26 15:59:34', '2018-09-26 15:59:34'),
 (3, 'perusahaan1@yahoo.com', 'Coba Cobas', '123456', 'Dasar Biadab', 'D:\\xampp\\tmp\\php2B38.tmp', '8', 'Jakartas', '123', '12', '2', 'www.123.com', '12', 'asuransi', 'English', 'Perusahaan bergerak di bidang jasas', 9, '2018-11-16 13:34:40', '2018-11-04 16:59:08'),
 (4, 'jogress@gmail.com', 'Ngomong Apa kamutuh', '123456', 'Dasar Biadab', 'storage/app/logo/9YuV528UT66kQ4ddsrLviBxGOMkeDytgmWkjSio3.jpeg', '1', 'Coba kardus', '123', '12', '1', 'www.123.com', '12', 'Asuransi', 'Indonesia', '2werre2wr', 9, '2018-11-20 09:57:35', '2018-11-20 09:57:35'),
@@ -579,6 +586,28 @@ INSERT INTO `master_job_position` (`position_id`, `position_name`) VALUES
 (5, 'Network Architect'),
 (6, 'Internet & Technology Architect'),
 (7, 'IT Manager');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `master_limit_group`
+--
+
+CREATE TABLE `master_limit_group` (
+  `limit_group_id` int(11) NOT NULL,
+  `limit_amount` int(11) NOT NULL,
+  `limit_group_price` varchar(255) NOT NULL,
+  `created_at` varchar(30) NOT NULL,
+  `updated_at` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `master_limit_group`
+--
+
+INSERT INTO `master_limit_group` (`limit_group_id`, `limit_amount`, `limit_group_price`, `created_at`, `updated_at`) VALUES
+(1, 50, '500,000 IDR', '2018-10-17 15:31:52', '2018-10-17 15:31:52'),
+(2, 100, '1,000,000 IDR', '2018-10-17 15:31:52', '2018-10-17 15:31:52');
 
 -- --------------------------------------------------------
 
@@ -766,6 +795,29 @@ INSERT INTO `master_user` (`user_id`, `user_email_address`, `username`, `passwor
 (14, 'orgil@yahoo.com', 'Orang Gila', 'e10adc3949ba59abbe56e057f20f883e', 'jc', 'active', '', ''),
 (21, '123@gmail.com', '123@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'jf', 'active', '2018-11-27 14:59:24', '2018-11-27 14:59:24'),
 (22, '234@gmail.com', '234@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'jf', 'active', '2018-11-27 15:00:24', '2018-11-27 15:00:24');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `resume_limit`
+--
+
+CREATE TABLE `resume_limit` (
+  `resume_limit_id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL,
+  `limit_group_id` int(11) NOT NULL,
+  `status` enum('active','inactive') NOT NULL DEFAULT 'inactive',
+  `created_at` varchar(30) NOT NULL,
+  `updated_at` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `resume_limit`
+--
+
+INSERT INTO `resume_limit` (`resume_limit_id`, `company_id`, `limit_group_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'active', '2018-11-28 23:54:24', '2018-11-28 23:54:24'),
+(2, 1, 2, 'inactive', '2018-11-28 23:54:56', '2018-11-28 23:54:56');
 
 -- --------------------------------------------------------
 
@@ -1001,6 +1053,12 @@ ALTER TABLE `master_job_position`
   ADD PRIMARY KEY (`position_id`);
 
 --
+-- Indexes for table `master_limit_group`
+--
+ALTER TABLE `master_limit_group`
+  ADD PRIMARY KEY (`limit_group_id`);
+
+--
 -- Indexes for table `master_menu`
 --
 ALTER TABLE `master_menu`
@@ -1038,6 +1096,12 @@ ALTER TABLE `master_user`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- Indexes for table `resume_limit`
+--
+ALTER TABLE `resume_limit`
+  ADD PRIMARY KEY (`resume_limit_id`);
+
+--
 -- Indexes for table `skill_job_finder`
 --
 ALTER TABLE `skill_job_finder`
@@ -1070,7 +1134,7 @@ ALTER TABLE `user_menu`
 -- AUTO_INCREMENT for table `bookmark_resume`
 --
 ALTER TABLE `bookmark_resume`
-  MODIFY `bookmark_resume_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `bookmark_resume_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `chat`
@@ -1160,7 +1224,7 @@ ALTER TABLE `job_user_rating`
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `login_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `login_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `master_admin`
@@ -1199,6 +1263,12 @@ ALTER TABLE `master_job_position`
   MODIFY `position_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `master_limit_group`
+--
+ALTER TABLE `master_limit_group`
+  MODIFY `limit_group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `master_payment_type`
 --
 ALTER TABLE `master_payment_type`
@@ -1227,6 +1297,12 @@ ALTER TABLE `master_tech_type`
 --
 ALTER TABLE `master_user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `resume_limit`
+--
+ALTER TABLE `resume_limit`
+  MODIFY `resume_limit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `skill_job_finder`
