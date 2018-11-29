@@ -9,6 +9,7 @@ use App\master_customer;
 use App\job_post_search;
 use App\job_finder_model;
 use App\master_tech_type;
+use App\master_province;
 
 class job_controller extends Controller
 {
@@ -118,12 +119,32 @@ class job_controller extends Controller
     }
     //for job finder
     public function get_job() {
+        $master_province = master_province::orderBy('province_name','asc')->get(['province_id','province_name']);
+        $master_tech_type = master_tech_type::orderBy('tech_type_name','asc')->get(['tech_type_id','tech_type_name']); 
+
         $job_post_list_model = job_post_list_model::join('job_creator','job_post_list.jc_user_id', '=', 'job_creator.user_id')
         ->join('master_customer','job_creator.company_id', '=', 'master_customer.company_id')
         ->where('job_status', '=', '1')
         ->get();
 
-        return view('job',array('job_post_list_model' => $job_post_list_model))->withTitle('Job Post');
+        foreach($master_province as $p) {
+            $totalJobPostByProvince[$p->province_id] = job_post_list_model::join('job_creator','job_post_list.jc_user_id', '=', 'job_creator.user_id')
+            ->join('master_customer','job_creator.company_id', '=', 'master_customer.company_id')
+            ->where('master_customer.province_id', $p->province_id)
+            ->where('job_status','1')
+            ->count();
+        }
+
+        foreach($master_tech_type as $mtt) {
+            $totalJobPostByCategory[$mtt->tech_type_id] = job_post_list_model::join('job_creator','job_post_list.jc_user_id', '=', 'job_creator.user_id')
+            ->join('master_customer','job_creator.company_id', '=', 'master_customer.company_id')
+            ->join('master_tech_type','job_post_list.category_id','=','master_tech_type.tech_type_id')
+            ->where('master_tech_type.tech_type_id',$mtt->tech_type_id)
+            ->where('job_status','1')
+            ->count();
+        }
+
+        return view('job',compact('job_post_list_model','master_province','master_tech_type','totalJobPostByProvince','totalJobPostByCategory'))->withTitle('Job Post');
     
     }
 

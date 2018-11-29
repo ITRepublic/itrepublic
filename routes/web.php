@@ -35,7 +35,7 @@ Route::get('/logout', 'auth_controller@destroy')->name('logout');
 
 // Middleware check if no session redirect to login page
 // Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
-    Route::post('/search-result', ['uses' => 'home_controller@advance_search_home', 'before' => 'csrf'])->name('advance_search_home');
+    Route::get('/job-list/search', ['uses' => 'home_controller@advance_search_home', 'before' => 'csrf'])->name('advance_search_home');
     
     // FOR JOB SEEKER
     Route::get('/profile', 'profile_controller@create')->name('profile');
