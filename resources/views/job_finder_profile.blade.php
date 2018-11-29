@@ -145,8 +145,12 @@
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Field of Study</label>
                         <div class="col-md-7">
-                            <input type="text" name="field_of_study" class="form-control"                            
-                                placeholder="for example: 'Database','Networking'" value="{{ $job_finder_model->field_of_study }}">
+                            {{-- <input type="text" name="field_of_study" class="form-control"                            
+                                placeholder="for example: 'Database','Networking'" value="{{ $job_finder_model->field_of_study }}"> --}}
+                            <select name="field_of_study" class="form-control">
+                                <option value="IT" @if($job_finder_model->field_of_study == 'IT') selected @endif>Information Technology / Computer Science</option>
+                                <option value="IS" @if($job_finder_model->field_of_study == 'IS') selected @endif>Information System / Management Information</option>
+                            </select>
                         </div>
                     </div>
 
@@ -162,14 +166,9 @@
                         <div class="col-md-7">
                         <div id="default-selects2">
                                 <select id="language" name="language">
-                                    <option value="">All Category</option>
-                                    @if ($job_finder_model->language == 'Indonesia')                                        
-                                        <option selected="selected" value="Indonesia">Indonesia</option>
-                                        <option value="English">English</option>
-                                    @else
-                                        <option value="Indonesia">Indonesia</option>
-                                        <option selected="selected" value="English">English</option>
-                                    @endif
+                                    <option value="Indonesia" @if($job_finder_model->language == 'Indonesia') selected @endif>Indonesia</option>
+                                    <option value="English" @if($job_finder_model->language == 'English') selected @endif>English</option>
+                                    <option value="Others" @if($job_finder_model->language == 'Others') selected @endif>Others</option>
                                 </select>
                             </div>	
                         </div>
