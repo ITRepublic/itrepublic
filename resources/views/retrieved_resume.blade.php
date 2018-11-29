@@ -77,17 +77,18 @@
                                 <th>Highest Education</th>
                                 <th>Last Active</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
                         @foreach($job_finder_model as $index => $item)
                             <tr>
-                                <td>1</td>
+                                <td>{{ $job_finder_model->firstItem() + $index }}</td>
                                 <td>
-                                    <a href="#resume-detail"><strong>{{ $item->full_name }}</strong></a> <br>
+                                    <a href="{{ route('resume_detail', $item->finder_id) }}"><strong>{{ $item->full_name }}</strong></a> <br>
                                     {{ $item->birth_date }}, {{ $item->gender }}, {{ $item->province_name }} <br> <br>
-                                    Laravel, Ionic Framework, Angular Js
+                                    {{-- Laravel, Ionic Framework, Angular Js --}}
                                 </td>
                                 <td>
                                     @if ($item->job_position != "")
@@ -101,23 +102,22 @@
                                 </td>
                                 <td>
                                     <strong>{{ $item->highest_qualification_name }}</strong> <br>
-                                    of {{ $item->field_of_study }} <br>
-                                    at {{ $item->university }} <br>
+                                    {{ $item->field_of_study }} <br>
+                                    {{ $item->university }} <br>
                                 </td>
                                 <td>
                                     <p>Last Active: <br> {{ $item->last_login_date }}</p>
                                     <hr>
                                     <p>Retrieved Date: <br> {{ $item->updated_at }}</p>
                                 </td>
-                                <td><a href="{{ route('resume_detail', $item->finder_id) }}">
-                                        Detail
-                                    </a></td>
+                                <td>Retrieved</td>
+                                <td><a href="#" class="btn btn-info btn-sm">Download</a></td>
                             </tr>
                         @endforeach
                         </tbody>
 
                         <tfoot>
-                            // pagination
+                            {{ $job_finder_model->appends($_GET)->links() }}
                         </tfoot>
 
                     </table>

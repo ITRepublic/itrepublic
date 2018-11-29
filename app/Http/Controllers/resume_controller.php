@@ -20,7 +20,6 @@ use Carbon\Carbon;
 
 class resume_controller extends Controller
 {
-    //
     public function create()
     {
         $job_finder_model = job_finder_model::join('master_user','master_user.user_id', '=', 'job_finder.finder_id')
@@ -28,7 +27,7 @@ class resume_controller extends Controller
         ->leftJoin('bookmark_resume','job_finder.finder_id', '=', 'bookmark_resume.jf_user_id')
         ->select('job_finder.*','bookmark_resume.jf_user_id')
         ->distinct()
-        ->get();
+        ->paginate(25);
         $master_province = master_province::orderBy('province_name','asc')->get(['province_id','province_name']);
         $master_tech_type = master_tech_type::orderBy('tech_type_name','asc')->get(['tech_type_id','tech_type_name']);   
         $master_highest_qualification = master_highest_qualification::get(['highest_qualification_id','highest_qualification_name']);
@@ -245,7 +244,7 @@ class resume_controller extends Controller
         ->whereIn('finder_id',$jf_check_active)
         ->whereIn('finder_id',$jf_check_position)
         ->whereIn('finder_id',$jf_check_qualifications)
-        ->get();
+        ->paginate(25);
         $master_highest_qualification = master_highest_qualification::get(['highest_qualification_id','highest_qualification_name']);
         
         return view('resume_grid', array('master_highest_qualification' => $master_highest_qualification, 'job_finder_model' => $job_finder_model_final, 'master_province' => $master_province, 'master_tech_type' => $master_tech_type, 'master_industry' => $master_industry))->withTitle('Resume');
@@ -329,7 +328,7 @@ class resume_controller extends Controller
             ['job_finder.province_id', $residing_in_condition, $residing_in]
             ])
         ->whereIn('finder_id',$jf_check_position_simple)
-        ->get();
+        ->paginate(25);
 
         $master_highest_qualification = master_highest_qualification::get(['highest_qualification_id','highest_qualification_name']);
 
@@ -337,7 +336,6 @@ class resume_controller extends Controller
     }
     public function bookmark_resume($id)
     {
-        
         $jc_user_id = session()->get('user_id');
         $data['jc_user_id'] = $jc_user_id;
         $data['jf_user_id'] = $id;
@@ -386,7 +384,7 @@ class resume_controller extends Controller
             ->groupBy("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","master_province.province_name",
             "job_finder.highest_qualification","job_finder.field_of_study","job_finder.university","lh.last_login_date","bookmark_resume.created_at",
             "master_highest_qualification.highest_qualification_name","bookmark_resume.bookmark_resume_id")
-            ->get();
+            ->paginate(25);
         return view('bookmarked_resume', array('job_finder_model' => $job_finder_model_details, 'job_creator_model' => $job_creator_model))->withTitle('Bookmarked Resume');
     }
     public function get_bookmark_search(Request $request) {
@@ -447,7 +445,7 @@ class resume_controller extends Controller
             ->groupBy("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","master_province.province_name",
             "job_finder.highest_qualification","job_finder.field_of_study","job_finder.university","lh.last_login_date","bookmark_resume.created_at",
             "master_highest_qualification.highest_qualification_name","bookmark_resume.bookmark_resume_id")
-            ->get();
+            ->paginate(25);
         
         return view('bookmarked_resume', array('job_finder_model' => $job_finder_model_details, 'job_creator_model' => $job_creator_model))->withTitle('Bookmarked Resume');
     }
@@ -499,7 +497,7 @@ class resume_controller extends Controller
             ->groupBy("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","master_province.province_name",
             "job_finder.highest_qualification","job_finder.field_of_study","job_finder.university","lh.last_login_date","bookmark_resume.updated_at",
             "master_highest_qualification.highest_qualification_name","bookmark_resume.bookmark_resume_id")
-            ->get();
+            ->paginate(25);
         return view('retrieved_resume', array('job_finder_model' => $job_finder_model_details, 'job_creator_model' => $job_creator_model))->withTitle('Retrieved Resume');
     }
     public function get_retrieve_search(Request $request) {
@@ -560,7 +558,7 @@ class resume_controller extends Controller
             ->groupBy("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","master_province.province_name",
             "job_finder.highest_qualification","job_finder.field_of_study","job_finder.university","lh.last_login_date","bookmark_resume.updated_at",
             "master_highest_qualification.highest_qualification_name","bookmark_resume.bookmark_resume_id")
-            ->get();
+            ->paginate(25);
         
         return view('retrieved_resume', array('job_finder_model' => $job_finder_model_details, 'job_creator_model' => $job_creator_model))->withTitle('Bookmarked Resume');
     }

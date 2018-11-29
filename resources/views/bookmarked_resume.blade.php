@@ -92,11 +92,11 @@
                         <tbody>
                         @foreach($job_finder_model as $index => $item)
                             <tr>
-                                <td>1</td>
+                                <td>{{ $job_finder_model->firstItem() + $index }}</td>
                                 <td>
                                     <a href="#resume-detail"><strong>{{ $item->full_name }}</strong></a> <br>
                                     {{ $item->birth_date }}, {{ $item->gender }}, {{ $item->province_name }} <br> <br>
-                                    Laravel, Ionic Framework, Angular Js
+                                    {{-- Laravel, Ionic Framework, Angular Js --}}
                                 </td>
                                 <td>
                                     @if ($item->job_position != "")
@@ -110,8 +110,8 @@
                                 </td>
                                 <td>
                                     <strong>{{ $item->highest_qualification_name }}</strong> <br>
-                                    of {{ $item->field_of_study }} <br>
-                                    at {{ $item->university }} <br>
+                                    {{ $item->field_of_study }} <br>
+                                    {{ $item->university }} <br>
                                 </td>
                                 <td>
                                     <p>Last Active: <br> {{ $item->last_login_date }}</p>
@@ -119,15 +119,14 @@
                                     <p>Bookmarked Date: <br> {{ $item->created_at }}</p>
                                 </td>
                                 <td>Bookmarked</td>
-                                <td><a href="{{ route('retrieve_resume', $item->bookmark_resume_id) }}">
-                                        Buy resume
-                                    </a></td>
+                                <td><a href="{{ route('retrieve_resume', $item->bookmark_resume_id) }}">Buy resume</a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
 
                         <tfoot>
-                            // pagination
+                            {{ $job_finder_model->appends($_GET)->links() }}
                         </tfoot>
 
                     </table>

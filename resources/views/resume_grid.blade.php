@@ -40,29 +40,39 @@
             </div>
         
             <div class="col-lg-12 post-list">
-                @foreach($job_finder_model as $index => $item)
-                    <div class="single-post d-flex flex-row">
-                        <div class="thumb">
-                            <img src="{{ asset('public/themes/img/post.png') }}" alt="">
-                        </div>
-                        <div class="details">
-                            <div class="title d-flex flex-row justify-content-between">
-                                <div class="titles">
-                                    <h4>{{ $item->full_name }}</h4>				
-                                </div>
-                                &nbsp;
-                                
-                            </div>
-                            <p>
-                                Email Address: {{ $item->email_address }}
-                            </p>
-                            <h5>Last Working As: {{ $item->tech_type_name }}</h5>
-                            <p class="address"><span class="lnr lnr-map"></span> {{ $item->address }} at {{ $item->province_name }}</p>
-                            <p class="address"><span class="lnr lnr-database"></span> IDR {{ $item->last_salary }}</p>
-                            <ul class="btns">
-                                <li>
+                <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Candidate Details</th>
+                            <th>Employment History</th>
+                            <th>Highest Education</th>
+                            <th>Last Active</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($job_finder_model as $index => $item)
+                        <tr>
+                            <td>{{ $job_finder_model->firstItem() + $index }}</td>
+                            <td>
+                                <a href="{{ route('resume_detail', $item->finder_id) }}"><strong>{{ $item->full_name }}</strong></a> <br>
+                                {{ $item->birth_date }}, {{ $item->gender }}, {{ $item->province_name }} <br> <br>
+                            </td>
+                            <td>
+                                {{ $item->tech_type_name }} <br> <br>
+                                {{ $item->address }} at {{ $item->province_name }}
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
                                 @if($item->jc_user_id == '')
-                                    <a href="{{ route('bookmark_resume', $item->finder_id) }}">
+                                    <a class="btn btn-sm btn-info" href="{{ route('bookmark_resume', $item->finder_id) }}">
                                         Bookmark
                                     </a>
                                 @else
@@ -70,12 +80,15 @@
                                         Bookmarked
                                     </p>
                                 @endif
-                                    
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                @endforeach
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        {{ $job_finder_model->appends($_GET)->links() }}
+                    </tfoot>
+                </table>
+                </div>
             </div>
         </div>
     </div>	

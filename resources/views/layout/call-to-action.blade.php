@@ -7,7 +7,7 @@
                     <h1 class="mb-10 text-white">Join us today without any hesitation</h1>
                     {{-- <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p> --}}
                     <a class="primary-btn" href="{{ route('create_job_finder') }}">I am a Job Seeker</a>
-                    <a class="primary-btn" href="{{ route('create_job_creator') }}">I am a Job Recruiter</a>
+                    <a class="primary-btn" href="{{ route('create_job_creator') }}">I am a Corporate</a>
                 </div>
             </div>
         </div>	
