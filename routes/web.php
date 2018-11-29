@@ -83,10 +83,10 @@ Route::get('/logout', 'auth_controller@destroy')->name('logout');
     Route::post('/update_detail_user', ['uses' => 'maintain_user_controller@update_detail_user', 'before' => 'csrf'])->name('update_detail_user');
 
     Route::get('/resume/bookmark', 'resume_controller@get_bookmarked_resume')->name('bookmarked_resume');
-    Route::get('bookmark_resume/{id}', 'resume_controller@bookmark_resume')->name('bookmark_resume');
-    Route::get('get_bookmark_search', 'resume_controller@get_bookmark_search')->name('get_bookmark_search');
+    Route::get('/resume/{id}/bookmark', 'resume_controller@bookmark_resume')->name('bookmark_resume');
+    Route::get('/resume/bookmark/search', 'resume_controller@get_bookmark_search')->name('get_bookmark_search');
     Route::get('/resume/retrieved', 'resume_controller@get_retrieved_resume')->name('retrieved_resume');
-    Route::get('retrieve_resume/{id}', 'resume_controller@retrieve_resume')->name('retrieve_resume');
-    Route::get('get_retrieve_search', 'resume_controller@get_retrieve_search')->name('get_retrieve_search');
+    Route::get('/resume/{id}/retrieve', 'resume_controller@retrieve_resume')->name('retrieve_resume');
+    Route::get('/resume/retrieve/search', 'resume_controller@get_retrieve_search')->name('get_retrieve_search');
 
 // });

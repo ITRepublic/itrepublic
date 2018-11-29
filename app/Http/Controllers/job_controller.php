@@ -10,6 +10,8 @@ use App\job_post_search;
 use App\job_finder_model;
 use App\master_tech_type;
 use App\master_province;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\JobSeekerApplyJob;
 
 class job_controller extends Controller
 {
@@ -176,6 +178,9 @@ class job_controller extends Controller
         ->where('job_post_id', $id)
         ->first();
 
+        // send email to company
+        // $email = 'Email company';
+        // Mail::to($email)->send(new JobSeekerApplyJob());
 
         return view('apply_detail_job', array('job_post_list_model' => $job_post_list_model, 'master_tech_type' => $master_tech_type))->withTitle($job_post_list_model->job_name);
     }
@@ -196,7 +201,6 @@ class job_controller extends Controller
         {
             job_post_search::create($data);
         }
-        
 
         $job_post_list_model = job_post_list_model::join('job_creator','job_post_list.jc_user_id', '=', 'job_creator.user_id')
         ->join('master_customer','job_creator.company_id', '=', 'master_customer.company_id')

@@ -17,6 +17,8 @@ use App\bookmark_resume;
 use App\master_job_position;
 use DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BuyResume;
 
 class resume_controller extends Controller
 {
@@ -452,6 +454,11 @@ class resume_controller extends Controller
         $data['bookmark_status'] = 'retrieve';
         $data['retrieved_by'] = $retrieved_by;
         $br = bookmark_resume::where('bookmark_resume_id',$id)->update($data);
+
+        // send email to company
+        // $email = 'Email company';
+        // Mail::to($email)->send(new BuyResume());
+
         return redirect('/resume/bookmark')->withSuccess("Resume has been retrieved.");
 
     }
