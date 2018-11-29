@@ -495,6 +495,7 @@ class resume_controller extends Controller
             "job_finder.highest_qualification","job_finder.field_of_study","job_finder.university","lh.last_login_date","bookmark_resume.updated_at",
             "master_highest_qualification.highest_qualification_name","bookmark_resume.bookmark_resume_id")
             ->paginate(25);
+
         return view('retrieved_resume', array('job_finder_model' => $job_finder_model_details, 'job_creator_model' => $job_creator_model))->withTitle('Retrieved Resume');
     }
     public function get_retrieve_search(Request $request) {
