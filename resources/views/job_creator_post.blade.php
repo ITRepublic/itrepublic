@@ -42,17 +42,11 @@
                             <img src="{{ asset('public/themes/img/post.png') }}" alt="">
                             <ul class="tags">
                                 <li>
-                                    <a href="#">Art</a>
-                                </li>
-                                <li>
-                                    <a href="#">Media</a>
-                                </li>
-                                <li>
-                                    <a href="#">Design</a>					
+                                    <a href="#">{{ $item->company_name }}</a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="details">
+                        <div class="details" style="padding-left: 20px;">
                             <div class="title d-flex flex-row justify-content-between">
                                 <div class="titles">
                                     <h4>{{ $item->job_name }}</h4>				
@@ -61,11 +55,10 @@
                                 
                             </div>
                             <p>
-                                {{ $item->description }}
+                                {{ $item->tech_type_name }}
                             </p>
-                            <h5>Job Nature: Full time</h5>
-                            <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-                            <p class="address"><span class="lnr lnr-database"></span> {{ $item->payment_range_minimum }} - {{ $item->payment_range_maximum }}</p>
+                            <p class="address"><span class="lnr lnr-map"></span> {{ $item->company_address }}</p>
+                            <p class="address"><span class="lnr lnr-database"></span> Rp {{ number_format($item->payment_range_minimum) }} - Rp {{ number_format($item->payment_range_maximum) }}</p>
                             <ul class="btns">
                                     <li>
                                         <a href="{{ route('edit_detail_job_post', $item->job_post_id) }}">

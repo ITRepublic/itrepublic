@@ -28,11 +28,8 @@ class resume_controller extends Controller
         ->select('job_finder.*','bookmark_resume.jf_user_id')
         ->distinct()
         ->paginate(25);
-        $master_province = master_province::orderBy('province_name','asc')->get(['province_id','province_name']);
-        $master_tech_type = master_tech_type::orderBy('tech_type_name','asc')->get(['tech_type_id','tech_type_name']);   
-        $master_highest_qualification = master_highest_qualification::get(['highest_qualification_id','highest_qualification_name']);
         
-        return view('resume_grid', array('master_highest_qualification' => $master_highest_qualification, 'job_finder_model' => $job_finder_model, 'master_province' => $master_province, 'master_tech_type' => $master_tech_type))->withTitle('Resume');
+        return view('resume_grid', compact('job_finder_model'))->withTitle('Resume');
     }
     public function resume_detail($id)
     {
