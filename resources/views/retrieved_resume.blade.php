@@ -112,7 +112,9 @@
                                 </td>
                                 <td>Retrieved</td>
                                 
-                                <td><a href="/download_resume/{{ substr($item->cv_file_name,19) }}" download="{{ substr($item->cv_file_name,19) }}" class="btn btn-info btn-sm">Download</a></td>
+                                <td>
+                                    <a href="../{{ $item->cv_file_name }}" class="btn btn-info btn-sm">Download</a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

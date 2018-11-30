@@ -28,7 +28,7 @@ class resume_controller extends Controller
         $job_finder_model = DB::table('job_finder')
             ->select("job_finder.finder_id","job_finder.full_name","job_finder.full_name","job_finder.birth_date","job_finder.gender","job_finder.address","master_province.province_name",
             "job_finder.highest_qualification","master_highest_qualification.highest_qualification_name","job_finder.field_of_study","job_finder.university","lh.last_login_date",
-            "bookmark_resume.jc_user_id","bookmark_resume.created_at","bookmark_resume.bookmark_resume_id"
+            "bookmark_resume.jc_user_id","bookmark_resume.created_at","bookmark_resume.bookmark_resume_id",'bookmark_resume.bookmark_status'
             	,DB::raw("GROUP_CONCAT(
                     DISTINCT CONCAT(`master_tech_type`.tech_type_name,' at ',`job_finder_experience`.`company_name`) 
                     ORDER BY `job_finder_experience`.`company_name`

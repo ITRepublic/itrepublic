@@ -49,7 +49,7 @@
                             <th>Employment History</th>
                             <th>Highest Education</th>
                             <th>Last Active</th>
-                            <th>Action</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,7 +83,7 @@
                                     </a>
                                 @else
                                     <p>
-                                        Bookmarked
+                                        {{ $item->bookmark_status }}
                                     </p>
                                 @endif
                             </td>
