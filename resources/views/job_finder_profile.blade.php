@@ -28,7 +28,7 @@
         <div class="row justify-content-center d-flex">
             <div class="col-lg-12">
                 <div style="text-align: center; margin-bottom: 50px; margin-top: -80px;">
-                    <img src="https://via.placeholder.com/150" class="img-responsive" alt="profile picture" width="150">
+                    <img @if($job_finder_model->profile_pict == "") src="https://via.placeholder.com/150" @else src="{{ $job_finder_model->profile_pict }}" @endif class="img-responsive" alt="profile picture" width="150">
                 </div>
                 <form action="{{ route('submit_profile') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}

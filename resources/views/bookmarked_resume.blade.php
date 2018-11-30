@@ -97,6 +97,13 @@
                                     <a href="#resume-detail"><strong>{{ $item->full_name }}</strong></a> <br>
                                     {{ $item->birth_date }}, {{ $item->gender }}, {{ $item->province_name }} <br> <br>
                                     {{-- Laravel, Ionic Framework, Angular Js --}}
+                                    @if ($item->skill_name != "")
+                                    @foreach(explode(',', $item->skill_name) as $skill_name) 
+                                    <p>
+                                        <strong>- {{ $skill_name }}</strong>
+                                    </p>
+                                    @endforeach
+                                @endif
                                 </td>
                                 <td>
                                     @if ($item->job_position != "")
@@ -106,7 +113,7 @@
                                         </p>
                                         @endforeach
                                     @endif
-                                    
+                                    {{ $item->address }} at {{ $item->province_name }}
                                 </td>
                                 <td>
                                     <strong>{{ $item->highest_qualification_name }}</strong> <br>
@@ -114,12 +121,12 @@
                                     {{ $item->university }} <br>
                                 </td>
                                 <td>
-                                    <p>Last Active: <br> {{ $item->last_login_date }}</p>
+                                    <p>Last Active: <br> {{ Carbon\Carbon::parse($item->last_login_date)->diffForHumans() }}</p>
                                     <hr>
-                                    <p>Bookmarked Date: <br> {{ $item->created_at }}</p>
+                                    <p>Bookmarked Date: <br> {{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</p>
                                 </td>
                                 <td>Bookmarked</td>
-                                <td><a href="{{ route('retrieve_resume', $item->bookmark_resume_id) }}">Buy resume</a>
+                                <td><a class="btn btn-sm btn-info" href="{{ route('retrieve_resume', $item->bookmark_resume_id) }}">Buy resume</a>
                                 </td>
                             </tr>
                         @endforeach

@@ -59,22 +59,31 @@
                             <td>
                                 <strong>{{ $item->full_name }}</strong><br>
                                 {{ $item->birth_date }}, {{ $item->gender }}, {{ $item->province_name }} <br> <br>
+                                @if ($item->skill_name != "")
+                                @foreach(explode(',', $item->skill_name) as $skill_name) 
+                                <p>
+                                    <strong>- {{ $skill_name }}</strong>
+                                </p>
+                                @endforeach
+                            @endif
                             </td>
                             <td>
-                                    @if ($item->job_position != "")
-                                        @foreach(explode(',', $item->job_position) as $position) 
-                                        <p>
-                                            <strong>- {{ $position }}</strong>
-                                        </p>
-                                        @endforeach
-                                    @endif <br> <br>
+                                @if ($item->job_position != "")
+                                    @foreach(explode(',', $item->job_position) as $position) 
+                                    <p>
+                                        <strong>- {{ $position }}</strong>
+                                    </p>
+                                    @endforeach
+                                @endif <br> <br>
                                 {{ $item->address }} at {{ $item->province_name }}
                             </td>
                             <td>
-
+                                <strong>{{ $item->highest_qualification_name }}</strong> <br>
+                                    {{ $item->field_of_study }} <br>
+                                    {{ $item->university }} <br>
                             </td>
                             <td>
-
+                                <p>Last Active: <br> {{ Carbon\Carbon::parse($item->last_login_date)->diffForHumans() }}</p>
                             </td>
                             <td>
                                 @if($item->jc_user_id == '')
