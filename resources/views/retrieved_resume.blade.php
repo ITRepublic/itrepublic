@@ -90,11 +90,12 @@
                                     {{ $item->birth_date }}, {{ $item->gender }}, {{ $item->province_name }} <br> <br>
                                     {{-- Laravel, Ionic Framework, Angular Js --}}
                                     @if ($item->skill_name != "")
-                                    @foreach(explode(',', $item->skill_name) as $skill_name) 
+                                    {{-- @foreach(explode(',', $item->skill_name) as $skill_name) 
                                     <p>
                                         <strong>- {{ $skill_name }}</strong>
                                     </p>
-                                    @endforeach
+                                    @endforeach --}}
+                                    {{ $item->skill_name }}
                                 @endif
                                 </td>
                                 <td>
