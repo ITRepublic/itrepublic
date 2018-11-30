@@ -94,7 +94,7 @@
                             <tr>
                                 <td>{{ $job_finder_model->firstItem() + $index }}</td>
                                 <td>
-                                    <a href="#resume-detail"><strong>{{ $item->full_name }}</strong></a> <br>
+                                    {{-- <a href="#resume-detail"><strong>{{ $item->full_name }}</strong></a> <br> --}}
                                     {{ $item->birth_date }}, {{ $item->gender }}, {{ $item->province_name }} <br> <br>
                                     @if ($item->skill_name != "")
                                     {{-- @foreach(explode(',', $item->skill_name) as $skill_name) 
@@ -113,7 +113,7 @@
                                         </p>
                                         @endforeach
                                     @endif
-                                    {{ $item->address }} at {{ $item->province_name }}
+                                    {{-- {{ $item->address }} at {{ $item->province_name }} --}}
                                 </td>
                                 <td>
                                     <strong>{{ $item->highest_qualification_name }}</strong> <br>

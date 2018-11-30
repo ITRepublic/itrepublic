@@ -57,7 +57,7 @@
                         <tr>
                             <td>{{ $job_finder_model->firstItem() + $index }}</td>
                             <td>
-                                <strong>{{ $item->full_name }}</strong><br>
+                                {{-- <strong>{{ $item->full_name }}</strong><br> --}}
                                 {{ $item->birth_date }}, {{ $item->gender }}, {{ $item->province_name }} <br> <br>
                                 @if ($item->skill_name != "")
                                 {{-- @foreach(explode(',', $item->skill_name) as $skill_name) 
@@ -76,7 +76,7 @@
                                     </p>
                                     @endforeach
                                 @endif <br> <br>
-                                {{ $item->address }} at {{ $item->province_name }}
+                                {{-- {{ $item->address }} at {{ $item->province_name }} --}}
                             </td>
                             <td>
                                 <strong>{{ $item->highest_qualification_name }}</strong> <br>
@@ -87,6 +87,7 @@
                                 <p>Last Active: <br> {{ Carbon\Carbon::parse($item->last_login_date)->diffForHumans() }}</p>
                             </td>
                             <td>
+                                <a href="{{ route('resume_detail', $item->finder_id) }}" class="btn btn-sm btn-info">View</a>
                                 @if($item->jc_user_id == '')
                                     <a class="btn btn-sm btn-info" href="{{ route('bookmark_resume', $item->finder_id) }}">
                                         Bookmark

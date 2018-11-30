@@ -57,7 +57,7 @@ class resume_controller extends Controller
                 })
             ->groupBy("job_finder.finder_id","job_finder.full_name","job_finder.birth_date","job_finder.gender","job_finder.address","master_province.province_name","job_finder.address",
             "job_finder.highest_qualification","job_finder.field_of_study","job_finder.university","lh.last_login_date","bookmark_resume.created_at",
-            "master_highest_qualification.highest_qualification_name","bookmark_resume.jc_user_id","bookmark_resume.bookmark_resume_id")
+            "master_highest_qualification.highest_qualification_name","bookmark_resume.jc_user_id","bookmark_resume.bookmark_resume_id",'bookmark_resume.bookmark_status')
             ->paginate(25);
         
         return view('resume_grid', compact('job_finder_model'))->withTitle('Resume');
@@ -87,9 +87,23 @@ class resume_controller extends Controller
         ->where('skill_job_finder.jf_user_id', '=', $id)
         ->orderBy('skill_job_finder.skill_name','desc')
         ->get();
+
+        $user_id = session()->get('user_id');
+        $bookmark_resume_check = bookmark_resume::where([
+            ['bookmark_resume.jc_user_id', '=', $user_id],
+            ['bookmark_resume.jf_user_id', '=', $id]
+            ])
+        ->first();
+
+        if($bookmark_resume_check == null) {
+            $bookmark_resume = "";
+        }
+        else {
+            $bookmark_resume = $bookmark_resume_check->bookmark_status;
+        }
         
 
-        return view('resume_detail', array('skill_job_finder' => $skill_job_finder, 'master_highest_qualification' => $master_highest_qualification, 'job_finder_experience' => $job_finder_experience,'job_finder_model' => $job_finder_model, 'master_province' => $master_province, 'master_tech_type' => $master_tech_type))->withTitle($job_finder_model->full_name);
+        return view('resume_detail', array('bookmark_resume' => $bookmark_resume, 'skill_job_finder' => $skill_job_finder, 'master_highest_qualification' => $master_highest_qualification, 'job_finder_experience' => $job_finder_experience,'job_finder_model' => $job_finder_model, 'master_province' => $master_province, 'master_tech_type' => $master_tech_type))->withTitle($job_finder_model->full_name);
 
     }
     
@@ -262,7 +276,7 @@ class resume_controller extends Controller
         $job_finder_model_final = DB::table('job_finder')
         ->select("job_finder.finder_id","job_finder.full_name","job_finder.birth_date","job_finder.gender","job_finder.address","master_province.province_name","job_finder.address",
         "job_finder.highest_qualification","master_highest_qualification.highest_qualification_name","job_finder.field_of_study","job_finder.university","lh.last_login_date",
-        "bookmark_resume.jc_user_id","bookmark_resume.created_at","bookmark_resume.bookmark_resume_id"
+        "bookmark_resume.jc_user_id","bookmark_resume.created_at","bookmark_resume.bookmark_resume_id",'bookmark_resume.bookmark_status'
             ,DB::raw("GROUP_CONCAT(
                 DISTINCT CONCAT(`master_tech_type`.tech_type_name,' at ',`job_finder_experience`.`company_name`) 
                 ORDER BY `job_finder_experience`.`company_name`
@@ -301,7 +315,7 @@ class resume_controller extends Controller
         ->whereIn('job_finder.finder_id',$jf_check_qualifications)
         ->groupBy("job_finder.finder_id","job_finder.full_name","job_finder.birth_date","job_finder.gender","job_finder.address","master_province.province_name","job_finder.address",
         "job_finder.highest_qualification","job_finder.field_of_study","job_finder.university","lh.last_login_date","bookmark_resume.created_at",
-        "master_highest_qualification.highest_qualification_name","bookmark_resume.jc_user_id","bookmark_resume.bookmark_resume_id")
+        "master_highest_qualification.highest_qualification_name","bookmark_resume.jc_user_id","bookmark_resume.bookmark_resume_id",'bookmark_resume.bookmark_status')
         ->paginate(25);
         $master_highest_qualification = master_highest_qualification::get(['highest_qualification_id','highest_qualification_name']);
         
@@ -381,7 +395,7 @@ class resume_controller extends Controller
         $job_finder_model_simple = DB::table('job_finder')
         ->select("job_finder.finder_id","job_finder.full_name","job_finder.birth_date","job_finder.gender","job_finder.address","master_province.province_name","job_finder.address",
         "job_finder.highest_qualification","master_highest_qualification.highest_qualification_name","job_finder.field_of_study","job_finder.university","lh.last_login_date",
-        "bookmark_resume.jc_user_id","bookmark_resume.created_at","bookmark_resume.bookmark_resume_id"
+        "bookmark_resume.jc_user_id","bookmark_resume.created_at","bookmark_resume.bookmark_resume_id",'bookmark_resume.bookmark_status'
             ,DB::raw("GROUP_CONCAT(
                 DISTINCT CONCAT(`master_tech_type`.tech_type_name,' at ',`job_finder_experience`.`company_name`) 
                 ORDER BY `job_finder_experience`.`company_name`
@@ -415,7 +429,7 @@ class resume_controller extends Controller
         ->whereIn('job_finder.finder_id',$jf_check_position_simple)
         ->groupBy("job_finder.finder_id","job_finder.full_name","job_finder.birth_date","job_finder.gender","job_finder.address","master_province.province_name","job_finder.address",
         "job_finder.highest_qualification","job_finder.field_of_study","job_finder.university","lh.last_login_date","bookmark_resume.created_at",
-        "master_highest_qualification.highest_qualification_name","bookmark_resume.jc_user_id","bookmark_resume.bookmark_resume_id")
+        "master_highest_qualification.highest_qualification_name","bookmark_resume.jc_user_id","bookmark_resume.bookmark_resume_id",'bookmark_resume.bookmark_status')
         ->paginate(25);
 
         $master_highest_qualification = master_highest_qualification::get(['highest_qualification_id','highest_qualification_name']);

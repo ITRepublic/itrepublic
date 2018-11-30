@@ -106,7 +106,7 @@
                                         </p>
                                         @endforeach
                                     @endif
-                                    {{ $item->address }} at {{ $item->province_name }}
+                                    {{-- {{ $item->address }} at {{ $item->province_name }} --}}
                                 </td>
                                 <td>
                                     <strong>{{ $item->highest_qualification_name }}</strong> <br>

@@ -26,6 +26,7 @@
             <div class="col-lg-12">
                 <form action="" enctype="multipart/form-data">
                     {{ csrf_field() }}
+                    @if($bookmark_resume == 'retrieve')
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Full Name</label>
                         <div class="col-md-7">
@@ -33,7 +34,9 @@
                             placeholder="Full Name" value="{{ $job_finder_model->full_name }}">
                         </div>
                     </div>
+                    @endif
 
+                    @if($bookmark_resume == 'retrieve')
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Gender</label>
                         <div class="col-md-7">
@@ -49,7 +52,9 @@
                             </select>
                         </div>
                     </div>
+                    @endif
 
+                    @if($bookmark_resume == 'retrieve')
                     <div class="form-group row">
                     <label class="col-md-4 col-form-label">Email Address</label>
                         <div class="col-md-7">
@@ -57,7 +62,9 @@
                             class="form-control" value="{{ $job_finder_model->email_address }}">
                         </div>
                     </div>
-                        
+                    @endif
+
+                    @if($bookmark_resume == 'retrieve')
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Phone</label>
                         <div class="col-md-7">
@@ -65,7 +72,7 @@
                             class="form-control" value="{{ $job_finder_model->phone }}">
                         </div>
                     </div>
-                    
+                    @endif
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Birth Date</label>
                         <div class="col-md-7">
@@ -73,7 +80,7 @@
                             class="form-control" placeholder="Birth Date" value="{{ $job_finder_model->birth_date }}">
                         </div>
                     </div>  
-
+                    @if($bookmark_resume == 'retrieve')
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Province</label>
                         <div class="col-md-7">
@@ -93,7 +100,9 @@
                                 </select>
                         </div>
                     </div>
+                    @endif
 
+                    @if($bookmark_resume == 'retrieve')
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">Address</label>
                         <div class="col-md-7">
@@ -101,7 +110,7 @@
                             class="form-control">{{ $job_finder_model->address }}</textarea>
                         </div>
                     </div>
-
+                    @endif  
                     
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label">University/School</label>
