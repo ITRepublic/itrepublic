@@ -15,6 +15,8 @@
                       <li class="menu-active"><a href="{{ route('home') }}">Home</a></li>
                       <li><a href="{{ route('about_us') }}">About Us</a></li>
                       <li><a href="{{ route('get_job') }}">Job Posting</a></li>
+                      <li><a href="{{ route('friends_connect') }}">Friends n Connections</a></li>
+                      <li><a href="{{ route('social_media') }}">Social Media</a></li>
                       <li><a href="http://blog.itrepublic.id" target="_blank">Blog</a></li>
                       {{-- <li><a href="{{ route('job_finder_contact') }}">Contact</a></li> --}}
                       <li><a href="{{ route('profile') }}">Profile</a></li>

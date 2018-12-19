@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('public/themes/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/themes/css/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('public/themes/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/themes/css/social-media.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
 
     <script src="{{ asset('public/themes/js/vendor/jquery-2.2.4.min.js') }}"></script>
