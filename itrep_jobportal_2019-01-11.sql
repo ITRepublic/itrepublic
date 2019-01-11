@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.21)
 # Database: itrep_jobportal
-# Generation Time: 2019-01-11 06:44:28 +0000
+# Generation Time: 2019-01-11 08:53:19 +0000
 # ************************************************************
 
 
@@ -117,8 +117,20 @@ CREATE TABLE `detail_group_friends` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`detail_group_friends_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
+LOCK TABLES `detail_group_friends` WRITE;
+/*!40000 ALTER TABLE `detail_group_friends` DISABLE KEYS */;
+
+INSERT INTO `detail_group_friends` (`detail_group_friends_id`, `group_friends_id`, `jf_user_id`, `role`, `created_at`, `updated_at`)
+VALUES
+	(2,1,22,'Member','2019-01-11 15:31:45','2019-01-11 15:31:45'),
+	(3,1,21,'Member','2019-01-11 15:36:55','2019-01-11 15:36:55'),
+	(4,2,21,'Member','2019-01-11 15:41:20','2019-01-11 15:41:20'),
+	(5,6,21,'Member','2019-01-11 15:41:38','2019-01-11 15:41:38');
+
+/*!40000 ALTER TABLE `detail_group_friends` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table friends_list
@@ -133,8 +145,17 @@ CREATE TABLE `friends_list` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`friends_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
+LOCK TABLES `friends_list` WRITE;
+/*!40000 ALTER TABLE `friends_list` DISABLE KEYS */;
+
+INSERT INTO `friends_list` (`friends_id`, `jf_user_id`, `partner_jf_user_id`, `created_at`, `updated_at`)
+VALUES
+	(1,21,22,'2019-01-11 14:22:45',NULL);
+
+/*!40000 ALTER TABLE `friends_list` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table group_friends
@@ -146,11 +167,26 @@ CREATE TABLE `group_friends` (
   `group_friends_id` int(11) NOT NULL AUTO_INCREMENT,
   `group_name` varchar(255) NOT NULL,
   `owner` int(11) DEFAULT NULL,
+  `group_image` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`group_friends_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
+LOCK TABLES `group_friends` WRITE;
+/*!40000 ALTER TABLE `group_friends` DISABLE KEYS */;
+
+INSERT INTO `group_friends` (`group_friends_id`, `group_name`, `owner`, `group_image`, `created_at`, `updated_at`)
+VALUES
+	(1,'Laravel',21,'https://cdn-images-1.medium.com/max/1200/1*j76hKq2KBP9-Y-N7KcnM6A.png','2019-01-11 15:50:09','2019-01-11 15:50:09'),
+	(2,'Angular JS',21,'https://cdn.auth0.com/blog/angular/logo.png','2019-01-11 15:50:08','2019-01-11 15:50:08'),
+	(3,'Ionic Framework Hybrid Mobile Application',21,'https://hackster.imgix.net/uploads/attachments/183867/ionic.png?auto=compress&w=900&h=675&fit=min&fm=jpg','2019-01-11 15:15:24','2019-01-11 15:15:24'),
+	(4,'iOS Developer',21,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdcahYVVv0vLtabdT2hVve3gpXmN6As_J1Cpe5OmRxiSRgAN1qyA','2019-01-11 15:17:28','2019-01-11 15:17:28'),
+	(5,'React Native',21,'https://cdn-images-1.medium.com/max/1200/1*KANHihva9OdXx2-V5EDn3g.png','2019-01-11 15:15:48','2019-01-11 15:15:48'),
+	(6,'Android Developer',21,'https://image.slidesharecdn.com/myandroidpresentation1-120923142837-phpapp02/95/android-fundamentals-and-tutorial-for-beginners-1-728.jpg?cb=1348410647','2019-01-11 15:50:10','2019-01-11 15:50:10');
+
+/*!40000 ALTER TABLE `group_friends` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table job_agreement
@@ -208,7 +244,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `job_finder`;
 
 CREATE TABLE `job_finder` (
-  `finder_id` int(11) NOT NULL,
+  `finder_id` int(11) NOT NULL AUTO_INCREMENT,
   `email_address` varchar(255) NOT NULL,
   `full_name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
@@ -232,15 +268,20 @@ CREATE TABLE `job_finder` (
   `updated_at` varchar(30) NOT NULL,
   `created_at` varchar(30) NOT NULL,
   PRIMARY KEY (`finder_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `job_finder` WRITE;
 /*!40000 ALTER TABLE `job_finder` DISABLE KEYS */;
 
 INSERT INTO `job_finder` (`finder_id`, `email_address`, `full_name`, `address`, `phone`, `gender`, `birth_date`, `province_id`, `city_name`, `cv_file_name`, `university`, `highest_qualification`, `field_of_study`, `grade`, `expected_salary`, `language`, `last_salary`, `group_id`, `total_rating`, `status`, `profile_pict`, `updated_at`, `created_at`)
 VALUES
-	(21,'123@gmail.com','user 123','Jalan Bambu Betung 3 no. 18','123213212131312','Male','2018-11-03','17','17','storage/app/resume/S92DUxV8Li8fchokEqd4ayCNUSquHvkZ5bqclbJk.docx','Binus','2','IT','3.00','15000000','English','12300000','jf','0','inactive','storage/app/image/UEKPCsXltyWILCnws7G2shba9fHzhVc1mXnJfcGP.jpeg','2018-11-29 13:59:28','2018-11-27 14:59:24'),
-	(22,'234@gmail.com','user 234','Kalteng','123213212131312','Female','2018-11-17','13','','','','','','','','','','jf','0','inactive','','2018-11-27 15:00:24','2018-11-27 15:00:24');
+	(21,'123@gmail.com','user 123','Jalan Bambu Betung 3 no. 18','123213212131312','Male','2018-11-03','17','17','storage/app/resume/S92DUxV8Li8fchokEqd4ayCNUSquHvkZ5bqclbJk.docx','Binus','2','IT','3.00','15000000','English','12300000','jf','0','active','storage/app/image/UEKPCsXltyWILCnws7G2shba9fHzhVc1mXnJfcGP.jpeg','2018-11-29 13:59:28','2018-11-27 14:59:24'),
+	(22,'234@gmail.com','Jordy Jonatan','Kalteng','123213212131312','Male','2018-11-17','13','','','Bina Nusantara','2','IT','','','','','jf','0','active','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','2018-11-27 15:00:24','2018-11-27 15:00:24'),
+	(23,'234@gmail.com','Dodi Dodo','Kalteng','123213212131312','Male','2018-11-17','13','','','Univ. Bunda Mulia','2','IT','','','','','jf','0','active','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','2018-11-27 15:00:24','2018-11-27 15:00:24'),
+	(24,'234@gmail.com','Franco','Kalteng','123213212131312','Male','2018-11-17','13','','','Pelita Harapan','2','IT','','','','','jf','0','active','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','2018-11-27 15:00:24','2018-11-27 15:00:24'),
+	(25,'234@gmail.com','Andi Susanto','Kalteng','123213212131312','Male','2018-11-17','13','','','Pelita Harapan','2','IT','','','','','jf','0','active','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','2018-11-27 15:00:24','2018-11-27 15:00:24'),
+	(26,'234@gmail.com','Kelly Kimberly','Kalteng','123213212131312','Female','2018-11-17','13','','','Pelita Harapan','2','IT','','','','','jf','0','active','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','2018-11-27 15:00:24','2018-11-27 15:00:24'),
+	(27,'234@gmail.com','Christine','Kalteng','123213212131312','Female','2018-11-17','13','','','Pelita Harapan','2','IT','','','','','jf','0','active','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','2018-11-27 15:00:24','2018-11-27 15:00:24');
 
 /*!40000 ALTER TABLE `job_finder` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -988,14 +1029,15 @@ CREATE TABLE `post_feeds` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`post_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `post_feeds` WRITE;
 /*!40000 ALTER TABLE `post_feeds` DISABLE KEYS */;
 
 INSERT INTO `post_feeds` (`post_id`, `post_text`, `post_picture_src`, `post_videos_src`, `jf_user_id`, `created_at`, `updated_at`)
 VALUES
-	(4,'test','','',21,'2019-01-11 13:41:09','2019-01-11 06:32:20');
+	(4,'test','','',21,'2019-01-11 13:41:09','2019-01-11 06:32:20'),
+	(5,'hello world!!!!','','',21,'2019-01-11 06:49:39','2019-01-11 06:49:39');
 
 /*!40000 ALTER TABLE `post_feeds` ENABLE KEYS */;
 UNLOCK TABLES;

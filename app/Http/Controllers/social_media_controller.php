@@ -3,17 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\job_finder_model;
-use App\master_user_model;
-use App\master_province;
-use App\master_tech_type;
-use App\master_industry;
-use App\job_finder_experience;
-use App\master_highest_qualification;
-use App\skill_job_finder;
-use App\master_job_position;
 use App\post_feeds;
 use App\post_feeds_likes;
 use App\post_feeds_comment;
+use App\friends_list;
+use App\detail_group_friends;
+use App\group_friends;
 
 use Illuminate\Http\Request;
 
@@ -21,53 +16,74 @@ class social_media_controller extends Controller
 {
     public function create()
     {
-        $master_province = master_province::orderBy('province_name','asc')->get(['province_id','province_name']);
-        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);
-        $master_highest_qualification = master_highest_qualification::get(['highest_qualification_id','highest_qualification_name']);
-        $user_id = session()->get('user_id');
-        $job_finder_model = job_finder_model::join('master_user','job_finder.finder_id', '=', 'master_user.user_id')
-        ->where('job_finder.finder_id', '=', $user_id)
-        ->get()->first();
-
-        $job_finder_experience = job_finder_experience::join('job_finder','job_finder.finder_id', '=', 'job_finder_experience.finder_id')
-        ->join('master_tech_type','master_tech_type.tech_type_id', '=', 'job_finder_experience.tech_type_id')
-        ->join('master_industry','master_industry.industry_id', '=', 'job_finder_experience.industry_id')
-        ->leftJoin('master_job_position','master_job_position.position_id', '=', 'job_finder_experience.job_position')
-        ->where('job_finder_experience.finder_id', '=', $user_id)
-        ->orderBy('job_finder_experience.period_to','DESC')
-        ->get();
-
-        $skill_job_finder = skill_job_finder::join('job_finder','job_finder.finder_id', '=', 'skill_job_finder.jf_user_id')
-        ->where('skill_job_finder.jf_user_id', '=', $user_id)
-        ->orderBy('skill_job_finder.skill_name','DESC')
-        ->get();
-        
-        return view('social_media_home',array('job_finder_model' => $job_finder_model, 'master_province' => $master_province, 'master_tech_type' => $master_tech_type, 'job_finder_experience' => $job_finder_experience, 'master_highest_qualification' => $master_highest_qualification, 'skill_job_finder' => $skill_job_finder ))->withTitle('Your Profile');
+        return view('social_media_home')->withTitle('Feeds');
     }
     public function friends_connect()
     {
-        $master_province = master_province::orderBy('province_name','asc')->get(['province_id','province_name']);
-        $master_tech_type = master_tech_type::get(['tech_type_id','tech_type_name']);
-        $master_highest_qualification = master_highest_qualification::get(['highest_qualification_id','highest_qualification_name']);
-        $user_id = session()->get('user_id');
-        $job_finder_model = job_finder_model::join('master_user','job_finder.finder_id', '=', 'master_user.user_id')
-        ->where('job_finder.finder_id', '=', $user_id)
-        ->get()->first();
+        $connections = friends_list::where('jf_user_id', session('user_id'))->count();
 
-        $job_finder_experience = job_finder_experience::join('job_finder','job_finder.finder_id', '=', 'job_finder_experience.finder_id')
-        ->join('master_tech_type','master_tech_type.tech_type_id', '=', 'job_finder_experience.tech_type_id')
-        ->join('master_industry','master_industry.industry_id', '=', 'job_finder_experience.industry_id')
-        ->leftJoin('master_job_position','master_job_position.position_id', '=', 'job_finder_experience.job_position')
-        ->where('job_finder_experience.finder_id', '=', $user_id)
-        ->orderBy('job_finder_experience.period_to','DESC')
+        $connections_profile = friends_list::join('job_finder','friends_list.partner_jf_user_id','=','job_finder.finder_id')
+        ->select('job_finder.profile_pict','job_finder.full_name')
+        ->take(3)
         ->get();
 
-        $skill_job_finder = skill_job_finder::join('job_finder','job_finder.finder_id', '=', 'skill_job_finder.jf_user_id')
-        ->where('skill_job_finder.jf_user_id', '=', $user_id)
-        ->orderBy('skill_job_finder.skill_name','DESC')
+        $groups = detail_group_friends::where('jf_user_id', session('user_id'))->count();
+
+        $groups_image = detail_group_friends::join('group_friends','group_friends.group_friends_id','=','detail_group_friends.group_friends_id')
+        ->where('detail_group_friends.jf_user_id', session('user_id'))
+        ->select('group_friends.group_name','group_friends.group_image')
+        ->take(3)
         ->get();
-        
-        return view('friends_connect',array('job_finder_model' => $job_finder_model, 'master_province' => $master_province, 'master_tech_type' => $master_tech_type, 'job_finder_experience' => $job_finder_experience, 'master_highest_qualification' => $master_highest_qualification, 'skill_job_finder' => $skill_job_finder ))->withTitle('Your Profile');
+
+        $owned_groups = group_friends::where('owner', session('user_id'))->count();
+
+        $owned_groups_image = group_friends::select('group_name','group_image')
+        ->where('owner', session('user_id'))
+        ->orderBy('group_friends_id','desc')
+        ->take(3)
+        ->get();
+
+        $users = job_finder_model::where('finder_id','!=',session('user_id'))
+        ->get();
+
+        $is_followed = [];
+        foreach($users as $user) {
+            $is_followed[$user->finder_id] = friends_list::where('partner_jf_user_id', $user->finder_id)->first();
+        }
+
+        $groups_list = group_friends::orderBy('group_friends_id','desc')->get();
+
+        $is_in_group = [];
+        $total_member = [];
+        $connections_join = [];
+        $is_join = [];
+        foreach($groups_list as $list) {
+            $is_in_group[$list->group_friends_id] = detail_group_friends::where('group_friends_id',$list->group_friends_id)
+            ->where('jf_user_id', session('user_id'))
+            ->first();
+
+            $total_member[$list->group_friends_id] = detail_group_friends::where('group_friends_id',$list->group_friends_id)->count();
+
+            $friends = friends_list::where('jf_user_id', session('user_id'))->get();
+            foreach($friends as $friend) {
+                $connections_join[$list->group_friends_id] = detail_group_friends::where('group_friends_id',$list->group_friends_id)
+                ->where('jf_user_id', $friend->partner_jf_user_id)
+                ->count();
+            }
+
+            $is_join[$list->group_friends_id] = detail_group_friends::where('group_friends_id',$list->group_friends_id)
+            ->where('jf_user_id', session('user_id'))
+            ->first();
+        }
+
+        return view('friends_connect', compact(
+            'connections','connections_profile',
+            'groups','groups_image',
+            'owned_groups','owned_groups_image',
+            'users','is_followed',
+            'groups_list','is_in_group','total_member','connections_join','is_join'
+        ))
+        ->withTitle('Friends & Connections');
     }
     public function post_feeds_submit(Request $request) 
     {
