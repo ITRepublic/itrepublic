@@ -11,6 +11,7 @@ class detail_group_friends extends Model
     
     protected $fillable = [
     	'group_friends_id', 
-    	'jf_user_id'
+        'jf_user_id',
+        'role'
     ];
 }

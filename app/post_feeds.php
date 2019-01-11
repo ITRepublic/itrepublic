@@ -13,6 +13,7 @@ class post_feeds extends Model
     	'post_id', 
     	'post_text', 
     	'post_picture_src',
-    	'post_videos_src'
+        'post_videos_src',
+        'jf_user_id'
     ];
 }
