@@ -12,11 +12,11 @@
         <div class="row d-flex align-items-center justify-content-center">
             <div class="about-content col-lg-12">
                 <h1 class="text-white">
-                    Social Media Home				
+                  Feeds				
                 </h1>	
                 <p class="text-white link-nav"><a href="{{ route('user_home') }}">Home </a>  
                 <span class="lnr lnr-arrow-right"></span>  
-                <a href="{{ route('social_media') }}" class="text-white"> Social Media Home</a>
+                <a href="{{ route('social_media') }}" class="text-white"> Feeds</a>
                 </p>
             </div>											
         </div>
@@ -40,7 +40,7 @@
                   Geofrey Vincent
                 </span>
             </a>
-            <p class="identity-headline t-12 t-black--light t-normal mt1">If you never try, you’ll get nothing at all</p>
+            {{-- <p class="identity-headline t-12 t-black--light t-normal mt1">If you never try, you’ll get nothing at all</p> --}}
           </div>
 
           <div class="feed-identity-module__widgets">
@@ -65,7 +65,7 @@
                     </div>
                   </button>
                 </li>
-                <li class=" entity-list-item">
+                {{-- <li class=" entity-list-item">
                   <button class="full-width" data-control-name="identity_wvmp" data-ember-action="" data-ember-action-426="426">
                     <div class="display-flex align-items-baseline">
                       <div class="text-align-left">
@@ -96,29 +96,14 @@
                       </div>
                     </div>
                   </button>
-                </li>
+                </li> --}}
               </ul>
             </div>
           </div>
           <div id="ember440" class="premium-upsell-link ember-view">
             <a data-control-name="premium_homepage_identity_upsell_click" title="Friends & Connections" href="{{ route('friends_connect') }}" id="ember441" 
               class="link-without-visited-state feed-identity-module__anchored-widget feed-identity-module__anchored-widget--premium-upsell t-12 t-black t-bold link-without-hover-state feed-identity-module__anchored-widget--agora premium-upsell-link--long ember-view">          
-              <p class="t-12 t-black--light t-normal">Friends & Connections</p>
-              <li-icon aria-hidden="true" type="premium-app-icon" class="feed-identity-module__premium-icon">
-                <svg viewBox="0 0 24 24" width="24" height="24" style="" x="0" y="0" preserveAspectRatio="xMinYMin meet" focusable="false">
-                  <g class="large-icon" style="fill: currentColor">
-                    <defs>
-                      <clipPath id="hg1">
-                        <rect x="2" y="2" width="20" height="20" rx="2.5" ry="2.5" style="fill: none"></rect>
-                      </clipPath>
-                    </defs>
-                    <g style="clip-path: url(#hg1)">
-                      <polygon points="2 2 22 22 22 2 2 2" style="fill: #c8b476"></polygon>
-                      <polygon points="22 22 2 2 2 22 22 22" style="fill: #b29a53"></polygon>
-                    </g>
-                  </g>
-                </svg>
-              </li-icon>
+              <p class="t-12 t-black--light t-normal">View Friends & Connections</p>
             </a>
           </div>
         </div>
@@ -134,8 +119,7 @@
               Start a post
           </button>
           <div id="ember55" class="share-box__trigger button share-media-button tap-target ember-view">
-            <input data-control-name="share.sharebox_camera" filecountlimit="9" multiple="" name="file" 
-              camera="camera" accept="image/*" id="ember55-upload-IMAGE" class="share-media-button__input visually-hidden ember-text-field ember-view" type="file">
+            <button class="share-box__open share-box__trigger p4 hoverable-link-text t-16 t-black--light t-bold" data-toggle="modal" data-target="#post-feed-modal" data-ember-action="" data-ember-action-54="54">
             <label for="ember55-upload-IMAGE" class="share-media-button__label mvA share-media-button__label--square">
               <li-icon aria-hidden="true" type="camera-icon" size="large">
                 <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
@@ -145,8 +129,10 @@
               </li-icon>
               <span class="share-media-button__a11y-text visually-hidden">Upload images</span>
             </label>
+            </button>
           </div>
-          <div id="ember57" class="share-box__trigger share-box__media-trigger button share-media-button tap-target ember-view"><input data-control-name="share.sharebox_video" name="file" camera="camera" accept="video/*,video/mp4,video/avi,video/webm,video/x-ms-wmv,video/x-flv,video/mpeg,video/quicktime" id="ember57-upload-VIDEO" class="share-media-button__input visually-hidden ember-text-field ember-view" type="file">
+          <div id="ember57" class="share-box__trigger share-box__media-trigger button share-media-button tap-target ember-view">
+            <button class="share-box__open share-box__trigger p4 hoverable-link-text t-16 t-black--light t-bold" data-toggle="modal" data-target="#post-feed-modal" data-ember-action="" data-ember-action-54="54">
             <label for="ember57-upload-VIDEO" class="share-media-button__label mvA share-media-button__label--square">
               <li-icon aria-hidden="true" type="video-camera-icon" size="large">
                 <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" 
@@ -157,6 +143,7 @@
               </li-icon>
               <span class="share-media-button__a11y-text visually-hidden">Upload video</span>
             </label>
+            </button>
           </div>
           <div class="modal fade" id="post-feed-modal" tabindex="-1" role="dialog" aria-labelledby="post-feed-modal-Label" aria-hidden="true">
             <div class="modal-dialog upload-feed-modal" role="document">
@@ -164,7 +151,7 @@
                 <form action="{{ route('post_feeds_submit') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                   <div class="modal-header share-box__header">
-                    <img class="lazy-image share-box__member-image EntityPhoto-circle-3-ghost-person loaded" alt="Geofrey Vincent" src="https://media.licdn.com/dms/image/C5603AQGFy7VJ0ZLXDw/profile-displayphoto-shrink_800_800/0?e=1552521600&amp;v=beta&amp;t=rocOMNxIM6_PyocTc7YxxptUUyXB71U5aii010u3TwU">
+                    {{-- <img class="lazy-image share-box__member-image EntityPhoto-circle-3-ghost-person loaded" alt="Geofrey Vincent" src="https://media.licdn.com/dms/image/C5603AQGFy7VJ0ZLXDw/profile-displayphoto-shrink_800_800/0?e=1552521600&amp;v=beta&amp;t=rocOMNxIM6_PyocTc7YxxptUUyXB71U5aii010u3TwU"> --}}
                     <button data-control-name="share.close" data-dismiss="modal" aria-label="Close" id="ember1148" class="share-box__close artdeco-button artdeco-button--circle artdeco-button--2 artdeco-button--tertiary ember-view">  
                       <li-icon aria-hidden="true" type="cancel-icon" class="artdeco-button__icon">
                         <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
@@ -179,22 +166,9 @@
                       <div class="pv4 share-box__text-editor-container">
                         <div data-control-name="share.add_commentary" id="ember1149" class="share-box__text-editor pv3 mentions-texteditor ember-view">
                           <textarea rows="5" style="border: none" name="post_feeds" class="form-control" placeholder="What do you want to post">{{ old('post_feeds') }}</textarea>
-                          <img id="upload_picture_view" src="#" alt="your post image" />
+                          {{-- <img id="upload_picture_view" src="#" alt="your post image" /> --}}
                         </div>
                       </div>
-                    </div>
-                    <div id="ember1151" class="share-box__suggested-hashtags share-suggested-hashtags pv2 ph3 display-flex align-items-center ember-view">
-                      <button data-control-name="share.add_hashtag" id="ember1152" class="share-suggested-hashtags__add-hashtag artdeco-button artdeco-button--muted artdeco-button--1 artdeco-button--tertiary ember-view">  
-                        <li-icon aria-hidden="true" type="plus-icon" class="artdeco-button__icon" size="small">
-                          <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                            <path d="M14,9H9v5H7V9H2V7H7V2H9V7h5V9Z" class="small-icon" style="fill-opacity: 1">
-                            </path>
-                          </svg>
-                        </li-icon>
-                        
-                        <span class="artdeco-button__text">Add hashtag</span>
-                      </button>&nbsp;&nbsp;
-                      <span class="t-14 t-black--light add_hashtag">Help the right people see your post</span>
                     </div>
                   </div>
                   <div class="share-box__footer pv3 pl3 pr5">
@@ -225,8 +199,8 @@
                       </div>
                     </div>
                     <div id="ember676" class="share-box__actions share-actions mlA ember-view">
-                    <button data-control-name="share.next" id="ember650" class="share-actions__primary-action artdeco-button artdeco-button--2 artdeco-button--primary ember-view">
-                      <span class="artdeco-button__text">Next</span>
+                    <button type="submit" data-control-name="share.next" id="ember650" class="share-actions__primary-action artdeco-button artdeco-button--2 artdeco-button--primary ember-view">
+                      <span class="artdeco-button__text" style="font-size: 18px; padding: 0 20px; font-weight: normal;">Post</span>
                     </button>
                     </div>
                   </div>
@@ -237,7 +211,7 @@
         </div>
         <div class="share-box__article-cta t-14 t-black--light t-normal">
           <a href="https://www.itrepublic.id" data-control-name="share.publish_post" target="_blank" class="link-without-visited-state hoverable-link-text">Write an article</a> 
-            on ITRepublic.id
+            on IT Republic
         </div>
       </div>
       <div data-id="urn:li:activity:6476696541204701184" id="ember104" class="relative ember-view">                      
@@ -263,107 +237,8 @@
                 </a>
               </div>
             </div>
-            <div id="ember466" class="feed-shared-update-control-menu absolute text-align-right feed-shared-control-menu ember-view">
-              <artdeco-dropdown id="ember467" class="ember-view">
-                <artdeco-dropdown-trigger aria-expanded="false" role="button" placement="bottom" tabindex="0" id="ember468" class="feed-shared-control-menu-trigger ember-view">      
-                  <li-icon type="ellipsis-horizontal-icon" role="img" aria-label="Open control menu">
-                    <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                      <path d="M2,10H6v4H2V10Zm8,4h4V10H10v4Zm8-4v4h4V10H18Z" class="large-icon" style="fill: currentColor">                
-                      </path>
-                    </svg>
-                  </li-icon>
-                </artdeco-dropdown-trigger>
-                <artdeco-dropdown-content arrow-dir="right" placement="bottom" data-dropdown="" tabindex="-1" aria-hidden="true" id="ember469" class="feed-shared-control-menu-content artdeco-dropdown-with-arrow ember-view">      
-                  <ul>
-                    <li class="option-share-via">
-                      <artdeco-dropdown-item role="button" data-dropdown="" id="ember471" class="tap-target display-flex align-items-center ember-view" tabindex="0">                
-                        <li-icon aria-hidden="true" type="link-icon" class="flex-shrink-zero mr2">
-                          <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                            <path d="M17.29,3a3.7,3.7,0,0,0-2.62,1.09L12.09,6.67A3.7,3.7,0,0,0,11,9.29a3.65,3.65,0,0,0,.52,1.86l-0.37.37a3.66,3.66,0,0,0-4.48.56L4.09,14.67a3.71,3.71,0,1,0,5.24,5.24l2.59-2.59A3.7,3.7,0,0,0,13,14.71a3.65,3.65,0,0,0-.52-1.86l0.37-.37a3.66,3.66,0,0,0,4.48-.57l2.59-2.59A3.71,3.71,0,0,0,17.29,3ZM11.13,14.71a1.82,1.82,0,0,1-.54,1.3L8,18.59A1.83,1.83,0,0,1,5.41,16L8,13.41a1.79,1.79,0,0,1,1.74-.48L8.28,14.4A0.94,0.94,0,0,0,9.6,15.73l1.46-1.46A1.82,1.82,0,0,1,11.13,14.71ZM18.59,8L16,10.59a1.79,1.79,0,0,1-1.74.48L15.73,9.6A0.94,0.94,0,0,0,14.4,8.27L12.94,9.74A1.79,1.79,0,0,1,13.41,8L16,5.41A1.83,1.83,0,0,1,18.59,8Z" class="large-icon" style="fill: currentColor">                     
-                            </path>
-                          </svg>
-                        </li-icon>
-                        <div class="feed-text-description flex-grow-1 text-align-left">
-                          <span class="feed-shared-control-menu__headline">Copy link to post</span>
-                          <span class="feed-shared-control-menu__sub-headline"></span>
-                        </div>
-                      </artdeco-dropdown-item>          
-                    </li>
-                    <li class="option-embed">
-                      <artdeco-dropdown-item role="button" data-dropdown="" id="ember473" class="tap-target display-flex align-items-center ember-view" tabindex="0">                
-                        <li-icon aria-hidden="true" type="embed-icon" class="flex-shrink-zero mr2">
-                          <svg viewBox="0 0 24 24" width="24" height="24" style="" x="0" y="0" preserveAspectRatio="xMinYMin meet" focusable="false">
-                            <path d="M19.89,7l2.83,4.13a1.5,1.5,0,0,1,0,1.75L19.89,17l-1.44-1,2.75-4L18.45,8ZM5.55,8L2.8,12l2.75,4L4.11,17,1.28,12.87a1.5,1.5,0,0,1,0-1.75L4.11,7ZM15.82,3.73l-1.65-.58-6,17.14L9.8,20.87Z" class="large-icon" style="fill: currentColor">                        
-                            </path>
-                          </svg>
-                        </li-icon>
-                        <div class="feed-text-description flex-grow-1 text-align-left">
-                          <span class="feed-shared-control-menu__headline">Embed this post</span>
-                          <span class="feed-shared-control-menu__sub-headline">Copy and paste embed code on your site</span>
-                        </div>
-                      </artdeco-dropdown-item>          
-                    </li>
-                    <li class="option-hide-update">
-                      <artdeco-dropdown-item role="button" data-dropdown="" id="ember475" class="tap-target display-flex align-items-center ember-view" tabindex="0">                
-                        <li-icon aria-hidden="true" type="tag-icon" class="flex-shrink-zero mr2">
-                          <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                            <path d="M16,10a2,2,0,1,0-2-2A2,2,0,0,0,16,10Zm0-3.12A1.13,1.13,0,1,1,14.88,8,1.13,1.13,0,0,1,16,6.88ZM20,3H12L2.29,12.71a1,1,0,0,0-.29.71,1,1,0,0,0,.29.71l7.58,7.58a1,1,0,0,0,.7.29,1,1,0,0,0,.71-0.29L21,12V4A1,1,0,0,0,20,3Zm-1,8.34-8.42,8.42L4.24,13.42,12.66,5H19v6.34Z" class="large-icon" style="fill: currentColor">                        
-                            </path>
-                          </svg>
-                        </li-icon>
-                        <div class="feed-text-description flex-grow-1 text-align-left">
-                          <span class="feed-shared-control-menu__headline">Hide this post</span>
-                          <span class="feed-shared-control-menu__sub-headline">I don't want to see this post in my feed</span>
-                        </div>
-                      </artdeco-dropdown-item>          
-                    </li>
-                    <li class="option-report">
-                      <artdeco-dropdown-item role="button" data-dropdown="" id="ember477" class="tap-target display-flex align-items-center ember-view" tabindex="0">                
-                        <li-icon aria-hidden="true" type="flag-icon" class="flex-shrink-zero mr2">
-                          <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                            <path d="M13.82,5L14,4a1,1,0,0,0-1-1H5V2H3V22H5V15H9.18L9,16a1,1,0,0,0,1,1h8.87L21,5H13.82ZM5,13V5h6.94l-1.41,8H5Zm12.35,2h-6.3l1.42-8h6.29Z" class="large-icon" style="fill: currentColor">                        
-                            </path>
-                          </svg>
-                        </li-icon>
-                        <div class="feed-text-description flex-grow-1 text-align-left">
-                          <span class="feed-shared-control-menu__headline">Report this ad</span>
-                          <span class="feed-shared-control-menu__sub-headline"></span>
-                        </div>
-                      </artdeco-dropdown-item>          
-                    </li>
-                    <li class="option-improve-my-feed">
-                      <artdeco-dropdown-item role="link" data-dropdown="" id="ember479" class="tap-target display-flex align-items-center ember-view" tabindex="0">                
-                        <li-icon aria-hidden="true" type="filter-icon" class="flex-shrink-zero mr2">
-                          <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                            <path d="M9.82,5A3,3,0,0,0,4.18,5H2V7H4.18A3,3,0,0,0,9.82,7H22V5H9.82ZM7,7.4A1.4,1.4,0,1,1,8.4,6,1.4,1.4,0,0,1,7,7.4ZM7,15a3,3,0,0,0-2.82,2H2v2H4.18a3,3,0,0,0,5.63,0H22V17H9.82A3,3,0,0,0,7,15Zm0,4.4A1.4,1.4,0,1,1,8.4,18,1.4,1.4,0,0,1,7,19.4ZM17,9a3,3,0,0,0-2.82,2H2v2H14.18a3,3,0,0,0,5.63,0H22V11H19.82A3,3,0,0,0,17,9Zm0,4.4A1.4,1.4,0,1,1,18.4,12,1.4,1.4,0,0,1,17,13.4Z" class="large-icon" style="fill: currentColor">                         
-                            </path>
-                          </svg>
-                        </li-icon>
-                        <div class="feed-text-description flex-grow-1 text-align-left">
-                          <span class="feed-shared-control-menu__headline">Improve my feed</span>
-                          <span class="feed-shared-control-menu__sub-headline">Get recommended sources to follow</span>
-                        </div>
-                      </artdeco-dropdown-item>          
-                    </li>
-                    <li class="option-ad_choice">
-                      <artdeco-dropdown-item role="link" data-dropdown="" id="ember481" class="tap-target display-flex align-items-center ember-view" tabindex="0">                
-                        <li-icon aria-hidden="true" type="adchoices-icon" class="flex-shrink-zero mr2">
-                          <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="social-icon" focusable="false">
-                            <svg data-name="Layer 1" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor" class="solid-icon">
-                              <path d="M10,11.1A1.1,1.1,0,1,1,11.1,10,1.1,1.1,0,0,1,10,11.1Zm9.5,0-13.8-8A1.1,1.1,0,0,0,5.1,3,1.1,1.1,0,0,0,4,4.1V19.9A1.1,1.1,0,0,0,5.1,21a1.1,1.1,0,0,0,.57-0.2l1.9-1.1A0.9,0.9,0,0,0,8,19H8a0.9,0.9,0,0,0-1.3-.76l-0.1.08A0.4,0.4,0,0,1,6,18V6a0.4,0.4,0,0,1,.54-0.3l10.3,6.1a0.3,0.3,0,0,1,0,.52L11,15.7V12H9v5a1.1,1.1,0,0,0,1.7,1l8.8-5.1A1,1,0,0,0,19.5,11.1Z"></path>
-                            </svg>
-                          </svg>
-                        </li-icon>
-                        <div class="feed-text-description flex-grow-1 text-align-left">
-                          <span class="feed-shared-control-menu__headline">Why am I seeing this ad?</span>
-                          <span class="feed-shared-control-menu__sub-headline">Manage your ad preferences</span>
-                        </div>
-                      </artdeco-dropdown-item>          
-                    </li>
-                  </ul>
-                </artdeco-dropdown-content>
-              </artdeco-dropdown>
-            </div>
+
+            {{-- POST CONTENT --}}
             <div id="ember482" class="feed-shared-update-v2__description feed-shared-inline-show-more-text ember-view">
               <div dir="ltr" id="ember483" class="feed-shared-update-v2__commentary feed-shared-text ember-view">  
                 <div id="ember484" class="feed-shared-text__text-view feed-shared-text-view white-space-pre-wrap break-words ember-view">
@@ -373,6 +248,10 @@
                 </div>
               </div>    
             </div>
+
+            {{-- END POST CONTENT --}}
+
+            {{-- POST IMAGE --}}
             <div id="ember1036" class="mt2 feed-shared-image feed-shared-image--single-image ember-view">
               <div class="relative">
                 <div class="feed-shared-image__container" style="padding-top: 52.36%;">
@@ -391,6 +270,8 @@
               <div id="ember1040" class="ember-view">
               </div>
             </div>
+            {{-- END POST IMAGE --}}
+
             <ul id="ember523" class="social-details-social-counts--justified feed-shared-social-counts ember-view">
               <li class="feed-shared-social-counts__item mr1">
                 <button class="feed-shared-social-counts__num-likes feed-shared-social-counts__count-value t-12 t-black--light t-normal hoverable-link-text" data-control-name="likes_count" data-ember-action="" data-ember-action-524="524">
@@ -463,13 +344,13 @@
       </div>
       </div>
     </div>
+
     <aside class="feed-right-rail right-rail" role="presentation">
       <div class="feed-right-rail__top-module">
         <div id="ember2483" class="ember-view">  
           <div class="feed-follows-module mv4 mh0">
             <div class="feed-follows-module__title display-flex">
               <h2 class="t-16 t-black t-normal">Add to your feed</h2>
-  
             </div>
             <ul class="feed-follows-module__list">
               <li id="ember2485" class="feed-follows-module-recommendation company ember-view">
@@ -563,27 +444,7 @@
           </div>
         </div>
       </div>
-      <div id="ember2507" class="sticky ember-view">          
-        <div class="right-rail-container feed-right-rail__container">
-          <!-- <section id="ember2508" class="feed-ad__side ad-banner-container ember-view">
-            <iframe class="ad-banner" width="300" height="250" src="about:blank" scrolling="no" title="advertisement">              
-            </iframe>
-          </section> -->
-          <footer id="ember2509" class="nav-footer nav-footer--compact ember-view">
-            <div id="ember2510" class="ember-view">      
-              <div role="contentinfo">
-                <div class="nav-footer__copyright t-12 t-black--light t-normal text-align-center clear-both" id="compactfooter-default_copyright">
-                  IT Republic Corporation © 2018
-                </div>
-              </div>
-              <div class="nav-footer__mask" data-ember-action="" data-ember-action-2563="2563">              
-              </div>
-            </div>
-          </footer>
-        </div>
-      </div>    
     </aside>
-    <div id="ember107" class="feed-shared-update-attachments ember-view"></div>
   </div>
 </section>
    

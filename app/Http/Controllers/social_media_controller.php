@@ -19,7 +19,6 @@ use Illuminate\Http\Request;
 
 class social_media_controller extends Controller
 {
-    //
     public function create()
     {
         $master_province = master_province::orderBy('province_name','asc')->get(['province_id','province_name']);
@@ -86,10 +85,10 @@ class social_media_controller extends Controller
         }
         else{
             $path = '';
-            
         }
         $data['post_picture_src'] = $path;
         $data['post_videos_src'] = '';
+        $data['jf_user_id'] = $user_id;
 
         $pf = post_feeds::create($data);
 

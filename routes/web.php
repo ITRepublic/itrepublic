@@ -50,8 +50,8 @@ Route::get('/logout', 'auth_controller@destroy')->name('logout');
     Route::get('/experience/{id}/edit', 'profile_controller@edit_detail_experience')->name('edit_detail_experience');
     Route::get('/skill/{id}/delete', 'profile_controller@delete_skill')->name('delete_skill');
     
-    Route::get('/social_media', 'social_media_controller@create')->name('social_media');
-    Route::get('/friends_connect', 'social_media_controller@friends_connect')->name('friends_connect');
+    Route::get('/feeds', 'social_media_controller@create')->name('social_media');
+    Route::get('/friends-connect', 'social_media_controller@friends_connect')->name('friends_connect');
     Route::post('/post-feeds/submit', ['uses' => 'social_media_controller@post_feeds_submit', 'before' => 'csrf'])->name('post_feeds_submit');
     
     // FOR CORPORATE

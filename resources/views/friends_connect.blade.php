@@ -12,11 +12,11 @@
         <div class="row d-flex align-items-center justify-content-center">
             <div class="about-content col-lg-12">
                 <h1 class="text-white">
-                    Social Media Home				
+                  Friends & Connections
                 </h1>	
-                <p class="text-white link-nav"><a href="{{ route('user_home') }}">Home </a>  
+                <p class="text-white link-nav"><a href="{{ route('social_media') }}">Feeds</a>  
                 <span class="lnr lnr-arrow-right"></span>  
-                <a href="{{ route('social_media') }}" class="text-white"> Social Media Home</a>
+                <a href="#" class="text-white"> Friends & Connections</a>
                 </p>
             </div>											
         </div>
@@ -448,30 +448,7 @@
           </div>
         </div>
       </div>
-      <div id="ember2507" class="sticky ember-view">          
-        <div class="right-rail-container feed-right-rail__container">
-          <!-- <section id="ember2508" class="feed-ad__side ad-banner-container ember-view">
-            <iframe class="ad-banner" width="300" height="250" src="about:blank" scrolling="no" title="advertisement">              
-            </iframe>
-          </section> -->
-          <footer id="ember2509" class="nav-footer nav-footer--compact ember-view">
-            <div id="ember2510" class="ember-view">      
-              <div role="contentinfo">
-                <div class="nav-footer__copyright t-12 t-black--light t-normal text-align-center clear-both" id="compactfooter-default_copyright">
-                  IT Republic Corporation © 2018
-                </div>
-              </div>
-              <div class="nav-footer__mask" data-ember-action="" data-ember-action-2563="2563">              
-              </div>
-            </div>
-          </footer>
-        </div>
-      </div>    
     </aside>
-    <div id="ember107" class="feed-shared-update-attachments ember-view"></div>
   </div>
 </section>
-   
-
-<!-- End post Area -->
 @endsection
