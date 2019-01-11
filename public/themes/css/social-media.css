@@ -1384,6 +1384,10 @@ hr.artdeco-divider {
   background-color: #0073b1;
   color: #fff;
 }
+.artdeco-button--primary {
+  background-color: #0073b1 !important;
+}
+
 .artdeco-button, .artdeco-entity-lockup--stacked-center {
   text-align: center;
 }
@@ -1405,6 +1409,10 @@ hr.artdeco-divider {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+}
+
+.upload-feed-modal{
+  max-width:700px!important;
 }
 
 .share-box__text-editor-container {
@@ -1472,6 +1480,10 @@ hr.artdeco-divider {
 .next_button{
   margin:5px;
   font-size:15px;
+}
+#upload_picture_view{
+  width:500px;
+  height:350px;
 }
 /*
 ################

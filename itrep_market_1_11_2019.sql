@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2018 at 04:18 PM
+-- Generation Time: Jan 11, 2019 at 01:35 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -93,6 +93,47 @@ CREATE TABLE `currency` (
 INSERT INTO `currency` (`currency_id`, `currency_name`) VALUES
 (1, 'USD'),
 (2, 'IDR');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detail_group_friends`
+--
+
+CREATE TABLE `detail_group_friends` (
+  `detail_group_friends_id` int(11) NOT NULL,
+  `group_friends_id` int(11) NOT NULL,
+  `jf_user_id` int(11) NOT NULL,
+  `updated_at` varchar(50) NOT NULL,
+  `created_at` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `friends_list`
+--
+
+CREATE TABLE `friends_list` (
+  `friends_id` int(11) NOT NULL,
+  `jf_user_id` int(11) NOT NULL,
+  `partner_jf_user_id` int(11) NOT NULL,
+  `updated_at` varchar(50) NOT NULL,
+  `created_at` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `group_friends`
+--
+
+CREATE TABLE `group_friends` (
+  `group_friends_id` int(11) NOT NULL,
+  `group_name` varchar(255) NOT NULL,
+  `updated_at` varchar(50) NOT NULL,
+  `created_at` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -441,7 +482,22 @@ INSERT INTO `login_history` (`login_history_id`, `user_id`, `last_login_date`, `
 (30, 21, '2018-11-29 13:49:37', '2018-11-29 13:49:37', '2018-11-29 13:49:37'),
 (31, 1, '2018-11-29 14:31:27', '2018-11-29 14:31:27', '2018-11-29 14:31:27'),
 (32, 22, '2018-11-29 15:04:44', '2018-11-29 15:04:44', '2018-11-29 15:04:44'),
-(33, 1, '2018-11-29 15:05:10', '2018-11-29 15:05:10', '2018-11-29 15:05:10');
+(33, 1, '2018-11-29 15:05:10', '2018-11-29 15:05:10', '2018-11-29 15:05:10'),
+(34, 21, '2018-12-15 04:59:39', '2018-12-15 04:59:39', '2018-12-15 04:59:39'),
+(35, 21, '2018-12-15 06:32:09', '2018-12-15 06:32:09', '2018-12-15 06:32:09'),
+(36, 21, '2018-12-15 08:22:27', '2018-12-15 08:22:27', '2018-12-15 08:22:27'),
+(37, 1, '2018-12-15 08:24:28', '2018-12-15 08:24:28', '2018-12-15 08:24:28'),
+(38, 21, '2018-12-15 08:26:36', '2018-12-15 08:26:36', '2018-12-15 08:26:36'),
+(39, 21, '2018-12-15 10:07:38', '2018-12-15 10:07:38', '2018-12-15 10:07:38'),
+(40, 21, '2018-12-15 16:53:48', '2018-12-15 16:53:48', '2018-12-15 16:53:48'),
+(41, 21, '2018-12-16 04:30:52', '2018-12-16 04:30:52', '2018-12-16 04:30:52'),
+(42, 21, '2018-12-17 12:43:28', '2018-12-17 12:43:28', '2018-12-17 12:43:28'),
+(43, 21, '2018-12-18 22:29:24', '2018-12-18 22:29:24', '2018-12-18 22:29:24'),
+(44, 21, '2018-12-19 14:47:59', '2018-12-19 14:47:59', '2018-12-19 14:47:59'),
+(45, 1, '2019-01-08 14:46:05', '2019-01-08 14:46:05', '2019-01-08 14:46:05'),
+(46, 21, '2019-01-08 14:46:14', '2019-01-08 14:46:14', '2019-01-08 14:46:14'),
+(47, 21, '2019-01-09 21:51:33', '2019-01-09 21:51:33', '2019-01-09 21:51:33'),
+(48, 21, '2019-01-10 22:09:07', '2019-01-10 22:09:07', '2019-01-10 22:09:07');
 
 -- --------------------------------------------------------
 
@@ -799,6 +855,51 @@ INSERT INTO `master_user` (`user_id`, `user_email_address`, `username`, `passwor
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `post_feeds`
+--
+
+CREATE TABLE `post_feeds` (
+  `post_id` int(11) NOT NULL,
+  `post_text` text NOT NULL,
+  `post_picture_src` varchar(255) NOT NULL,
+  `post_videos_src` varchar(255) NOT NULL,
+  `updated_at` varchar(50) NOT NULL,
+  `created_at` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_feeds_comment`
+--
+
+CREATE TABLE `post_feeds_comment` (
+  `comment_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `jf_user_id` int(11) NOT NULL,
+  `seq` int(11) NOT NULL,
+  `comment` text NOT NULL,
+  `updated_at` varchar(50) NOT NULL,
+  `created_at` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_feeds_likes`
+--
+
+CREATE TABLE `post_feeds_likes` (
+  `likes_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `jf_user_id` int(11) NOT NULL,
+  `updated_at` varchar(50) NOT NULL,
+  `created_at` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `resume_limit`
 --
 
@@ -925,6 +1026,24 @@ ALTER TABLE `chat`
 --
 ALTER TABLE `currency`
   ADD PRIMARY KEY (`currency_id`);
+
+--
+-- Indexes for table `detail_group_friends`
+--
+ALTER TABLE `detail_group_friends`
+  ADD PRIMARY KEY (`detail_group_friends_id`);
+
+--
+-- Indexes for table `friends_list`
+--
+ALTER TABLE `friends_list`
+  ADD PRIMARY KEY (`friends_id`);
+
+--
+-- Indexes for table `group_friends`
+--
+ALTER TABLE `group_friends`
+  ADD PRIMARY KEY (`group_friends_id`);
 
 --
 -- Indexes for table `job_agreement`
@@ -1096,6 +1215,24 @@ ALTER TABLE `master_user`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- Indexes for table `post_feeds`
+--
+ALTER TABLE `post_feeds`
+  ADD PRIMARY KEY (`post_id`);
+
+--
+-- Indexes for table `post_feeds_comment`
+--
+ALTER TABLE `post_feeds_comment`
+  ADD PRIMARY KEY (`comment_id`);
+
+--
+-- Indexes for table `post_feeds_likes`
+--
+ALTER TABLE `post_feeds_likes`
+  ADD PRIMARY KEY (`likes_id`);
+
+--
 -- Indexes for table `resume_limit`
 --
 ALTER TABLE `resume_limit`
@@ -1147,6 +1284,24 @@ ALTER TABLE `chat`
 --
 ALTER TABLE `currency`
   MODIFY `currency_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `detail_group_friends`
+--
+ALTER TABLE `detail_group_friends`
+  MODIFY `detail_group_friends_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `friends_list`
+--
+ALTER TABLE `friends_list`
+  MODIFY `friends_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `group_friends`
+--
+ALTER TABLE `group_friends`
+  MODIFY `group_friends_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `job_agreement`
@@ -1224,7 +1379,7 @@ ALTER TABLE `job_user_rating`
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `login_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `login_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `master_admin`
@@ -1297,6 +1452,24 @@ ALTER TABLE `master_tech_type`
 --
 ALTER TABLE `master_user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `post_feeds`
+--
+ALTER TABLE `post_feeds`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `post_feeds_comment`
+--
+ALTER TABLE `post_feeds_comment`
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `post_feeds_likes`
+--
+ALTER TABLE `post_feeds_likes`
+  MODIFY `likes_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `resume_limit`

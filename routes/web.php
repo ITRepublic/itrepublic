@@ -52,6 +52,8 @@ Route::get('/logout', 'auth_controller@destroy')->name('logout');
     
     Route::get('/social_media', 'social_media_controller@create')->name('social_media');
     Route::get('/friends_connect', 'social_media_controller@friends_connect')->name('friends_connect');
+    Route::post('/post-feeds/submit', ['uses' => 'social_media_controller@post_feeds_submit', 'before' => 'csrf'])->name('post_feeds_submit');
+    
     // FOR CORPORATE
     Route::get('/corporate', 'home_controller@user_home')->name('user_home');
    

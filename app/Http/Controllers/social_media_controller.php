@@ -11,6 +11,9 @@ use App\job_finder_experience;
 use App\master_highest_qualification;
 use App\skill_job_finder;
 use App\master_job_position;
+use App\post_feeds;
+use App\post_feeds_likes;
+use App\post_feeds_comment;
 
 use Illuminate\Http\Request;
 
@@ -66,5 +69,31 @@ class social_media_controller extends Controller
         ->get();
         
         return view('friends_connect',array('job_finder_model' => $job_finder_model, 'master_province' => $master_province, 'master_tech_type' => $master_tech_type, 'job_finder_experience' => $job_finder_experience, 'master_highest_qualification' => $master_highest_qualification, 'skill_job_finder' => $skill_job_finder ))->withTitle('Your Profile');
+    }
+    public function post_feeds_submit(Request $request) 
+    {
+        $user_id = session()->get('user_id');
+        $rules = [
+            'post_feeds'  => 'required'
+    	];
+        $this->validate($request, $rules);
+
+        $data['post_text'] = $request->post_feeds;
+       
+        if ($request->hasFile('upload_post_image')) {
+    		// will store in folder storage/app/image
+    		$path = 'storage/app/'.$request->file('upload_post_image')->store('post_picture');
+        }
+        else{
+            $path = '';
+            
+        }
+        $data['post_picture_src'] = $path;
+        $data['post_videos_src'] = '';
+
+        $pf = post_feeds::create($data);
+
+        return back()->withSuccess("Your post has been uploaded.");
+
     }
 }

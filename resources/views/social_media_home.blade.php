@@ -159,85 +159,78 @@
             </label>
           </div>
           <div class="modal fade" id="post-feed-modal" tabindex="-1" role="dialog" aria-labelledby="post-feed-modal-Label" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog upload-feed-modal" role="document">
               <div class="modal-content">
-              <div class="modal-header share-box__header">
-                      <img class="lazy-image share-box__member-image EntityPhoto-circle-3-ghost-person loaded" alt="Geofrey Vincent" src="https://media.licdn.com/dms/image/C5603AQGFy7VJ0ZLXDw/profile-displayphoto-shrink_800_800/0?e=1552521600&amp;v=beta&amp;t=rocOMNxIM6_PyocTc7YxxptUUyXB71U5aii010u3TwU">
-                      <button data-control-name="share.close" data-dismiss="modal" aria-label="Close" id="ember1148" class="share-box__close artdeco-button artdeco-button--circle artdeco-button--2 artdeco-button--tertiary ember-view">  
-                        <li-icon aria-hidden="true" type="cancel-icon" class="artdeco-button__icon">
-                          <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                            <path d="M20,5.32L13.32,12,20,18.68,18.66,20,12,13.33,5.34,20,4,18.68,10.68,12,4,5.32,5.32,4,12,10.69,18.68,4Z" class="large-icon" style="fill: currentColor"></path>
-                          </svg>
-                        </li-icon>
-                        <span class="artdeco-button__text">Cancel share</span>
-                      </button>
-                    </div>
-                <div class="modal-body">
-                  <div class="share-box__content--scrollable flex-grow-1">
-                    <div class="pv4 share-box__text-editor-container">
-                      <div data-control-name="share.add_commentary" id="ember1149" class="share-box__text-editor pv3 mentions-texteditor ember-view">
-                        <textarea rows="5" style="border: none" name="post_feeds" class="form-control" placeholder="What do you want to post">{{ old('post_feeds') }}</textarea>
-                      </div>
-                    </div>
-                  </div>
-                  <div id="ember1151" class="share-box__suggested-hashtags share-suggested-hashtags pv2 ph3 display-flex align-items-center ember-view">
-                    <button data-control-name="share.add_hashtag" id="ember1152" class="share-suggested-hashtags__add-hashtag artdeco-button artdeco-button--muted artdeco-button--1 artdeco-button--tertiary ember-view">  
-                      <li-icon aria-hidden="true" type="plus-icon" class="artdeco-button__icon" size="small">
+                <form action="{{ route('post_feeds_submit') }}" method="post" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                  <div class="modal-header share-box__header">
+                    <img class="lazy-image share-box__member-image EntityPhoto-circle-3-ghost-person loaded" alt="Geofrey Vincent" src="https://media.licdn.com/dms/image/C5603AQGFy7VJ0ZLXDw/profile-displayphoto-shrink_800_800/0?e=1552521600&amp;v=beta&amp;t=rocOMNxIM6_PyocTc7YxxptUUyXB71U5aii010u3TwU">
+                    <button data-control-name="share.close" data-dismiss="modal" aria-label="Close" id="ember1148" class="share-box__close artdeco-button artdeco-button--circle artdeco-button--2 artdeco-button--tertiary ember-view">  
+                      <li-icon aria-hidden="true" type="cancel-icon" class="artdeco-button__icon">
                         <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                          <path d="M14,9H9v5H7V9H2V7H7V2H9V7h5V9Z" class="small-icon" style="fill-opacity: 1">
-                          </path>
+                          <path d="M20,5.32L13.32,12,20,18.68,18.66,20,12,13.33,5.34,20,4,18.68,10.68,12,4,5.32,5.32,4,12,10.69,18.68,4Z" class="large-icon" style="fill: currentColor"></path>
                         </svg>
                       </li-icon>
-                      
-                      <span class="artdeco-button__text">Add hashtag</span>
-                    </button>&nbsp;&nbsp;
-                    <span class="t-14 t-black--light add_hashtag">Help the right people see your post</span>
-                  </div>
-                </div>
-                <div class="share-box__footer pv3 pl3 pr5">
-                  <div class="share-box-media-upload display-flex align-items-center flex-1">
-                    <div id="ember670" class="mr2 button share-media-button tap-target ember-view">
-                      <input data-control-name="share.select_photo" filecountlimit="9" multiple="" name="file" camera="camera" accept="image/*" id="ember670-upload-IMAGE" class="share-media-button__input visually-hidden ember-text-field ember-view" type="file">
-                      <label for="ember670-upload-IMAGE" class="share-media-button__label mvA artdeco-button--circle artdeco-button--tertiary artdeco-button--muted artdeco-button artdeco-button--2">
-                        <li-icon aria-hidden="true" type="camera-icon" size="large">
-                          <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                            <path d="M21,6H18L16.5,3h-9L6,6H3A1,1,0,0,0,2,7V19a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V7A1,1,0,0,0,21,6ZM7.36,8l1.5-3h6.28l1.5,3H20v2H16.58a5,5,0,0,0-9.16,0H4V8H7.36Zm7.76,4A3.13,3.13,0,1,1,12,8.88,3.13,3.13,0,0,1,15.13,12ZM4,18V11H7.1a5,5,0,1,0,9.8,0H20v7H4Z" class="large-icon" style="fill: currentColor">                                
-                            </path>
-                          </svg>
-                        </li-icon>
-                        <span class="share-media-button__a11y-text visually-hidden">Upload images</span>
-                      </label>
-                    </div>
-                    <div id="ember672" class="mr2 button share-media-button tap-target ember-view">
-                      <input data-control-name="share.select_video" name="file" camera="camera" accept="video/*,video/mp4,video/avi,video/webm,video/x-ms-wmv,video/x-flv,video/mpeg,video/quicktime" id="ember672-upload-VIDEO" class="share-media-button__input visually-hidden ember-text-field ember-view" type="file">
-                      <label for="ember672-upload-VIDEO" class="share-media-button__label mvA artdeco-button--circle artdeco-button--tertiary artdeco-button--muted artdeco-button artdeco-button--2">
-                        <li-icon aria-hidden="true" type="video-camera-icon" size="large">
-                          <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                            <path d="M21,5.92a1,1,0,0,0-.57.18L17,8.5V7a1,1,0,0,0-1-1H3A1,1,0,0,0,2,7V17a1,1,0,0,0,1,1H16a1,1,0,0,0,1-1V15.5l3.43,2.4a1,1,0,0,0,.57.18,1,1,0,0,0,1-1V6.92A1,1,0,0,0,21,5.92ZM15,16H4V8H15v8Zm2-5.21,3-2.1v6.62l-3-2.1V10.79Z" class="large-icon" style="fill: currentColor">
-                            </path>
-                          </svg>
-                        </li-icon>
-                        <span class="share-media-button__a11y-text visually-hidden">Upload video</span>
-                      </label>
-                    </div>
-                    <div data-control-name="share.select_menu_option_kudos" id="ember674" class="appr-trigger ember-view">
-                      <button title="Give Kudos" class="share-media-button__label mvA artdeco-button artdeco-button--muted artdeco-button--2 artdeco-button--tertiary artdeco-button--circle" data-ember-action="" data-ember-action-675="675">
-                        <li-icon aria-hidden="true" type="achievement-icon" class="artdeco-button__icon" size="large">
-                          <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                            <path d="M16.88,13a7,7,0,1,0-9.76,0L4.64,20.31a0.52,0.52,0,0,0,.48.69l0.15,0,2.54-.68,1.6,2.09a0.52,0.52,0,0,0,.91-0.15L12,17.3l1.69,4.94a0.5,0.5,0,0,0,.49.35,0.52,0.52,0,0,0,.42-0.2l1.6-2.09L18.74,21l0.15,0a0.52,0.52,0,0,0,.48-0.69Zm-10-5A5.13,5.13,0,1,1,12,13.13,5.13,5.13,0,0,1,6.88,8ZM9.36,19.24L8.53,18.17l-1.31.35,1.48-4.34a7,7,0,0,0,2.12.72Zm6.11-1.07-0.82,1.07L13.16,14.9a7,7,0,0,0,2.14-.72l1.48,4.34ZM12,5.88A2.13,2.13,0,1,1,9.88,8,2.13,2.13,0,0,1,12,5.88M12,5a3,3,0,1,0,3,3,3,3,0,0,0-3-3h0Z" class="large-icon" style="fill: currentColor">                              
-                            </path>
-                          </svg>
-                        </li-icon>
-                        <span class="share-media-button__a11y-text visually-hidden">Give Kudos</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div id="ember676" class="share-box__actions share-actions mlA ember-view">
-                    <button data-control-name="share.next" disabled="" id="ember677" class="share-actions__primary-action artdeco-button artdeco-button--2 artdeco-button--primary artdeco-button--disabled ember-view">
-                      <span class="artdeco-button__text next_button">Next</span>
+                      <span class="artdeco-button__text">Cancel share</span>
                     </button>
                   </div>
-                </div>
+                  <div class="modal-body">
+                    <div class="share-box__content--scrollable flex-grow-1">
+                      <div class="pv4 share-box__text-editor-container">
+                        <div data-control-name="share.add_commentary" id="ember1149" class="share-box__text-editor pv3 mentions-texteditor ember-view">
+                          <textarea rows="5" style="border: none" name="post_feeds" class="form-control" placeholder="What do you want to post">{{ old('post_feeds') }}</textarea>
+                          <img id="upload_picture_view" src="#" alt="your post image" />
+                        </div>
+                      </div>
+                    </div>
+                    <div id="ember1151" class="share-box__suggested-hashtags share-suggested-hashtags pv2 ph3 display-flex align-items-center ember-view">
+                      <button data-control-name="share.add_hashtag" id="ember1152" class="share-suggested-hashtags__add-hashtag artdeco-button artdeco-button--muted artdeco-button--1 artdeco-button--tertiary ember-view">  
+                        <li-icon aria-hidden="true" type="plus-icon" class="artdeco-button__icon" size="small">
+                          <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
+                            <path d="M14,9H9v5H7V9H2V7H7V2H9V7h5V9Z" class="small-icon" style="fill-opacity: 1">
+                            </path>
+                          </svg>
+                        </li-icon>
+                        
+                        <span class="artdeco-button__text">Add hashtag</span>
+                      </button>&nbsp;&nbsp;
+                      <span class="t-14 t-black--light add_hashtag">Help the right people see your post</span>
+                    </div>
+                  </div>
+                  <div class="share-box__footer pv3 pl3 pr5">
+                    <div class="share-box-media-upload display-flex align-items-center flex-1">
+                      <div id="ember670" class="mr2 button share-media-button tap-target ember-view">
+                        <input data-control-name="share.select_photo" filecountlimit="9" multiple="" name="upload_post_image" camera="camera" accept="image/*" id="ember670-upload-IMAGE" class="share-media-button__input visually-hidden ember-text-field ember-view" type="file">
+                        <label for="ember670-upload-IMAGE" class="share-media-button__label mvA artdeco-button--circle artdeco-button--tertiary artdeco-button--muted artdeco-button artdeco-button--2">
+                          <li-icon aria-hidden="true" type="camera-icon" size="large">
+                            <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
+                              <path d="M21,6H18L16.5,3h-9L6,6H3A1,1,0,0,0,2,7V19a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V7A1,1,0,0,0,21,6ZM7.36,8l1.5-3h6.28l1.5,3H20v2H16.58a5,5,0,0,0-9.16,0H4V8H7.36Zm7.76,4A3.13,3.13,0,1,1,12,8.88,3.13,3.13,0,0,1,15.13,12ZM4,18V11H7.1a5,5,0,1,0,9.8,0H20v7H4Z" class="large-icon" style="fill: currentColor">                                
+                              </path>
+                            </svg>
+                          </li-icon>
+                          <span class="share-media-button__a11y-text visually-hidden">Upload images</span>
+                        </label>
+                      </div>
+                      <div id="ember672" class="mr2 button share-media-button tap-target ember-view">
+                        <input data-control-name="share.select_video" name="file" camera="camera" accept="video/*,video/mp4,video/avi,video/webm,video/x-ms-wmv,video/x-flv,video/mpeg,video/quicktime" id="ember672-upload-VIDEO" class="share-media-button__input visually-hidden ember-text-field ember-view" type="file">
+                        <label for="ember672-upload-VIDEO" class="share-media-button__label mvA artdeco-button--circle artdeco-button--tertiary artdeco-button--muted artdeco-button artdeco-button--2">
+                          <li-icon aria-hidden="true" type="video-camera-icon" size="large">
+                            <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
+                              <path d="M21,5.92a1,1,0,0,0-.57.18L17,8.5V7a1,1,0,0,0-1-1H3A1,1,0,0,0,2,7V17a1,1,0,0,0,1,1H16a1,1,0,0,0,1-1V15.5l3.43,2.4a1,1,0,0,0,.57.18,1,1,0,0,0,1-1V6.92A1,1,0,0,0,21,5.92ZM15,16H4V8H15v8Zm2-5.21,3-2.1v6.62l-3-2.1V10.79Z" class="large-icon" style="fill: currentColor">
+                              </path>
+                            </svg>
+                          </li-icon>
+                          <span class="share-media-button__a11y-text visually-hidden">Upload video</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div id="ember676" class="share-box__actions share-actions mlA ember-view">
+                    <button data-control-name="share.next" id="ember650" class="share-actions__primary-action artdeco-button artdeco-button--2 artdeco-button--primary ember-view">
+                      <span class="artdeco-button__text">Next</span>
+                    </button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -594,6 +587,22 @@
   </div>
 </section>
    
-
+<script>
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#upload_picture_view').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+    $("#ember670-upload-IMAGE").change(function(){
+      readURL(this);
+    });
+</script>
 <!-- End post Area -->
 @endsection
