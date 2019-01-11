@@ -16,7 +16,20 @@ class social_media_controller extends Controller
 {
     public function create()
     {
-        return view('social_media_home')->withTitle('Feeds');
+        $post_feeds_shared = post_feeds::join('job_finder','post_feeds.jf_user_id','=','job_finder.finder_id')
+        ->get();
+
+        $users = job_finder_model::where('finder_id','!=',session('user_id'))
+        ->get();
+
+        $is_followed = [];
+        foreach($users as $user) {
+            $is_followed[$user->finder_id] = friends_list::where('partner_jf_user_id', $user->finder_id)->first();
+        }
+
+        return view('social_media_home', compact(
+            'post_feeds_shared', 'users', 'is_followed'
+        ))->withTitle('Feeds');
     }
     public function friends_connect()
     {

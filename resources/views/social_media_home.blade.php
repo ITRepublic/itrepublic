@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('layout.master-sosmed')
 
 @section('title')
     {{ $title }}
@@ -103,7 +103,7 @@
           <div id="ember440" class="premium-upsell-link ember-view">
             <a data-control-name="premium_homepage_identity_upsell_click" title="Friends & Connections" href="{{ route('friends_connect') }}" id="ember441" 
               class="link-without-visited-state feed-identity-module__anchored-widget feed-identity-module__anchored-widget--premium-upsell t-12 t-black t-bold link-without-hover-state feed-identity-module__anchored-widget--agora premium-upsell-link--long ember-view">          
-              <p class="t-12 t-black--light t-normal">View Friends & Connections</p>
+              <p style="color:cadetblue; text-decoration:underline" class="t-12 t-black--light t-normal">View Friends & Connections</p>
             </a>
           </div>
         </div>
@@ -165,8 +165,8 @@
                     <div class="share-box__content--scrollable flex-grow-1">
                       <div class="pv4 share-box__text-editor-container">
                         <div data-control-name="share.add_commentary" id="ember1149" class="share-box__text-editor pv3 mentions-texteditor ember-view">
-                          <textarea rows="5" style="border: none" name="post_feeds" class="form-control" placeholder="What do you want to post">{{ old('post_feeds') }}</textarea>
-                          {{-- <img id="upload_picture_view" src="#" alt="your post image" /> --}}
+                          <textarea rows="5" name="post_feeds" class="form-control" placeholder="What do you want to post">{{ old('post_feeds') }}</textarea>
+                          <img id="upload_picture_view" src="#" alt="your post image" style="display:none;" />
                         </div>
                       </div>
                     </div>
@@ -214,26 +214,27 @@
             on IT Republic
         </div>
       </div>
-      <div data-id="urn:li:activity:6476696541204701184" id="ember104" class="relative ember-view">                      
+      @foreach ($post_feeds_shared as $feed)
+      <div data-id="urn:li:activity:6476696541204701184" id="ember104" class="relative ember-view" style="margin-bottom: 8px;">                      
         <div id="ember106" class="occludable-update ember-view">  
           <div id="ember452" class="feed-shared-update-v2 mh0 Elevation-2dp relative full-height feed-shared-update-v2--e2e ember-view">            
             <div id="ember453" class="display-flex feed-shared-actor display-flex feed-shared-actor--with-control-menu ember-view">
-              <a data-control-id="FVizytfnTvu+mZYwIQgMIQ==" data-control-name="actor_picture" target="_self" href="https://www.linkedin.com/company/157240/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A157240" id="ember454" class="feed-shared-actor__image app-aware-link ember-view">    
+              <a data-control-id="FVizytfnTvu+mZYwIQgMIQ==" data-control-name="actor_picture" target="_self" href="#" id="ember454" class="feed-shared-actor__image app-aware-link ember-view">    
                 <span class="js-feed-shared-actor__avatar" data-entity-hovercard-id="urn:li:fs_miniCompany:157240">
                   <div id="ember455" class="feed-shared-actor__avatar ivm-image-view-model ember-view">  
                     <div id="ember456" class="display-flex ivm-view-attr__img-wrapper--use-img-tag ember-view">      
-                      <img class="lazy-image ivm-view-attr__img--centered feed-shared-actor__avatar-image EntityPhoto-square-3 loaded" alt="Capgemini" src="https://media.licdn.com/dms/image/C4E0BAQHGdEBFMKrWAw/company-logo_400_400/0?e=1553126400&amp;v=beta&amp;t=evUtlIZmTYMg7C6X_k6L6QCNdQWO5K6ncm_p3ZQN2zY">
+                      <img class="lazy-image ivm-view-attr__img--centered feed-shared-actor__avatar-image EntityPhoto-square-3 loaded" alt="Capgemini" src="{{ $feed->profile_pict }}">
                     </div>
                   </div>
                 </span>
               </a>
               <div class="feed-shared-actor__meta">
-                <a data-control-id="FVizytfnTvu+mZYwIQgMIQ==" data-control-name="actor" target="_self" href="https://www.linkedin.com/company/157240/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A157240" id="ember457" class="feed-shared-actor__meta-link app-aware-link ember-view">    
+                <a data-control-id="FVizytfnTvu+mZYwIQgMIQ==" data-control-name="actor" target="_self" href="#" id="ember457" class="feed-shared-actor__meta-link app-aware-link ember-view">    
                   <h3 class="feed-shared-actor__title t-12 t-black--light t-normal">
-                    <span class="feed-shared-actor__name t-14 t-black t-bold hoverable-link-text" data-entity-hovercard-id="urn:li:fs_miniCompany:157240"><span dir="ltr">Capgemini</span></span>
+                    <span class="feed-shared-actor__name t-14 t-black t-bold hoverable-link-text" data-entity-hovercard-id="urn:li:fs_miniCompany:157240"><span dir="ltr">{{ $feed->full_name }}</span></span>
                   </h3>
-                  <span class="feed-shared-actor__description t-12 t-black--light t-normal"><div id="ember458" class="truncate feed-shared-text-view white-space-pre-wrap break-words ember-view"><span aria-hidden="false">1,473,903 followers</span></div></span>
-                  <span class="feed-shared-actor__sub-description t-12 t-black--light t-normal"><div id="ember461" class="feed-shared-text-view white-space-pre-wrap break-words ember-view"><span aria-hidden="false"><span id="ember464" class="ember-view"><span>Promoted</span></span></span></div></span>
+                  {{-- <span class="feed-shared-actor__description t-12 t-black--light t-normal"><div id="ember458" class="truncate feed-shared-text-view white-space-pre-wrap break-words ember-view"><span aria-hidden="false">1,473,903 followers</span></div></span>
+                  <span class="feed-shared-actor__sub-description t-12 t-black--light t-normal"><div id="ember461" class="feed-shared-text-view white-space-pre-wrap break-words ember-view"><span aria-hidden="false"><span id="ember464" class="ember-view"><span>Promoted</span></span></span></div></span> --}}
                 </a>
               </div>
             </div>
@@ -243,7 +244,10 @@
               <div dir="ltr" id="ember483" class="feed-shared-update-v2__commentary feed-shared-text ember-view">  
                 <div id="ember484" class="feed-shared-text__text-view feed-shared-text-view white-space-pre-wrap break-words ember-view">
                   <span aria-hidden="false">
-                    <span id="ember487" class="ember-view"><span>Capgemini is hiring for Social Analysts and Data Integrators across Indonesia, Vietnam and Thailand! For the detailed job descriptions, kindly refer to the following links Indonesia-</span></span><a rel="noopener noreferrer" target="_blank" href="https://lnkd.in/fNUPU2P" id="ember491" class="ember-view">https://lnkd.in/fNUPU2P</a>.<span id="ember511" class="ember-view"><span> Please apply via the job postings above or send your updated CV directly to </span></span><a rel="noopener noreferrer" target="_blank" href="mailto:shireen.wen-hui@capgemini.com" id="ember515" class="ember-view">shireen.wen-hui@capgemini.com</a>
+                    <span id="ember487" class="ember-view">
+                      <span>{{ $feed->post_text }}</span>
+                    </span>
+                    {{-- <a rel="noopener noreferrer" target="_blank" href="https://lnkd.in/fNUPU2P" id="ember491" class="ember-view">https://lnkd.in/fNUPU2P</a>.<span id="ember511" class="ember-view"><span> Please apply via the job postings above or send your updated CV directly to </span></span><a rel="noopener noreferrer" target="_blank" href="mailto:shireen.wen-hui@capgemini.com" id="ember515" class="ember-view">shireen.wen-hui@capgemini.com</a> --}}
                   </span>
                 </div>
               </div>    
@@ -258,7 +262,7 @@
                   <a aria-describedby="feed-shared-image-ember1036" data-control-id="3WM6S5F0Qc37nQU4aQ05fw==" data-control-name="object" href="#" id="ember1037" class="feed-shared-image__image-link app-aware-link ember-view">        
                     <div id="ember1038" class="ivm-image-view-model ember-view">  
                       <div id="ember1039" class="display-flex ivm-view-attr__img-wrapper--expanded ivm-view-attr__img-wrapper--use-img-tag ember-view">
-                        <img class="lazy-image ivm-view-attr__img--centered feed-shared-image__image feed-shared-image__image--constrained loaded" alt="No alt text provided for this image" src="https://media.licdn.com/media-proxy/ext?w=800&amp;h=800&amp;f=pj&amp;hash=B%2B7CoDJzBMotVYI4LGd4ZobRAHs%3D&amp;ora=1%2CaFBCTXdkRmpGL2lvQUFBPQ%2CxAVta5g-0R6jnhodx1Ey9KGTqAGj6E5DQJHUA3L0CHH05IbfPWjvfs7aKrKkoUAWKn9UjQBgf7u1SGK1QY64eYnoK9pziJS3d8L5agYUbhl4j3lK6w">
+                        <img class="lazy-image ivm-view-attr__img--centered feed-shared-image__image feed-shared-image__image--constrained loaded" alt="No alt text provided for this image" src="{{ $feed->post_picture_src }}">
                       </div>
                     </div>
                   </a>  
@@ -343,108 +347,53 @@
         </div>
       </div>
       </div>
+      @endforeach
     </div>
 
     <aside class="feed-right-rail right-rail" role="presentation">
-      <div class="feed-right-rail__top-module">
-        <div id="ember2483" class="ember-view">  
-          <div class="feed-follows-module mv4 mh0">
-            <div class="feed-follows-module__title display-flex">
-              <h2 class="t-16 t-black t-normal">Add to your feed</h2>
+        <div class="feed-right-rail__top-module">
+          <div id="ember2483" class="ember-view">  
+            <div class="feed-follows-module mv4 mh0">
+              <div class="feed-follows-module__title display-flex">
+                <h2 class="t-16 t-black t-normal">Add to your feed</h2>
+    
+              </div>
+              <ul class="feed-follows-module__list">
+                @foreach($users as $key => $user)
+                {{-- take 5 data only --}}
+                @if($key < 5 && $is_followed[$user->finder_id] == null)
+                <li id="ember2485" class="feed-follows-module-recommendation company ember-view">
+                  <a data-control-name="sidebar_follow_actor_picture" href="#" id="ember2486" class="feed-follows-module-recommendation__profile-link--avatar mr2 ember-view">    
+                    <div id="ember2487" class="feed-shared-avatar-image b0 company ember-view">  
+                      <img src="{{ $user->profile_pict }}" class="avatar company EntityPhoto-square-3" alt="">
+                    </div>
+                  </a>
+                  <div class="feed-follows-module-recommendation__description">
+                    <a data-control-name="sidebar_follow_actor" href="/company/16640/" id="ember2488" class="feed-follows-module-recommendation__profile-link--description ember-view">    
+                      <p>
+                        <span class="feed-follows-module-recommendation__name t-14 t-black t-bold">{{ $user->full_name }}</span>
+                      </p>
+                      <div class="feed-follows-module-recommendation__subtext">
+                        <p id="ember2488" class="t-12 t-black--light t-normal lt-line-clamp lt-line-clamp--multi-line ember-view" style="-webkit-line-clamp: 3">
+                          {{ $user->university }} • {{ $user->field_of_study }}
+                        </p>
+                      </div>
+                    </a>
+                  </div>  
+                  <button data-control-name="sidebar_follow_actor_follow_toggle" aria-pressed="false" aria-label="Follow" id="ember2491" class="feed-follows-module-recommendation__follow-btn button-secondary-small-muted ml2 follow ember-view">
+                    <span aria-hidden="true" style="font-size: 14px; padding-top: -10px;">Follow</span>
+                  </button>
+                </li>
+                @endif
+                @endforeach
+              </ul>
+              <a data-control-name="sidebar_follow_view_recommendations" href="/feed/follow/" id="ember2506" class="feed-follows-module__view-all link-without-hover-visited ember-view">      
+                View all recommendation
+              </a>  
             </div>
-            <ul class="feed-follows-module__list">
-              <li id="ember2485" class="feed-follows-module-recommendation company ember-view">
-                <a data-control-name="sidebar_follow_actor_picture" href="/company/16640/" id="ember2486" class="feed-follows-module-recommendation__profile-link--avatar mr2 ember-view">    
-                  <div id="ember2487" class="feed-shared-avatar-image b0 company ember-view">  
-                    <img src="https://media.licdn.com/dms/image/C560BAQHzxsCX2SG6Ig/company-logo_100_100/0?e=1553126400&amp;v=beta&amp;t=_Dp4tmZXJ9h1j4zPsENGaYVkg0NMCkKuW3WCycJo5W0" class="avatar company EntityPhoto-square-3" alt="">
-                  </div>
-                </a>
-                <div class="feed-follows-module-recommendation__description">
-                  <a data-control-name="sidebar_follow_actor" href="/company/16640/" id="ember2488" class="feed-follows-module-recommendation__profile-link--description ember-view">    
-                    <p>
-                      <span class="feed-follows-module-recommendation__name t-14 t-black t-bold">PT Bank Danamon Indonesia, Tbk.</span>
-                    </p>
-                    <div class="feed-follows-module-recommendation__subtext">
-                      <p id="ember2490" class="t-12 t-black--light t-normal lt-line-clamp lt-line-clamp--multi-line ember-view" style="-webkit-line-clamp: 3">
-                        Company • Banking
-                      </p>
-                    </div>
-                  </a>
-                </div>  
-                <button data-control-name="sidebar_follow_actor_follow_toggle" aria-pressed="false" aria-label="Follow" id="ember2491" class="feed-follows-module-recommendation__follow-btn button-secondary-small-muted ml2 follow ember-view">    
-                  <li-icon aria-hidden="true" type="plus-icon" class="button-icon" size="small">
-                    <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                      <path d="M14,9H9v5H7V9H2V7H7V2H9V7h5V9Z" class="small-icon" style="fill-opacity: 1">
-                      </path>
-                    </svg>
-                  </li-icon>
-                  <span aria-hidden="true">Follow</span>
-                </button>
-              </li>
-              <li id="ember2492" class="feed-follows-module-recommendation company ember-view">
-                <a data-control-name="sidebar_follow_actor_picture" href="/company/2846044/" id="ember2493" class="feed-follows-module-recommendation__profile-link--avatar mr2 ember-view">    
-                  <div id="ember2494" class="feed-shared-avatar-image b0 company ember-view">  
-                    <img src="https://media.licdn.com/dms/image/C4E0BAQG8feKQfJz-eQ/company-logo_100_100/0?e=1553126400&amp;v=beta&amp;t=Wss-Phm2I8SdrZc8n9UUgQ6861sOzodHWmfV40Zwe3s" class="avatar company EntityPhoto-square-3" alt="">
-                  </div>
-                </a>
-                <div class="feed-follows-module-recommendation__description">
-                  <a data-control-name="sidebar_follow_actor" href="/company/2846044/" id="ember2495" class="feed-follows-module-recommendation__profile-link--description ember-view">    
-                    <p>
-                      <span class="feed-follows-module-recommendation__name t-14 t-black t-bold">Bukalapak</span>
-                    </p>
-                    <div class="feed-follows-module-recommendation__subtext">
-                      <p id="ember2497" class="t-12 t-black--light t-normal lt-line-clamp lt-line-clamp--multi-line ember-view" style="-webkit-line-clamp: 3">  
-                        Company • Internet
-                      </p>
-                    </div>
-                  </a>
-                </div>
-                <button data-control-name="sidebar_follow_actor_follow_toggle" aria-pressed="false" aria-label="Follow" id="ember2498" class="feed-follows-module-recommendation__follow-btn button-secondary-small-muted ml2 follow ember-view">    
-                  <li-icon aria-hidden="true" type="plus-icon" class="button-icon" size="small">
-                    <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                      <path d="M14,9H9v5H7V9H2V7H7V2H9V7h5V9Z" class="small-icon" style="fill-opacity: 1">                        
-                      </path>
-                    </svg>
-                  </li-icon>
-                  <span aria-hidden="true">Follow</span>
-                </button>
-              </li>
-              <li id="ember2499" class="feed-follows-module-recommendation company ember-view">
-                <a data-control-name="sidebar_follow_actor_picture" href="/company/2778669/" id="ember2500" class="feed-follows-module-recommendation__profile-link--avatar mr2 ember-view">    
-                  <div id="ember2501" class="feed-shared-avatar-image b0 company ember-view">  
-                    <img src="https://media.licdn.com/dms/image/C4E0BAQHdyy-UHWGvkA/company-logo_100_100/0?e=1553126400&amp;v=beta&amp;t=1P1Fo1hMYC1rnKuQPXkZc_2_GOdXTXZj-QF9bhT1kMo" class="avatar company EntityPhoto-square-3" alt="">
-                  </div>
-                </a>
-                <div class="feed-follows-module-recommendation__description">
-                  <a data-control-name="sidebar_follow_actor" href="/company/2778669/" id="ember2502" class="feed-follows-module-recommendation__profile-link--description ember-view">    
-                    <p>
-                      <span class="feed-follows-module-recommendation__name t-14 t-black t-bold">Traveloka</span>
-                    </p>
-                    <div class="feed-follows-module-recommendation__subtext">
-                      <p id="ember2504" class="t-12 t-black--light t-normal lt-line-clamp lt-line-clamp--multi-line ember-view" style="-webkit-line-clamp: 3">  
-                        Company • Internet
-                      </p>
-                    </div>
-                  </a>
-                </div>
-                <button data-control-name="sidebar_follow_actor_follow_toggle" aria-pressed="false" aria-label="Follow" id="ember2505" class="feed-follows-module-recommendation__follow-btn button-secondary-small-muted ml2 follow ember-view">    
-                  <li-icon aria-hidden="true" type="plus-icon" class="button-icon" size="small">
-                    <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                      <path d="M14,9H9v5H7V9H2V7H7V2H9V7h5V9Z" class="small-icon" style="fill-opacity: 1">
-                      </path>
-                    </svg>
-                  </li-icon>
-                  <span aria-hidden="true">Follow</span>
-                </button>
-              </li>
-            </ul>
-            <a data-control-name="sidebar_follow_view_recommendations" href="/feed/follow/" id="ember2506" class="feed-follows-module__view-all link-without-hover-visited ember-view">      
-              View all recommendation
-            </a>  
           </div>
         </div>
-      </div>
-    </aside>
+      </aside>
   </div>
 </section>
    
@@ -455,6 +404,7 @@ function readURL(input) {
             
             reader.onload = function (e) {
                 $('#upload_picture_view').attr('src', e.target.result);
+                $('#upload_picture_view').css('display', "");
             }
             
             reader.readAsDataURL(input.files[0]);

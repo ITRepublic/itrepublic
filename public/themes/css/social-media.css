@@ -328,7 +328,7 @@ li-icon[type$="-icon"]>svg {
 }
 
 .section-gap-social-media {
-  height:2000px;
+  height: auto;
 }
 
 .feed-shared-actor--with-control-menu {
