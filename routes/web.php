@@ -53,6 +53,11 @@ Route::get('/logout', 'auth_controller@destroy')->name('logout');
     Route::get('/feeds', 'social_media_controller@create')->name('social_media');
     Route::get('/friends-connect', 'social_media_controller@friends_connect')->name('friends_connect');
     Route::post('/post-feeds/submit', ['uses' => 'social_media_controller@post_feeds_submit', 'before' => 'csrf'])->name('post_feeds_submit');
+    Route::get('/groups', 'social_media_controller@create_group')->name('create_group');
+    Route::post('/groups', 'social_media_controller@save_create_group')->name('save_create_group');
+    Route::get('/my-connections', 'social_media_controller@my_connections')->name('my_connections');
+    Route::get('/joined-groups', 'social_media_controller@joined_groups')->name('joined_groups');
+    Route::get('/my-groups', 'social_media_controller@my_groups')->name('my_groups');
     
     // FOR CORPORATE
     Route::get('/corporate', 'home_controller@user_home')->name('user_home');
