@@ -12,7 +12,6 @@ class post_feeds_comment extends Model
     protected $fillable = [
     	'post_id', 
         'jf_user_id',
-        'seq',
         'comment'
     ];
 }

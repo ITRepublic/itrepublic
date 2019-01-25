@@ -1485,6 +1485,173 @@ hr.artdeco-divider {
   width:500px;
   height:350px;
 }
+
+.feed-shared-social-action-bar__action-btn.active {
+  color: #0073b1;
+  color: var(--ui-accent-blue);
+}
+
+.video-s-loader__overlay {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(87,90,93,.5);
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.nt-segment {
+  margin-bottom: 16px;
+}
+.nt-segment {
+  background-color: #fff;
+  padding: 0;
+  position: relative;
+}
+
+
+.justify-space-between {
+  justify-content: space-between;
+}
+.display-flex {
+  display: flex;
+}
+
+.notif_container {
+  box-shadow: 0 0 0 1px rgba(0,0,0,.15);
+  border-radius: 2px;
+}
+.nt-card__left-rail {
+  width: 56px;
+  align-items: center;
+}
+.nt-card__left-rail {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  margin-right: 12px;
+}
+
+.nt-primary-entity {
+  flex-shrink: 0;
+}
+.presence-entity--size-4 {
+  width: 56px;
+  height: 56px;
+}
+.presence-entity {
+  display: flex;
+  position: relative;
+}
+
+.lazy-image.loaded {
+  opacity: 1;
+}
+.ivm-view-attr__img-wrapper--use-img-tag .ivm-view-attr__img--centered {
+  object-position: center;
+  object-fit: cover;
+}
+.presence-entity__image {
+  background-size: cover;
+}
+.lazy-image {
+  transition: opacity .5s;
+  opacity: 0;
+}
+.ivm-view-attr__illustration, .ivm-view-attr__img--centered {
+  background-position: center;
+  background-size: cover;
+}
+
+
+.presence-indicator--is-reachable.presence-indicator--size-3, .presence-indicator--is-reachable.presence-indicator--size-4 {
+  border-width: 3px;
+}
+.presence-indicator--is-reachable {
+  border: 2px solid #469a1f;
+}
+.presence-indicator--size-3, .presence-indicator--size-4 {
+  width: 12px;
+  height: 12px;
+}
+.presence-indicator {
+  border-radius: 50%;
+  background: #fff;
+  flex-shrink: 0;
+  transition: background 167ms ease-in-out;
+  box-sizing: border-box;
+  animation: fade-in 167ms ease-in;
+}
+.presence-entity__indicator--size-4 {
+  bottom: 0;
+  right: 0;
+}
+.presence-entity__indicator {
+  position: absolute;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.nt-card__core-rail {
+  margin-right: 12px;
+}
+.nt-card__core-rail {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.mt1, .mv1 {
+  margin-top: -4px;
+}
+
+.nt-card__text--3-line {
+  display: block;
+  line-height: 2rem!important;
+  max-height: 6rem;
+  overflow: hidden;
+}
+.nt-card__text--word-wrap {
+  word-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+.nt-card__headline {
+  cursor: pointer;
+}
+.nt-card__text--align-start {
+  text-align: left;
+  text-align: start;
+}
+
+.nt-card__text--3-line * {
+  line-height: inherit!important;
+}
+
+.EntityPhoto-circle-4 {
+  border: 2px solid transparent;
+  border-radius: 49.9%;
+}
+.EntityPhoto-circle-4, .EntityPhoto-circle-4-ghost-person, .EntityPhoto-circle-4-stackedFacepile {
+  width: 56px;
+  height: 56px;
+  box-sizing: border-box;
+  background-clip: content-box;
+}
+
+.like-button-empty{
+  width: 20px;
+  height: 20px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
+.button-post-comment{
+  background-color: #17a2b8!important;
+}
 /*
 ################
              End Social Media Page style

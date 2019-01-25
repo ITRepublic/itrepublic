@@ -16,3 +16,6 @@ use Illuminate\Http\Request;
 Route::get('/industries', 'profile_controller@getIndustry')->name('industries');
 Route::get('/specializations', 'profile_controller@getSpecialization')->name('specializations');
 Route::get('/job_positions', 'profile_controller@getJobPosition')->name('job_positions');
+Route::post('/social_media/confirm_like', ['uses' => 'social_media_controller@confirm_like'])->name('confirm_like');
+Route::post('/social_media/confirm_unlike', ['uses' => 'social_media_controller@confirm_unlike'])->name('confirm_unlike');
+Route::post('/social_media/add_comment', ['uses' => 'social_media_controller@add_comment'])->name('add_comment');

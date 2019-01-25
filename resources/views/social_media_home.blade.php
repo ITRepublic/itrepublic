@@ -34,10 +34,12 @@
             <div class=" feed-identity-module__default-bg profile-rail-card__default-bg feed-identity-module__member-bg-image profile-rail-card__member-bg-image">  
             </div>
 
-            <a data-control-name="identity_profile_photo" href="/in/geofrey-vincent-802b53165/" id="ember409" class="ember-view">    <img class="lazy-image feed-identity-module__member-photo profile-rail-card__member-photo EntityPhoto-circle-5 loaded" alt="Geofrey Vincent" height="64" width="64" src="https://media.licdn.com/dms/image/C5603AQGFy7VJ0ZLXDw/profile-displayphoto-shrink_100_100/0?e=1550102400&amp;v=beta&amp;t=XP3odA3F3b9GPxku9TYNHwEh-rin7__1S1UgIdbPzaw">
+            <a data-control-name="identity_profile_photo" href="{{ route('profile') }}" id="ember409" class="ember-view">    
+              <img class="lazy-image feed-identity-module__member-photo profile-rail-card__member-photo EntityPhoto-circle-5 loaded" alt="{{ $user_login->full_name }}" height="64" width="64" 
+              src="{{ $user_login->profile_pict }}">
             </a><br>
-            <a data-control-name="identity_welcome_message" href="/in/geofrey-vincent-802b53165/" id="ember410" class="tap-target profile-rail-card__actor-link block link-without-hover-visited ember-view">    <span class="t-16 t-black t-bold">
-                  Geofrey Vincent
+            <a data-control-name="identity_welcome_message" href="{{ route('profile') }}" id="ember410" class="tap-target profile-rail-card__actor-link block link-without-hover-visited ember-view">    <span class="t-16 t-black t-bold">
+                {{ $user_login->full_name }}
                 </span>
             </a>
             {{-- <p class="identity-headline t-12 t-black--light t-normal mt1">If you never try, you’ll get nothing at all</p> --}}
@@ -167,6 +169,9 @@
                         <div data-control-name="share.add_commentary" id="ember1149" class="share-box__text-editor pv3 mentions-texteditor ember-view">
                           <textarea rows="5" name="post_feeds" class="form-control" placeholder="What do you want to post">{{ old('post_feeds') }}</textarea>
                           <img id="upload_picture_view" src="#" alt="your post image" style="display:none;" />
+                          <video width="320" id="upload_video_view" height="240" style="display:none;" controls>
+                            <source src="#" type="video/mp4">
+                          </video>
                         </div>
                       </div>
                     </div>
@@ -186,7 +191,7 @@
                         </label>
                       </div>
                       <div id="ember672" class="mr2 button share-media-button tap-target ember-view">
-                        <input data-control-name="share.select_video" name="file" camera="camera" accept="video/*,video/mp4,video/avi,video/webm,video/x-ms-wmv,video/x-flv,video/mpeg,video/quicktime" id="ember672-upload-VIDEO" class="share-media-button__input visually-hidden ember-text-field ember-view" type="file">
+                        <input data-control-name="share.select_video" name="upload_post_video" camera="camera" accept="video/*,video/mp4,video/avi,video/webm,video/x-ms-wmv,video/x-flv,video/mpeg,video/quicktime" id="ember672-upload-VIDEO" class="share-media-button__input visually-hidden ember-text-field ember-view" type="file">
                         <label for="ember672-upload-VIDEO" class="share-media-button__label mvA artdeco-button--circle artdeco-button--tertiary artdeco-button--muted artdeco-button artdeco-button--2">
                           <li-icon aria-hidden="true" type="video-camera-icon" size="large">
                             <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
@@ -223,7 +228,7 @@
                 <span class="js-feed-shared-actor__avatar" data-entity-hovercard-id="urn:li:fs_miniCompany:157240">
                   <div id="ember455" class="feed-shared-actor__avatar ivm-image-view-model ember-view">  
                     <div id="ember456" class="display-flex ivm-view-attr__img-wrapper--use-img-tag ember-view">      
-                      <img class="lazy-image ivm-view-attr__img--centered feed-shared-actor__avatar-image EntityPhoto-square-3 loaded" alt="Capgemini" src="{{ $feed->profile_pict }}">
+                      <img class="lazy-image ivm-view-attr__img--centered feed-shared-actor__avatar-image EntityPhoto-square-3 loaded" src="{{ $feed->profile_pict }}">
                     </div>
                   </div>
                 </span>
@@ -262,7 +267,13 @@
                   <a aria-describedby="feed-shared-image-ember1036" data-control-id="3WM6S5F0Qc37nQU4aQ05fw==" data-control-name="object" href="#" id="ember1037" class="feed-shared-image__image-link app-aware-link ember-view">        
                     <div id="ember1038" class="ivm-image-view-model ember-view">  
                       <div id="ember1039" class="display-flex ivm-view-attr__img-wrapper--expanded ivm-view-attr__img-wrapper--use-img-tag ember-view">
-                        <img class="lazy-image ivm-view-attr__img--centered feed-shared-image__image feed-shared-image__image--constrained loaded" alt="No alt text provided for this image" src="{{ $feed->post_picture_src }}">
+                        @if ( $feed->post_picture_src != '')
+                          <img class="lazy-image ivm-view-attr__img--centered feed-shared-image__image feed-shared-image__image--constrained loaded" alt="No alt text provided for this image" src="{{ $feed->post_picture_src }}">
+                        @else
+                          <video class="lazy-image ivm-view-attr__img--centered feed-shared-image__image feed-shared-image__image--constrained loaded" id="upload_video_view" controls>
+                            <source src="{{ $feed->post_videos_src }}" type="video/mp4">
+                          </video>
+                        @endif
                       </div>
                     </div>
                   </a>  
@@ -279,12 +290,12 @@
             <ul id="ember523" class="social-details-social-counts--justified feed-shared-social-counts ember-view">
               <li class="feed-shared-social-counts__item mr1">
                 <button class="feed-shared-social-counts__num-likes feed-shared-social-counts__count-value t-12 t-black--light t-normal hoverable-link-text" data-control-name="likes_count" data-ember-action="" data-ember-action-524="524">
-                  <span aria-hidden="true">47 Likes</span><span class="visually-hidden">47 Likes on {:actorName} post</span>
+                  <span aria-hidden="true">{{ $feed->total_likes }} likes</span><span class="visually-hidden">47 Likes on {:actorName} post</span>
                 </button>
               </li>
               <li class="feed-shared-social-counts__item">
                 <button class="feed-shared-social-counts__num-comments feed-shared-social-counts__count-value t-12 t-black--light t-normal hoverable-link-text" data-control-name="comments_count" data-ember-action="" data-ember-action-525="525">
-                  <span aria-hidden="true">1 Comment</span>
+                  <span aria-hidden="true">{{ $feed->total_comment }} Comment</span>
                   <span class="visually-hidden">1 Comment on {:actorName} post</span>
                 </button>
               </li>
@@ -293,27 +304,18 @@
             </div>
           </div>
           <div id="ember528" class="feed-shared-social-actions feed-shared-social-action-bar ember-view">            
-            <button data-control-name="like_toggle" id="ember529" class="like-button button like feed-shared-social-action-bar__action-btn ember-view">  
-              <span class="like-icon svg-icon-wrap">
-                <li-icon aria-hidden="true" type="like-icon" size="small">
-                  <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                    <path d="M11.6,7L9.7,3.8C9.4,3.3,9.2,2.7,9,2.1L8.8,1c0,0,0,0,0,0H7C5.9,1,5,1.9,5,3v0.4C5,4,5.1,4.7,5.3,5.3L5.5,6c0,0,0,0,0,0l-3,0C1.7,6,1,6.7,1,7.5c0,0.4,0.1,0.7,0.4,1c0,0,0,0,0,0C1.1,8.8,1,9.1,1,9.5c0,0.5,0.3,1,0.7,1.3c0,0,0,0,0,0c-0.1,0.2-0.2,0.5-0.2,0.7c0,0.8,0.6,1.4,1.3,1.5c0,0,0,0,0,0c-0.1,0.3-0.1,0.6,0,1c0.2,0.6,0.9,1,1.5,1H7c0.9,0,1.5-0.1,2.1-0.3l2.1-0.7c0,0,0,0,0,0H14c0,0,0,0,0,0V7c0,0,0,0,0,0L11.6,7C11.6,7,11.6,7,11.6,7zM3.4,10.1L3,9.6C2.9,9.4,2.8,9.2,2.9,8.9L3,8c0,0,0,0,0,0l5.1,0c0,0,0,0,0,0L7,4.7C6.9,4.3,6.9,3.8,6.9,3.4V3.1c0-0.2,0.2-0.4,0.4-0.4c0,0,0.1,0,0.1,0c0.1,0.7,0.4,1.5,0.7,2L10.7,9c0,0,0,0,0,0H12c0,0,0,0,0,0v3c0,0,0,0,0,0h-0.6c0,0,0,0,0,0l-2.5,0.8C8.5,12.9,8.1,13,7.7,13H4.9c-0.2,0-0.4-0.2-0.5-0.4l-0.1-0.5l-0.6-0.5c-0.2-0.2-0.4-0.5-0.3-0.8L3.4,10.1z" class="small-icon" style="fill-opacity: 1">
-                    </path>
-                  </svg>
-                </li-icon>
-              </span>
-              <span class="unlike-icon svg-icon-wrap">
-                <li-icon aria-hidden="true" type="like-filled-icon" size="small">
-                  <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                    <path d="M11.64,7L9.71,3.77A6,6,0,0,1,9,2.13L8.75,1H8A2,2,0,0,0,6,3V3.15A7.81,7.81,0,0,0,6.43,5.3L6.66,6a0,0,0,0,1,0,0H2.5A1.49,1.49,0,0,0,1.38,8.49a0,0,0,0,1,0,0,1.49,1.49,0,0,0,.31,2.25,0,0,0,0,1,0,0A1.48,1.48,0,0,0,2.83,13a0,0,0,0,1,0,0,1.38,1.38,0,0,0,0,1,1.62,1.62,0,0,0,1.51,1H7a6.47,6.47,0,0,0,2.14-.31L11.25,14H14V7H11.64Z" class="small-icon" style="fill-opacity: 1">
-                    </path>
-                  </svg>
-                </li-icon>
-              </span>
-              <span aria-hidden="true">Like</span>
-              <span class="visually-hidden">Like</span>
+            <button id="img{{ $feed->post_id }}" name="img_like" class="like-button button like feed-shared-social-action-bar__action-btn ember-view">  
+              @if ( $feed->likes_id != NULL && $feed->user_login_id == session('user_id')) 
+                
+                <img class="like-button-empty" 
+                  alt="No alt text provided for this image" id="like_img{{ $feed->post_id }}" src="{{ asset('public/LIKEFILL.png') }}">
+              @else
+                <img class="like-button-empty" 
+                  alt="No alt text provided for this image" id="like_img{{ $feed->post_id }}" src="{{ asset('public/LIKEEMPTY.png') }}">
+              @endif
+                <span>Like</span>            
             </button>
-            <button data-control-name="comment" id="ember530" class="button comment feed-shared-social-action-bar__action-btn social-action-btn ember-view">
+            <button name="addComment" id="list{{ $feed->post_id }}" class="button comment feed-shared-social-action-bar__action-btn social-action-btn ember-view">
               <span class="svg-icon-wrap">
                 <li-icon aria-hidden="true" type="speech-bubble-icon" size="small">
                   <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
@@ -329,20 +331,48 @@
                 Comment
               </span>
             </button>
-            <button data-control-name="reshare" id="ember531" class="feed-shared-social-action-bar__action-btn feed-shared-social-action-bar__reshare-button reshare-button button reshare social-action-btn ember-view">
-              <span class="svg-icon-wrap">
-                <span class="visually-hidden">Share</span>
-                <li-icon aria-hidden="true" type="share-linkedin-icon" size="small">
-                  <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                    <path d="M15.7,7.3L9,1v4H7c-3.9,0-7,3.1-7,7v3h1.4c0-2.2,1.9-4,4.1-4c0,0,0.1,0,0.1,0H9v4l0,0l6.7-6.3C16.1,8.4,16.1,7.7,15.7,7.3C15.7,7.3,15.7,7.3,15.7,7.3z M11,10.6V9H5.6c-1.2,0-2.4,0.4-3.4,1.1C3.1,8.2,4.9,7,7,7h4V5.4L13.7,8L11,10.6z" class="small-icon" style="fill-opacity: 1">
-                    </path>
-                  </svg>
-                </li-icon>
-              </span>
-              <span aria-hidden="true">Share</span>
-            </button>
+            <form action="{{ route('share_post') }}" method="post" enctype="multipart/form-data">
+              {{ csrf_field() }}
+              <input id="post_id" name="post_id" type="hidden" value="{{ $feed->post_id }}">
+              <button data-control-name="reshare" id="ember531" class="feed-shared-social-action-bar__action-btn feed-shared-social-action-bar__reshare-button reshare-button button reshare social-action-btn ember-view">
+                <span class="svg-icon-wrap">
+                  <span class="visually-hidden">Share</span>
+                  <li-icon aria-hidden="true" type="share-linkedin-icon" size="small">
+                    <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
+                      <path d="M15.7,7.3L9,1v4H7c-3.9,0-7,3.1-7,7v3h1.4c0-2.2,1.9-4,4.1-4c0,0,0.1,0,0.1,0H9v4l0,0l6.7-6.3C16.1,8.4,16.1,7.7,15.7,7.3C15.7,7.3,15.7,7.3,15.7,7.3z M11,10.6V9H5.6c-1.2,0-2.4,0.4-3.4,1.1C3.1,8.2,4.9,7,7,7h4V5.4L13.7,8L11,10.6z" class="small-icon" style="fill-opacity: 1">
+                      </path>
+                    </svg>
+                  </li-icon>
+                </span>
+                <span aria-hidden="true">Share</span>
+              </button>
+            </form>
           </div>            
           <div class="feed-shared-update-v2__comments-container display-flex flex-column-reverse">
+            <div class="table-responsive" >
+              <table class="table table-bordered comment-table">
+                <tr class="skill-row" id="comment_list{{ $feed->post_id }}" style="display:none">
+                  <td>
+                    <input type="text" name="comment" id="comment_text{{ $feed->post_id }}" value="" class="form-control">
+                  </td>
+                  <td>
+                    <button id="comment_button{{ $feed->post_id }}" class="button-post-comment btn btn-sm btn-info">Post</button>
+                  </td>
+                </tr>
+                @if ($feed->comment != "")
+                  @foreach(explode('~', $feed->comment) as $comment) 
+                  <tr>
+                    <td colspan="2">
+                      <p>
+                          <strong>- {{ $comment }}</strong>
+                      </p>
+                    </td>
+                  </tr>
+                  @endforeach
+                @endif
+
+              </table>
+          </div>
           </div>
         </div>
       </div>
@@ -380,7 +410,7 @@
                       </div>
                     </a>
                   </div>  
-                  <button data-control-name="sidebar_follow_actor_follow_toggle" aria-pressed="false" aria-label="Follow" id="ember2491" class="feed-follows-module-recommendation__follow-btn button-secondary-small-muted ml2 follow ember-view">
+                  <button type="submit" data-control-name="sidebar_follow_actor_follow_toggle" aria-pressed="false" aria-label="Follow" id="ember2491" class="feed-follows-module-recommendation__follow-btn button-secondary-small-muted ml2 follow ember-view">
                     <span aria-hidden="true" style="font-size: 14px; padding-top: -10px;">Follow</span>
                   </button>
                 </li>
@@ -399,21 +429,122 @@
    
 <script>
 function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
             
-            reader.onload = function (e) {
-                $('#upload_picture_view').attr('src', e.target.result);
-                $('#upload_picture_view').css('display', "");
-            }
-            
-            reader.readAsDataURL(input.files[0]);
-        }
+    reader.onload = function (e) {
+      $('#upload_video_view').attr('src', '#');
+      $('#upload_video_view').css('display', "none");
+      $('#upload_picture_view').attr('src', e.target.result);
+      $('#upload_picture_view').css('display', "");
     }
+            
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+function readVideoURL(input) {
+
+  if (input.files && input.files[0]) {
+
+    var reader = new FileReader();
+            
+    reader.onload = function (e) {
+      $('#upload_picture_view').attr('src', '#');
+      $('#upload_picture_view').css('display', "none");
+      $('#upload_video_view').attr('src', e.target.result);
+      $('#upload_video_view').css('display', "");
+      
+    }
+            
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+$("#ember670-upload-IMAGE").change(function(){
+  readURL(this);
+})
+$("#ember672-upload-VIDEO").change(function(){
+  readVideoURL(this);
+})
+
+function toggle_button(input) {
+
+  if (input.files && input.files[0]) {
+
+    var reader = new FileReader();
+            
+    reader.onload = function (e) {
+      $('#upload_picture_view').attr('src', '#');
+      $('#upload_picture_view').css('display', "none");
+      $('#upload_video_view').attr('src', e.target.result);
+      $('#upload_video_view').css('display', "");
+      
+    }
+            
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+$("button[name=img_like]").click(function(){
+  var key_src = "LIKEEMPTY";
+  var id_img = $(this).prop('id');
+  if ( $("#like_" + id_img).attr("src").toLowerCase().indexOf(key_src.toLowerCase()) != -1) {
+    $("#like_" + id_img).attr('src','{{ asset("public/LIKEFILL.png") }}');
+    var post_id = id_img.replace("img", "");
+    var jf_user_id = {{ @session('user_id') }};
+    $.post('{{ route("confirm_like") }}', {"post_id": post_id, "jf_user_id": jf_user_id})
+    .then(function(response){
+            if(response.message == 'OK') {
+                alert(response.message);
+            }
+            else {
+                alert(response.message);
+            }
+        });
+  }else{
+    $("#like_" + id_img).attr('src','{{ asset("public/LIKEEMPTY.png") }}');
+    var post_id = id_img.replace("img", "");
+    var jf_user_id = {{ @session('user_id') }};
+    $.post('{{ route("confirm_unlike") }}', {"post_id": post_id, "jf_user_id": jf_user_id})
+    .then(function(response){
+            if(response.message == 'OK') {
+                alert(response.message);
+            }
+            else {
+                alert(response.message);
+            }
+        });
+  }
+
+})
+
+$("button[name=addComment]").on("click", function() {
+    var id_com = $(this).prop('id');
+    var post_id = id_com.replace("list", "");
     
-    $("#ember670-upload-IMAGE").change(function(){
-      readURL(this);
-    });
+    var jf_user_id = {{ @session('user_id') }};
+    
+    if($('#comment_list'+post_id).css('display') == 'none'){ 
+        $('#comment_list'+post_id).css('display', "");
+        $("#comment_button"+post_id).on("click", function() {
+          var comment_text = $('#comment_text'+post_id).val();
+
+          $.post('{{ route("add_comment") }}', {"post_id": post_id, "jf_user_id": jf_user_id, "comment_text": comment_text})
+          .then(function(response){
+            if(response.message == 'OK') {
+                alert(response.message);
+                window.location.reload();
+            }
+            else {
+                alert(response.message);
+            }
+          });
+        })
+      } else { 
+        $('#comment_list'+post_id).css('display', "none");
+      }
+    
+  });
+
+
 </script>
 <!-- End post Area -->
 @endsection

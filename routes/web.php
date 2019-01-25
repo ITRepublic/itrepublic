@@ -53,6 +53,10 @@ Route::get('/logout', 'auth_controller@destroy')->name('logout');
     Route::get('/feeds', 'social_media_controller@create')->name('social_media');
     Route::get('/friends-connect', 'social_media_controller@friends_connect')->name('friends_connect');
     Route::post('/post-feeds/submit', ['uses' => 'social_media_controller@post_feeds_submit', 'before' => 'csrf'])->name('post_feeds_submit');
+
+    Route::post('/post-feeds/share_post', ['uses' => 'social_media_controller@share_post', 'before' => 'csrf'])->name('share_post');
+
+    Route::get('/notification', 'social_media_controller@notification')->name('notification');
     
     // FOR CORPORATE
     Route::get('/corporate', 'home_controller@user_home')->name('user_home');
