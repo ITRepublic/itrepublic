@@ -28,14 +28,38 @@
                   </div>
                 </a>
               </div>  
-              <button data-control-name="sidebar_follow_actor_follow_toggle" aria-pressed="false" aria-label="Follow" id="ember2491" class="feed-follows-module-recommendation__follow-btn button-secondary-small-muted ml2 follow ember-view">
+              <button type="button" data-target="#sidebar-follow-{{ $user->finder_id }}" data-toggle="modal" data-control-name="sidebar_follow_actor_follow_toggle" aria-pressed="false" aria-label="Follow" class="feed-follows-module-recommendation__follow-btn button-secondary-small-muted ml2 follow ember-view">
                 <span aria-hidden="true" style="font-size: 14px; padding-top: -10px;">Follow</span>
               </button>
             </li>
             @endif
+
+            <!-- Modal -->
+            <form action="{{ route('follow_connection', $user->finder_id) }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="modal fade" id="sidebar-follow-{{ $user->finder_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title">Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                          Are you sure want to follow '{{ $user->full_name }}' ?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" data-dismiss="modal" class="btn btn-primary" style="background-color: #fff; color: #333; border: 1px solid #333; font-size: 14px; padding: 5px 15px;">No</button>
+                          <button type="submit" class="btn btn-primary" style="background-color: #333; color: #fff; border: 1px solid #333; font-size: 14px; padding: 5px 15px;">Yes</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+              </form>
             @endforeach
           </ul>
-          <a data-control-name="sidebar_follow_view_recommendations" href="/feed/follow/" id="ember2506" class="feed-follows-module__view-all link-without-hover-visited ember-view">      
+          <a data-control-name="sidebar_follow_view_recommendations" href="{{ route('friends_connect') }}" id="ember2506" class="feed-follows-module__view-all link-without-hover-visited ember-view">      
             View all recommendation
           </a>  
         </div>

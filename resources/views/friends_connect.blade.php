@@ -25,6 +25,8 @@
 <!-- End banner Area -->	
 
 <!-- Start Social Area -->
+@include('error.template')
+
 <section class="post-area section-gap-social-media">
   <div class="container social-media-container">
     
@@ -33,7 +35,7 @@
     {{-- END RENDER CONNECTION & GROUP ASIDE --}}
 
     <div class="core-rail" role="main">
-      <section id="ember1003" class="mn-invitations-preview mb4 artdeco-card ember-view">
+      {{-- <section id="ember1003" class="mn-invitations-preview mb4 artdeco-card ember-view">
         <header class="artdeco-card__header mn-invitations-preview__header">
           <h3 class="flex-1 t-18 t-black t-normal">
               No pending invitations
@@ -44,7 +46,7 @@
             </span>
           </a>      
         </header>
-      </section>
+      </section> --}}
       <div data-launchpad-scroll-anchor="pymk">
         <section id="ember1005" class="artdeco-card ember-view">
           <header class="mn-discovery__header artdeco-card__header">
@@ -81,7 +83,7 @@
                         </div>
                         <footer class="mt2 mhA text-align-center">
                           @if($is_followed[$user->finder_id] == null)
-                          <button style="background-color: #fff; color: #333; border: 1px solid #333; padding: 10px; font-size: 14px;" class="js-mn-discovery-person-card__action-btn mn-discovery-person-card__action-btn--extra-padding artdeco-button artdeco-button--1 artdeco-button--secondary ember-view">
+                          <button data-toggle="modal" data-target="#follow-{{ $user->finder_id }}" style="background-color: #fff; color: #333; border: 1px solid #333; padding: 10px; font-size: 14px;" class="js-mn-discovery-person-card__action-btn mn-discovery-person-card__action-btn--extra-padding artdeco-button artdeco-button--1 artdeco-button--secondary ember-view">
                             <span class="artdeco-button__text">Follow</span>
                           </button>
                           @else
@@ -93,6 +95,30 @@
                       </section>
                     </div>
                   </li>
+                  
+                  <!-- Modal -->
+                 <form action="{{ route('follow_connection', $user->finder_id) }}" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="modal fade" id="follow-{{ $user->finder_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title">Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                              Are you sure want to follow '{{ $user->full_name }}' ?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" data-dismiss="modal" class="btn btn-primary" style="background-color: #fff; color: #333; border: 1px solid #333; font-size: 14px; padding: 5px 15px;">No</button>
+                              <button type="submit" class="btn btn-primary" style="background-color: #333; color: #fff; border: 1px solid #333; font-size: 14px; padding: 5px 15px;">Yes</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                  </form>
                   @endforeach
                 </ul>
               </div>
@@ -127,7 +153,7 @@
                         </div>
                         <footer class="mt2 mhA text-align-center" style="margin-bottom: 20px;">
                           @if($is_join[$list->group_friends_id] == null)
-                          <button style="background-color: #fff; color: #333; border: 1px solid #333; font-size: 14px; padding: 5px 15px;" class="js-mn-discovery-group-card__action-btn mn-discovery-group-card__action-btn--extra-padding artdeco-button artdeco-button--1 artdeco-button--secondary ember-view">
+                          <button data-toggle="modal" data-target="#join-group-{{ $list->group_friends_id }}" style="background-color: #fff; color: #333; border: 1px solid #333; font-size: 14px; padding: 5px 15px;" class="js-mn-discovery-group-card__action-btn mn-discovery-group-card__action-btn--extra-padding artdeco-button artdeco-button--1 artdeco-button--secondary ember-view">
                             <span class="artdeco-button__text">Join</span>
                           </button>
                           @else
@@ -139,6 +165,30 @@
                       </section>
                     </div>
                   </li>
+
+                  <!-- Modal -->
+                  <form action="{{ route('join_group', $list->group_friends_id) }}" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="modal fade" id="join-group-{{ $list->group_friends_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title">Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                              Are you sure want to join group '{{ $list->group_name }}' ?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" data-dismiss="modal" class="btn btn-primary" style="background-color: #fff; color: #333; border: 1px solid #333; font-size: 14px; padding: 5px 15px;">No</button>
+                              <button type="submit" class="btn btn-primary" style="background-color: #333; color: #fff; border: 1px solid #333; font-size: 14px; padding: 5px 15px;">Yes</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                  </form>
                   @endforeach
                 </ul>
               </div>

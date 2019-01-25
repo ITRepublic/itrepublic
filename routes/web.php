@@ -55,10 +55,15 @@ Route::get('/logout', 'auth_controller@destroy')->name('logout');
     Route::post('/post-feeds/submit', ['uses' => 'social_media_controller@post_feeds_submit', 'before' => 'csrf'])->name('post_feeds_submit');
     Route::get('/groups', 'social_media_controller@create_group')->name('create_group');
     Route::post('/groups', 'social_media_controller@save_create_group')->name('save_create_group');
+    Route::post('/group/{id}/join', 'social_media_controller@join_group')->name('join_group');
     Route::get('/my-connections', 'social_media_controller@my_connections')->name('my_connections');
+    Route::post('/connection/{id}/follow', 'social_media_controller@follow_connection')->name('follow_connection');
     Route::get('/joined-groups', 'social_media_controller@joined_groups')->name('joined_groups');
     Route::get('/my-groups', 'social_media_controller@my_groups')->name('my_groups');
-    
+    Route::post('/my-groups/{id}/update', 'social_media_controller@update_my_groups')->name('update_my_groups');
+    Route::get('/group-discussion', 'social_media_controller@group_discussion')->name('group_discussion');
+    Route::post('/group/{id}/discussion', 'social_media_controller@post_group_discussion')->name('post_group_discussion');
+
     // FOR CORPORATE
     Route::get('/corporate', 'home_controller@user_home')->name('user_home');
    

@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# Host: 127.0.0.1 (MySQL 5.7.21)
+# Host: 127.0.0.1 (MySQL 5.7.23)
 # Database: itrep_jobportal
-# Generation Time: 2019-01-11 08:53:19 +0000
+# Generation Time: 2019-01-25 09:04:03 +0000
 # ************************************************************
 
 
@@ -117,17 +117,22 @@ CREATE TABLE `detail_group_friends` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`detail_group_friends_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `detail_group_friends` WRITE;
 /*!40000 ALTER TABLE `detail_group_friends` DISABLE KEYS */;
 
 INSERT INTO `detail_group_friends` (`detail_group_friends_id`, `group_friends_id`, `jf_user_id`, `role`, `created_at`, `updated_at`)
 VALUES
-	(2,1,22,'Member','2019-01-11 15:31:45','2019-01-11 15:31:45'),
-	(3,1,21,'Member','2019-01-11 15:36:55','2019-01-11 15:36:55'),
-	(4,2,21,'Member','2019-01-11 15:41:20','2019-01-11 15:41:20'),
-	(5,6,21,'Member','2019-01-11 15:41:38','2019-01-11 15:41:38');
+	(2,1,22,'Owner','2019-01-25 12:11:21','2019-01-25 12:11:21'),
+	(3,1,21,'Member','2019-01-21 14:52:25','2019-01-21 14:52:25'),
+	(4,2,21,'Owner','2019-01-21 14:46:54','2019-01-21 14:46:54'),
+	(5,3,21,'Owner','2019-01-21 14:51:35','2019-01-21 14:51:35'),
+	(6,4,22,'Owner','2019-01-25 12:11:30','2019-01-25 12:11:30'),
+	(7,5,22,'Owner','2019-01-25 12:11:31','2019-01-25 12:11:31'),
+	(8,6,22,'Owner','2019-01-25 12:11:32','2019-01-25 12:11:32'),
+	(9,8,21,'Owner','2019-01-21 14:52:10','2019-01-21 14:52:10'),
+	(12,6,21,'Member','2019-01-25 05:25:19','2019-01-25 05:25:19');
 
 /*!40000 ALTER TABLE `detail_group_friends` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -145,16 +150,48 @@ CREATE TABLE `friends_list` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`friends_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `friends_list` WRITE;
 /*!40000 ALTER TABLE `friends_list` DISABLE KEYS */;
 
 INSERT INTO `friends_list` (`friends_id`, `jf_user_id`, `partner_jf_user_id`, `created_at`, `updated_at`)
 VALUES
-	(1,21,22,'2019-01-11 14:22:45',NULL);
+	(1,21,22,'2019-01-11 14:22:45',NULL),
+	(2,21,26,'2019-01-25 07:20:54','2019-01-25 07:20:54');
 
 /*!40000 ALTER TABLE `friends_list` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table group_discussion
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `group_discussion`;
+
+CREATE TABLE `group_discussion` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `message` longtext,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+LOCK TABLES `group_discussion` WRITE;
+/*!40000 ALTER TABLE `group_discussion` DISABLE KEYS */;
+
+INSERT INTO `group_discussion` (`id`, `user_id`, `group_id`, `message`, `created_at`, `updated_at`)
+VALUES
+	(1,21,1,'Saya newbie ni.. Mohon pencerahan dong untuk guide Laravel nya...','2019-01-25 12:45:27','2019-01-25 12:45:27'),
+	(2,22,1,'@John Doe Liat disini aja bro.. https://laravel.com','2019-01-25 12:50:27','2019-01-25 12:50:27'),
+	(3,21,1,'Hi semua ....','2019-01-25 15:32:35','2019-01-25 15:32:35'),
+	(4,21,1,'Ajari aku dong kakak','2019-01-25 15:32:50','2019-01-25 15:32:50'),
+	(5,21,1,'kalo untuk API pake ini bro https://lumen.laravel.com/','2019-01-25 15:34:45','2019-01-25 15:34:45'),
+	(8,21,8,'Test bro','2019-01-25 15:52:38','2019-01-25 15:52:38');
+
+/*!40000 ALTER TABLE `group_discussion` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -171,19 +208,20 @@ CREATE TABLE `group_friends` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`group_friends_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `group_friends` WRITE;
 /*!40000 ALTER TABLE `group_friends` DISABLE KEYS */;
 
 INSERT INTO `group_friends` (`group_friends_id`, `group_name`, `owner`, `group_image`, `created_at`, `updated_at`)
 VALUES
-	(1,'Laravel',21,'https://cdn-images-1.medium.com/max/1200/1*j76hKq2KBP9-Y-N7KcnM6A.png','2019-01-11 15:50:09','2019-01-11 15:50:09'),
+	(1,'Laravel',22,'https://cdn-images-1.medium.com/max/1200/1*j76hKq2KBP9-Y-N7KcnM6A.png','2019-01-21 14:52:18','2019-01-21 14:52:18'),
 	(2,'Angular JS',21,'https://cdn.auth0.com/blog/angular/logo.png','2019-01-11 15:50:08','2019-01-11 15:50:08'),
 	(3,'Ionic Framework Hybrid Mobile Application',21,'https://hackster.imgix.net/uploads/attachments/183867/ionic.png?auto=compress&w=900&h=675&fit=min&fm=jpg','2019-01-11 15:15:24','2019-01-11 15:15:24'),
-	(4,'iOS Developer',21,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdcahYVVv0vLtabdT2hVve3gpXmN6As_J1Cpe5OmRxiSRgAN1qyA','2019-01-11 15:17:28','2019-01-11 15:17:28'),
-	(5,'React Native',21,'https://cdn-images-1.medium.com/max/1200/1*KANHihva9OdXx2-V5EDn3g.png','2019-01-11 15:15:48','2019-01-11 15:15:48'),
-	(6,'Android Developer',21,'https://image.slidesharecdn.com/myandroidpresentation1-120923142837-phpapp02/95/android-fundamentals-and-tutorial-for-beginners-1-728.jpg?cb=1348410647','2019-01-11 15:50:10','2019-01-11 15:50:10');
+	(4,'iOS Developer',22,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdcahYVVv0vLtabdT2hVve3gpXmN6As_J1Cpe5OmRxiSRgAN1qyA','2019-01-25 12:10:57','2019-01-25 12:10:57'),
+	(5,'React Native',22,'https://cdn-images-1.medium.com/max/1200/1*KANHihva9OdXx2-V5EDn3g.png','2019-01-25 12:10:59','2019-01-25 12:10:59'),
+	(6,'Android Developer',22,'https://image.slidesharecdn.com/myandroidpresentation1-120923142837-phpapp02/95/android-fundamentals-and-tutorial-for-beginners-1-728.jpg?cb=1348410647','2019-01-25 12:11:01','2019-01-25 12:11:01'),
+	(8,'IT Republic',21,'storage/app/group_image/MLyN87N4uTfHCEBCL3McUTmhuyOMx5XSsMP4pkYK.png','2019-01-24 12:45:27','2019-01-24 05:45:27');
 
 /*!40000 ALTER TABLE `group_friends` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -275,7 +313,7 @@ LOCK TABLES `job_finder` WRITE;
 
 INSERT INTO `job_finder` (`finder_id`, `email_address`, `full_name`, `address`, `phone`, `gender`, `birth_date`, `province_id`, `city_name`, `cv_file_name`, `university`, `highest_qualification`, `field_of_study`, `grade`, `expected_salary`, `language`, `last_salary`, `group_id`, `total_rating`, `status`, `profile_pict`, `updated_at`, `created_at`)
 VALUES
-	(21,'123@gmail.com','user 123','Jalan Bambu Betung 3 no. 18','123213212131312','Male','2018-11-03','17','17','storage/app/resume/S92DUxV8Li8fchokEqd4ayCNUSquHvkZ5bqclbJk.docx','Binus','2','IT','3.00','15000000','English','12300000','jf','0','active','storage/app/image/UEKPCsXltyWILCnws7G2shba9fHzhVc1mXnJfcGP.jpeg','2018-11-29 13:59:28','2018-11-27 14:59:24'),
+	(21,'123@gmail.com','John Doe','Jalan Bambu Betung 3 no. 18','123213212131312','Male','2018-11-03','17','17','storage/app/resume/S92DUxV8Li8fchokEqd4ayCNUSquHvkZ5bqclbJk.docx','Binus','2','IT','3.00','15000000','English','12300000','jf','0','active','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','2018-11-29 13:59:28','2018-11-27 14:59:24'),
 	(22,'234@gmail.com','Jordy Jonatan','Kalteng','123213212131312','Male','2018-11-17','13','','','Bina Nusantara','2','IT','','','','','jf','0','active','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','2018-11-27 15:00:24','2018-11-27 15:00:24'),
 	(23,'234@gmail.com','Dodi Dodo','Kalteng','123213212131312','Male','2018-11-17','13','','','Univ. Bunda Mulia','2','IT','','','','','jf','0','active','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','2018-11-27 15:00:24','2018-11-27 15:00:24'),
 	(24,'234@gmail.com','Franco','Kalteng','123213212131312','Male','2018-11-17','13','','','Pelita Harapan','2','IT','','','','','jf','0','active','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','2018-11-27 15:00:24','2018-11-27 15:00:24'),
@@ -570,7 +608,7 @@ CREATE TABLE `login_history` (
   `updated_at` varchar(50) NOT NULL,
   `created_at` varchar(50) NOT NULL,
   PRIMARY KEY (`login_history_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `login_history` WRITE;
 /*!40000 ALTER TABLE `login_history` DISABLE KEYS */;
@@ -603,7 +641,12 @@ VALUES
 	(46,21,'2019-01-08 14:46:14','2019-01-08 14:46:14','2019-01-08 14:46:14'),
 	(47,21,'2019-01-09 21:51:33','2019-01-09 21:51:33','2019-01-09 21:51:33'),
 	(48,21,'2019-01-10 22:09:07','2019-01-10 22:09:07','2019-01-10 22:09:07'),
-	(49,21,'2019-01-11 06:31:17','2019-01-11 06:31:17','2019-01-11 06:31:17');
+	(49,21,'2019-01-11 06:31:17','2019-01-11 06:31:17','2019-01-11 06:31:17'),
+	(50,21,'2019-01-11 13:03:15','2019-01-11 13:03:15','2019-01-11 13:03:15'),
+	(51,21,'2019-01-11 14:29:06','2019-01-11 14:29:06','2019-01-11 14:29:06'),
+	(52,21,'2019-01-21 06:52:33','2019-01-21 06:52:33','2019-01-21 06:52:33'),
+	(53,21,'2019-01-24 04:55:23','2019-01-24 04:55:23','2019-01-24 04:55:23'),
+	(54,21,'2019-01-25 05:01:43','2019-01-25 05:01:43','2019-01-25 05:01:43');
 
 /*!40000 ALTER TABLE `login_history` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1029,15 +1072,16 @@ CREATE TABLE `post_feeds` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`post_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `post_feeds` WRITE;
 /*!40000 ALTER TABLE `post_feeds` DISABLE KEYS */;
 
 INSERT INTO `post_feeds` (`post_id`, `post_text`, `post_picture_src`, `post_videos_src`, `jf_user_id`, `created_at`, `updated_at`)
 VALUES
-	(4,'test','','',21,'2019-01-11 13:41:09','2019-01-11 06:32:20'),
-	(5,'hello world!!!!','','',21,'2019-01-11 06:49:39','2019-01-11 06:49:39');
+	(4,'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','',21,'2019-01-11 20:28:57','2019-01-11 06:32:20'),
+	(5,'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','',21,'2019-01-11 20:29:01','2019-01-11 06:49:39'),
+	(7,'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.','storage/app/post_picture/z7BMO8pK539CXlKawBm1eVUZaBVWYCCL3WlhZ17P.png','',21,'2019-01-11 13:31:00','2019-01-11 13:31:00');
 
 /*!40000 ALTER TABLE `post_feeds` ENABLE KEYS */;
 UNLOCK TABLES;
