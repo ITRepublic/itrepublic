@@ -25,112 +25,17 @@
 <!-- End banner Area -->	
 
 <!-- Start Social Area -->
+@include('error.template')
+
 <section class="post-area section-gap-social-media">
   <div class="container social-media-container">
-    <aside class="left-rail" role="presentation">
-      <div id="ember731" class="sticky stuck ember-view" style="height: 778px; width: 216px; margin: 0px auto;">          
-        <div class="left-rail-container">
-          <div id="ember732" class="mn-connections-summary container-with-shadow ember-view">
-            <div class="pt4">
-              <div id="ember733" class="mn-origami-rail-card--fade-in ember-view">
-                <section id="ember734" class="mn-origami-rail-card artdeco-card ember-view">
-                  <div class="mn-origami-rail-card__summary">
-                    <a data-control-name="connections" href="#" id="ember903" class="js-mn-origami-rail-card__connection-count link-without-hover-state ember-view">            
-                      <h3 class="mn-origami-rail-card__count t-20 t-black t-normal" aria-label="See all connections">{{ number_format($connections) }}</h3>
-                    </a>
-                    <h3 class="t-16 t-black t-normal" aria-hidden="true">
-                      Connections
-                    </h3>
+    
+    {{-- RENDER CONNECTION & GROUP ASIDE --}}
+    @include('layout.connection-group-aside')
+    {{-- END RENDER CONNECTION & GROUP ASIDE --}}
 
-                    @if($connections > 0)
-                    <a data-control-name="connections" href="#" id="ember904" class="link-without-hover-state text-align-center ember-view">              
-                      <div id="ember905" class="mn-origami-rail-card__social-proof mt1 ember-view">
-                        <div class="mn-social-proof">
-                          <div class="mn-social-proof__facepiles">
-                            @foreach($connections_profile as $profile)
-                            <img class="lazy-image mn-social-proof__profile-image EntityPhoto-circle-2 loaded" alt="{{ $profile->full_name }}" height="40" width="40" src="{{ $profile->profile_pict }}">
-                            @endforeach
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                    @endif
-                   </div>
-
-
-                  <hr class="artdeco-divider mv0">
-                  <div class="mn-origami-rail-card__summary">
-                      
-                    @if($groups == 0)
-                      <h3 class="t-16 t-black t-normal">No groups</h3>
-                      <p class="t-14 t-black--light t-normal text-align-center">
-                        Once you join groups you will see them here
-                      </p>
-                    @else
-                      <a data-control-name="connections" href="#" id="ember903" class="js-mn-origami-rail-card__connection-count link-without-hover-state ember-view">            
-                        <h3 class="mn-origami-rail-card__count t-20 t-black t-normal" aria-label="See all connections">{{ number_format($groups) }}</h3>
-                      </a>
-                      <h3 class="t-16 t-black t-normal" aria-hidden="true">
-                        Groups
-                      </h3>
-                      <a data-control-name="connections" href="#" id="ember904" class="link-without-hover-state text-align-center ember-view">              
-                        <div id="ember905" class="mn-origami-rail-card__social-proof mt1 ember-view">
-                          <div class="mn-social-proof">
-                            <div class="mn-social-proof__facepiles">
-                              @foreach($groups_image as $group)
-                              <img class="lazy-image mn-social-proof__profile-image EntityPhoto-circle-2 loaded" alt="{{ $group->group_name }}" height="40" width="40" src="{{ $group->group_image }}">
-                              @endforeach
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    @endif
-                  </div>
-
-
-                  <hr class="artdeco-divider mv0">
-                  <div class="mn-origami-rail-card__summary">
-                      
-                    @if($owned_groups == 0)
-                      <h3 class="t-16 t-black t-normal">No owned groups</h3>
-                      <p class="t-14 t-black--light t-normal text-align-center">
-                        Once you have create groups you will see them here
-                      </p>
-                    @else
-                      <a data-control-name="connections" href="#" id="ember903" class="js-mn-origami-rail-card__connection-count link-without-hover-state ember-view">            
-                        <h3 class="mn-origami-rail-card__count t-20 t-black t-normal" aria-label="See all connections">{{ number_format($owned_groups) }}</h3>
-                      </a>
-                      <h3 class="t-16 t-black t-normal" aria-hidden="true">
-                        Owned Groups
-                      </h3>
-                      <a data-control-name="connections" href="#" id="ember904" class="link-without-hover-state text-align-center ember-view">              
-                        <div id="ember905" class="mn-origami-rail-card__social-proof mt1 ember-view">
-                          <div class="mn-social-proof">
-                            <div class="mn-social-proof__facepiles">
-                              @foreach($owned_groups_image as $ow_group)
-                              <img class="lazy-image mn-social-proof__profile-image EntityPhoto-circle-2 loaded" alt="{{ $ow_group->group_name }}" height="40" width="40" src="{{ $ow_group->group_image }}">
-                              @endforeach
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    @endif
-                  </div>
-
-                  <hr class="artdeco-divider mv0">
-                  <div class="mn-origami-rail-card__summary">
-                    <button type="button" style="border: 1px solid #333; color: #fff; background-color: #333; padding: 5px 10px;">Create Groups</button>
-                  </div>
-
-                </section>
-              </div>
-            </div>
-          </div>          
-        </div>
-      </div>
-    </aside>
     <div class="core-rail" role="main">
-      <section id="ember1003" class="mn-invitations-preview mb4 artdeco-card ember-view">
+      {{-- <section id="ember1003" class="mn-invitations-preview mb4 artdeco-card ember-view">
         <header class="artdeco-card__header mn-invitations-preview__header">
           <h3 class="flex-1 t-18 t-black t-normal">
               No pending invitations
@@ -141,7 +46,7 @@
             </span>
           </a>      
         </header>
-      </section>
+      </section> --}}
       <div data-launchpad-scroll-anchor="pymk">
         <section id="ember1005" class="artdeco-card ember-view">
           <header class="mn-discovery__header artdeco-card__header">
@@ -178,7 +83,7 @@
                         </div>
                         <footer class="mt2 mhA text-align-center">
                           @if($is_followed[$user->finder_id] == null)
-                          <button style="background-color: #fff; color: #333; border: 1px solid #333; padding: 10px; font-size: 14px;" class="js-mn-discovery-person-card__action-btn mn-discovery-person-card__action-btn--extra-padding artdeco-button artdeco-button--1 artdeco-button--secondary ember-view">
+                          <button data-toggle="modal" data-target="#follow-{{ $user->finder_id }}" style="background-color: #fff; color: #333; border: 1px solid #333; padding: 10px; font-size: 14px;" class="js-mn-discovery-person-card__action-btn mn-discovery-person-card__action-btn--extra-padding artdeco-button artdeco-button--1 artdeco-button--secondary ember-view">
                             <span class="artdeco-button__text">Follow</span>
                           </button>
                           @else
@@ -190,6 +95,30 @@
                       </section>
                     </div>
                   </li>
+                  
+                  <!-- Modal -->
+                 <form action="{{ route('follow_connection', $user->finder_id) }}" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="modal fade" id="follow-{{ $user->finder_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title">Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                              Are you sure want to follow '{{ $user->full_name }}' ?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" data-dismiss="modal" class="btn btn-primary" style="background-color: #fff; color: #333; border: 1px solid #333; font-size: 14px; padding: 5px 15px;">No</button>
+                              <button type="submit" class="btn btn-primary" style="background-color: #333; color: #fff; border: 1px solid #333; font-size: 14px; padding: 5px 15px;">Yes</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                  </form>
                   @endforeach
                 </ul>
               </div>
@@ -224,7 +153,7 @@
                         </div>
                         <footer class="mt2 mhA text-align-center" style="margin-bottom: 20px;">
                           @if($is_join[$list->group_friends_id] == null)
-                          <button style="background-color: #fff; color: #333; border: 1px solid #333; font-size: 14px; padding: 5px 15px;" class="js-mn-discovery-group-card__action-btn mn-discovery-group-card__action-btn--extra-padding artdeco-button artdeco-button--1 artdeco-button--secondary ember-view">
+                          <button data-toggle="modal" data-target="#join-group-{{ $list->group_friends_id }}" style="background-color: #fff; color: #333; border: 1px solid #333; font-size: 14px; padding: 5px 15px;" class="js-mn-discovery-group-card__action-btn mn-discovery-group-card__action-btn--extra-padding artdeco-button artdeco-button--1 artdeco-button--secondary ember-view">
                             <span class="artdeco-button__text">Join</span>
                           </button>
                           @else
@@ -236,6 +165,30 @@
                       </section>
                     </div>
                   </li>
+
+                  <!-- Modal -->
+                  <form action="{{ route('join_group', $list->group_friends_id) }}" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="modal fade" id="join-group-{{ $list->group_friends_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title">Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                              Are you sure want to join group '{{ $list->group_name }}' ?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" data-dismiss="modal" class="btn btn-primary" style="background-color: #fff; color: #333; border: 1px solid #333; font-size: 14px; padding: 5px 15px;">No</button>
+                              <button type="submit" class="btn btn-primary" style="background-color: #333; color: #fff; border: 1px solid #333; font-size: 14px; padding: 5px 15px;">Yes</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                  </form>
                   @endforeach
                 </ul>
               </div>
@@ -244,50 +197,10 @@
         </section>      
       </div>
     </div>
-    <aside class="feed-right-rail right-rail" role="presentation">
-      <div class="feed-right-rail__top-module">
-        <div id="ember2483" class="ember-view">  
-          <div class="feed-follows-module mv4 mh0">
-            <div class="feed-follows-module__title display-flex">
-              <h2 class="t-16 t-black t-normal">Add to your feed</h2>
-  
-            </div>
-            <ul class="feed-follows-module__list">
-              @foreach($users as $key => $user)
-              {{-- take 5 data only --}}
-              @if($key < 5 && $is_followed[$user->finder_id] == null)
-              <li id="ember2485" class="feed-follows-module-recommendation company ember-view">
-                <a data-control-name="sidebar_follow_actor_picture" href="#" id="ember2486" class="feed-follows-module-recommendation__profile-link--avatar mr2 ember-view">    
-                  <div id="ember2487" class="feed-shared-avatar-image b0 company ember-view">  
-                    <img src="{{ $user->profile_pict }}" class="avatar company EntityPhoto-square-3" alt="">
-                  </div>
-                </a>
-                <div class="feed-follows-module-recommendation__description">
-                  <a data-control-name="sidebar_follow_actor" href="/company/16640/" id="ember2488" class="feed-follows-module-recommendation__profile-link--description ember-view">    
-                    <p>
-                      <span class="feed-follows-module-recommendation__name t-14 t-black t-bold">{{ $user->full_name }}</span>
-                    </p>
-                    <div class="feed-follows-module-recommendation__subtext">
-                      <p id="ember2488" class="t-12 t-black--light t-normal lt-line-clamp lt-line-clamp--multi-line ember-view" style="-webkit-line-clamp: 3">
-                        {{ $user->university }} • {{ $user->field_of_study }}
-                      </p>
-                    </div>
-                  </a>
-                </div>  
-                <button data-control-name="sidebar_follow_actor_follow_toggle" aria-pressed="false" aria-label="Follow" id="ember2491" class="feed-follows-module-recommendation__follow-btn button-secondary-small-muted ml2 follow ember-view">
-                  <span aria-hidden="true" style="font-size: 14px; padding-top: -10px;">Follow</span>
-                </button>
-              </li>
-              @endif
-              @endforeach
-            </ul>
-            <a data-control-name="sidebar_follow_view_recommendations" href="/feed/follow/" id="ember2506" class="feed-follows-module__view-all link-without-hover-visited ember-view">      
-              View all recommendation
-            </a>  
-          </div>
-        </div>
-      </div>
-    </aside>
+    
+    {{-- RENDER ADD TO YOUR FEEDS --}}
+    @include('layout.add-feeds-aside')
+    {{-- END RENDER ADD TO YOUR FEEDS --}}
   </div>
 </section>
 @endsection

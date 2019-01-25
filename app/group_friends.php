@@ -10,6 +10,6 @@ class group_friends extends Model
     protected $table = "group_friends";
     
     protected $fillable = [
-    	'group_name','owner'
+    	'group_name','owner','group_image'
     ];
 }
