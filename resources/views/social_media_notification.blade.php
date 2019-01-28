@@ -138,11 +138,12 @@
                 </div>
                 <div class="nt-card__core-rail mt1">
                   <button class="nt-card__headline nt-card__text--3-line nt-card__text--align-start nt-card__text--word-wrap t-14 t-black t-normal" data-ember-action="" data-ember-action-1585="1585">
-                    <span aria-hidden="true"><strong>{{ $notifs->log_message}}</strong></span>
+                    <span aria-hidden="true">{{ $notifs->log_message}}</span>
                   </button>
                 </div>
               </div>
             </article>
+            <hr class="m0">
           @endforeach
         </div>
       </section>

@@ -19,20 +19,27 @@ class social_media_controller extends Controller
 {
     public function create()
     {
-        $post_feeds_shared = post_feeds::join('job_finder','post_feeds.jf_user_id','=','job_finder.finder_id')
-        ->leftJoin('post_feeds_likes','post_feeds.post_id','=','post_feeds_likes.post_id')
-        ->leftjoin("post_feeds_comment","post_feeds.post_id","=","post_feeds_comment.post_id")
-        ->groupBy('post_feeds.post_id','post_feeds.post_text','post_feeds.post_picture_src','post_feeds.post_videos_src','post_feeds.jf_user_id'
-            ,'job_finder.finder_id','job_finder.full_name','likes_id','post_feeds_likes.jf_user_id')
-        ->get(['post_feeds.post_id','post_feeds.post_text','post_feeds.post_picture_src','post_feeds.post_videos_src','post_feeds.jf_user_id'
-            ,'job_finder.finder_id','job_finder.full_name','likes_id','post_feeds_likes.jf_user_id as user_login_id'
-            ,DB::raw("(SELECT COUNT(likes_id) FROM post_feeds_likes WHERE post_id = post_feeds.post_id) as total_likes")
-            ,DB::raw("(SELECT COUNT(comment_id) FROM post_feeds_comment WHERE post_id = post_feeds.post_id) as total_comment")
-            ,DB::raw("GROUP_CONCAT(
-            DISTINCT CONCAT(`post_feeds_comment`.`comment`) 
-            ORDER BY `post_feeds_comment`.`comment_id`
-            SEPARATOR '~'
-          ) as `comment`")]);
+        $post_feeds_shared = DB::select(
+        "SELECT Q.*,A.*,`post_feeds`.*,`job_finder`.* FROM `post_feeds` 
+        left join `job_finder` on `job_finder`.`finder_id` = `post_feeds`.`jf_user_id` 
+        left join 
+            (SELECT COUNT(`post_feeds_likes`.`likes_id`) as `total_likes`, `post_id`,
+             GROUP_CONCAT(
+                 DISTINCT CONCAT(`post_feeds_likes`.`jf_user_id`) 
+                 ORDER BY `post_feeds_likes`.`likes_id`
+                 SEPARATOR '~') as user_likes_id 
+                 FROM `post_feeds_likes`
+                 GROUP BY `post_feeds_likes`.`post_id`
+            )Q on `post_feeds`.`post_id` = Q.`post_id` 
+        left join 
+            (SELECT COUNT(`post_feeds_comment`.`comment_id`) as `total_comment`, `post_id`, 
+             GROUP_CONCAT(
+                DISTINCT CONCAT(`job_finder`.`profile_pict`,':',`post_feeds_comment`.`comment`) 
+                ORDER BY `post_feeds_comment`.`comment_id`
+                SEPARATOR '~') as user_comment_id
+                    FROM `post_feeds_comment` LEFT JOIN `job_finder` ON `post_feeds_comment`.`jf_user_id` = `job_finder`.`finder_id`
+                   GROUP BY `post_feeds_comment`.`post_id`
+            )A on `post_feeds`.`post_id` = A.`post_id` order by `post_feeds`.`post_id` ");
 
         // foreach($groups_list as $list) {
         //     $post_feed_like = bookmark_resume::join('job_creator','job_creator.user_id', '=', 'bookmark_resume.jc_user_id')
@@ -186,6 +193,7 @@ class social_media_controller extends Controller
         $post_id = $request->post_id;
         $jf_user_id = $request->jf_user_id;
         $post_feeds_check = post_feeds::where('post_id', $post_id)->first();
+        
         if($post_feeds_check != null) {
  
             $data['post_id'] = $post_id;

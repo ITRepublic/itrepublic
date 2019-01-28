@@ -1536,6 +1536,7 @@ hr.artdeco-divider {
   flex-direction: column;
   flex-shrink: 0;
   margin-right: 12px;
+  padding-left: 40px;
 }
 
 .nt-primary-entity {
@@ -1599,6 +1600,8 @@ hr.artdeco-divider {
 
 .nt-card__core-rail {
   margin-right: 12px;
+  padding-left: 40px;
+    padding-top: 10px;
 }
 .nt-card__core-rail {
   display: flex;

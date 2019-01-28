@@ -290,12 +290,23 @@
             <ul id="ember523" class="social-details-social-counts--justified feed-shared-social-counts ember-view">
               <li class="feed-shared-social-counts__item mr1">
                 <button class="feed-shared-social-counts__num-likes feed-shared-social-counts__count-value t-12 t-black--light t-normal hoverable-link-text" data-control-name="likes_count" data-ember-action="" data-ember-action-524="524">
-                  <span aria-hidden="true">{{ $feed->total_likes }} likes</span><span class="visually-hidden">47 Likes on {:actorName} post</span>
+                  <span aria-hidden="true">
+                  @if ($feed->total_likes != "")
+                    {{ $feed->total_likes }}
+                  @else
+                    0
+                  @endif 
+                  Likes</span><span class="visually-hidden">47 Likes on {:actorName} post</span>
                 </button>
               </li>
               <li class="feed-shared-social-counts__item">
                 <button class="feed-shared-social-counts__num-comments feed-shared-social-counts__count-value t-12 t-black--light t-normal hoverable-link-text" data-control-name="comments_count" data-ember-action="" data-ember-action-525="525">
-                  <span aria-hidden="true">{{ $feed->total_comment }} Comment</span>
+                  <span aria-hidden="true">
+                  @if ($feed->total_comment != "")
+                    {{ $feed->total_comment }}
+                  @else
+                    0
+                  @endif Comments</span>
                   <span class="visually-hidden">1 Comment on {:actorName} post</span>
                 </button>
               </li>
@@ -304,16 +315,23 @@
             </div>
           </div>
           <div id="ember528" class="feed-shared-social-actions feed-shared-social-action-bar ember-view">            
-            <button id="img{{ $feed->post_id }}" name="img_like" class="like-button button like feed-shared-social-action-bar__action-btn ember-view">  
-              @if ( $feed->likes_id != NULL && $feed->user_login_id == session('user_id')) 
-                
+            <button id="img{{ $feed->post_id }}" name="img_like" class="like-button button like feed-shared-social-action-bar__action-btn ember-view"> 
+            <?php $count = 0 ?> 
+              @if ($feed->user_likes_id != null) 
+                @foreach(explode('~', $feed->user_likes_id) as $user_id) 
+                  @if ($user_id == session('user_id'))
+                   <?php $count = 1 ?> 
+                  @endif
+                @endforeach
+              @endif
+              @if ($count == 1 )          
                 <img class="like-button-empty" 
                   alt="No alt text provided for this image" id="like_img{{ $feed->post_id }}" src="{{ asset('public/LIKEFILL.png') }}">
               @else
                 <img class="like-button-empty" 
                   alt="No alt text provided for this image" id="like_img{{ $feed->post_id }}" src="{{ asset('public/LIKEEMPTY.png') }}">
               @endif
-                <span>Like</span>            
+              <span>Like</span>            
             </button>
             <button name="addComment" id="list{{ $feed->post_id }}" class="button comment feed-shared-social-action-bar__action-btn social-action-btn ember-view">
               <span class="svg-icon-wrap">
@@ -350,8 +368,8 @@
           </div>            
           <div class="feed-shared-update-v2__comments-container display-flex flex-column-reverse">
             <div class="table-responsive" >
-              <table class="table table-bordered comment-table">
-                <tr class="skill-row" id="comment_list{{ $feed->post_id }}" style="display:none">
+              <table class="table table-bordered comment-table" id="comment_list{{ $feed->post_id }}" style="display:none">
+                <tr class="skill-row" >
                   <td>
                     <input type="text" name="comment" id="comment_text{{ $feed->post_id }}" value="" class="form-control">
                   </td>
@@ -359,17 +377,20 @@
                     <button id="comment_button{{ $feed->post_id }}" class="button-post-comment btn btn-sm btn-info">Post</button>
                   </td>
                 </tr>
-                @if ($feed->comment != "")
-                  @foreach(explode('~', $feed->comment) as $comment) 
-                  <tr>
-                    <td colspan="2">
-                      <p>
-                          <strong>- {{ $comment }}</strong>
-                      </p>
-                    </td>
-                  </tr>
+
+                @if ($feed->user_comment_id != "")
+                  @foreach(explode('~', $feed->user_comment_id) as $user_comment) 
+                    <tr>
+                      <td colspan="2">
+                        <p>
+                          <?php list($profile_pict, $comment) = explode(':', $user_comment); ?>
+                            <img class="lazy-image ivm-view-attr__img--centered feed-shared-actor__avatar-image EntityPhoto-square-3 loaded" src="{{ $profile_pict }}">
+                          <?php echo $comment; ?>  
+                        </p>
+                      </td>
+                    </tr>
                   @endforeach
-                @endif
+                @endif                
 
               </table>
           </div>
@@ -452,10 +473,9 @@ $("button[name=img_like]").click(function(){
     $.post('{{ route("confirm_like") }}', {"post_id": post_id, "jf_user_id": jf_user_id})
     .then(function(response){
             if(response.message == 'OK') {
-                alert(response.message);
+                window.location.reload();
             }
             else {
-                alert(response.message);
             }
         });
   }else{
@@ -465,7 +485,7 @@ $("button[name=img_like]").click(function(){
     $.post('{{ route("confirm_unlike") }}', {"post_id": post_id, "jf_user_id": jf_user_id})
     .then(function(response){
             if(response.message == 'OK') {
-                alert(response.message);
+                window.location.reload();
             }
             else {
                 alert(response.message);
@@ -489,7 +509,6 @@ $("button[name=addComment]").on("click", function() {
           $.post('{{ route("add_comment") }}', {"post_id": post_id, "jf_user_id": jf_user_id, "comment_text": comment_text})
           .then(function(response){
             if(response.message == 'OK') {
-                alert(response.message);
                 window.location.reload();
             }
             else {
@@ -499,6 +518,7 @@ $("button[name=addComment]").on("click", function() {
         })
       } else { 
         $('#comment_list'+post_id).css('display', "none");
+        
       }
     
   });

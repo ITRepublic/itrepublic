@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2019 at 01:32 PM
+-- Generation Time: Jan 28, 2019 at 03:15 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -142,7 +142,8 @@ INSERT INTO `friends_list` (`friends_id`, `jf_user_id`, `partner_jf_user_id`, `c
 (2, 21, 23, '2019-01-23 14:02:17', NULL),
 (3, 21, 24, '2019-01-23 14:02:17', NULL),
 (4, 22, 21, '2019-01-24 07:35:13', NULL),
-(5, 23, 21, '2019-01-24 07:35:13', NULL);
+(5, 23, 21, '2019-01-24 07:35:13', NULL),
+(6, 22, 27, '2019-01-25 13:27:23', '2019-01-25 13:27:23');
 
 -- --------------------------------------------------------
 
@@ -562,7 +563,13 @@ INSERT INTO `login_history` (`login_history_id`, `user_id`, `last_login_date`, `
 (69, 21, '2019-01-25 09:45:34', '2019-01-25 09:45:34', '2019-01-25 09:45:34'),
 (70, 22, '2019-01-25 09:51:46', '2019-01-25 09:51:46', '2019-01-25 09:51:46'),
 (71, 21, '2019-01-25 11:53:21', '2019-01-25 11:53:21', '2019-01-25 11:53:21'),
-(72, 22, '2019-01-25 11:54:05', '2019-01-25 11:54:05', '2019-01-25 11:54:05');
+(72, 22, '2019-01-25 11:54:05', '2019-01-25 11:54:05', '2019-01-25 11:54:05'),
+(73, 21, '2019-01-25 20:50:56', '2019-01-25 20:50:56', '2019-01-25 20:50:56'),
+(74, 21, '2019-01-28 05:26:35', '2019-01-28 05:26:35', '2019-01-28 05:26:35'),
+(75, 21, '2019-01-28 19:33:04', '2019-01-28 19:33:04', '2019-01-28 19:33:04'),
+(76, 21, '2019-01-28 20:19:40', '2019-01-28 20:19:40', '2019-01-28 20:19:40'),
+(77, 22, '2019-01-28 20:20:09', '2019-01-28 20:20:09', '2019-01-28 20:20:09'),
+(78, 21, '2019-01-28 21:10:46', '2019-01-28 21:10:46', '2019-01-28 21:10:46');
 
 -- --------------------------------------------------------
 
@@ -940,25 +947,31 @@ CREATE TABLE `notification_model` (
 --
 
 INSERT INTO `notification_model` (`notification_id`, `log_message`, `sent_user_id`, `read_user_id`, `status_id`, `created_at`, `updated_at`) VALUES
-(19, 'user 123 has post new feed', 21, 22, 'UNREAD', '2019-01-24 00:28:35', '2019-01-24 00:28:35'),
-(20, 'user 123 has post new feed', 21, 23, 'UNREAD', '2019-01-24 00:28:35', '2019-01-24 00:28:35'),
-(21, 'user 123 has post new feed', 21, 24, 'UNREAD', '2019-01-24 00:28:35', '2019-01-24 00:28:35'),
-(22, 'Dodi Dodo has post new feed', 23, 21, 'UNREAD', '2019-01-24 00:36:20', '2019-01-24 00:36:20'),
-(23, 'user 123 has post new feed', 21, 22, 'UNREAD', '2019-01-24 17:47:15', '2019-01-24 17:47:15'),
-(24, 'user 123 has post new feed', 21, 23, 'UNREAD', '2019-01-24 17:47:15', '2019-01-24 17:47:15'),
-(25, 'user 123 has post new feed', 21, 24, 'UNREAD', '2019-01-24 17:47:15', '2019-01-24 17:47:15'),
-(32, 'Jordy Jonatan has like your post', 22, 21, 'UNREAD', '2019-01-24 20:29:04', '2019-01-24 20:29:04'),
-(33, 'Jordy Jonatan has like your post', 22, 21, 'UNREAD', '2019-01-24 20:29:40', '2019-01-24 20:29:40'),
-(34, 'Dodi Dodo has like your post', 23, 21, 'UNREAD', '2019-01-24 21:25:22', '2019-01-24 21:25:22'),
-(35, 'Jordy Jonatan has like your post', 22, 21, 'UNREAD', '2019-01-25 02:53:51', '2019-01-25 02:53:51'),
-(36, 'Jordy Jonatan has like your post', 22, 21, 'UNREAD', '2019-01-25 03:01:54', '2019-01-25 03:01:54'),
-(37, 'Jordy Jonatan has commented your post', 22, 21, 'UNREAD', '2019-01-25 04:52:58', '2019-01-25 04:52:58'),
-(38, 'Jordy Jonatan has like your post', 22, 21, 'UNREAD', '2019-01-25 05:03:41', '2019-01-25 05:03:41'),
-(39, 'Jordy Jonatan has post new feed', 22, 21, 'UNREAD', '2019-01-25 05:15:12', '2019-01-25 05:15:12'),
-(40, 'Jordy Jonatan has repost your feed', 22, 22, 'UNREAD', '2019-01-25 05:19:36', '2019-01-25 05:19:36'),
-(41, 'Jordy Jonatan has repost your feed', 22, 22, 'UNREAD', '2019-01-25 05:19:48', '2019-01-25 05:19:48'),
-(42, 'Jordy Jonatan has repost your feed', 22, 22, 'UNREAD', '2019-01-25 05:19:58', '2019-01-25 05:19:58'),
-(43, 'Jordy Jonatan has like your post', 22, 21, 'UNREAD', '2019-01-25 05:31:44', '2019-01-25 05:31:44');
+(50, 'Jordy Jonatan has like your post', 22, 21, 'UNREAD', '2019-01-25 13:47:33', '2019-01-25 13:47:33'),
+(51, 'Jordy Jonatan has post new feed', 22, 21, 'UNREAD', '2019-01-25 13:49:56', '2019-01-25 13:49:56'),
+(52, 'Jordy Jonatan has post new feed', 22, 27, 'UNREAD', '2019-01-25 13:49:56', '2019-01-25 13:49:56'),
+(53, 'Jordy Jonatan has like your post', 22, 22, 'UNREAD', '2019-01-25 13:50:00', '2019-01-25 13:50:00'),
+(54, 'Jordy Jonatan has repost your feed', 22, 22, 'UNREAD', '2019-01-25 13:50:08', '2019-01-25 13:50:08'),
+(55, 'Jordy Jonatan has commented your post', 22, 22, 'UNREAD', '2019-01-25 13:50:20', '2019-01-25 13:50:20'),
+(56, 'Jordy Jonatan has post new feed', 22, 21, 'UNREAD', '2019-01-25 13:50:41', '2019-01-25 13:50:41'),
+(57, 'Jordy Jonatan has post new feed', 22, 27, 'UNREAD', '2019-01-25 13:50:41', '2019-01-25 13:50:41'),
+(58, 'user 123 has post new feed', 21, 22, 'UNREAD', '2019-01-25 13:51:10', '2019-01-25 13:51:10'),
+(59, 'user 123 has post new feed', 21, 23, 'UNREAD', '2019-01-25 13:51:10', '2019-01-25 13:51:10'),
+(60, 'user 123 has post new feed', 21, 24, 'UNREAD', '2019-01-25 13:51:10', '2019-01-25 13:51:10'),
+(61, 'user 123 has repost your feed', 21, 21, 'UNREAD', '2019-01-25 13:51:17', '2019-01-25 13:51:17'),
+(62, 'user 123 has commented your post', 21, 22, 'UNREAD', '2019-01-25 13:51:37', '2019-01-25 13:51:37'),
+(63, 'user 123 has like your post', 21, 22, 'UNREAD', '2019-01-25 13:52:08', '2019-01-25 13:52:08'),
+(64, 'user 123 has like your post', 21, 22, 'UNREAD', '2019-01-25 13:52:19', '2019-01-25 13:52:19'),
+(65, 'Jordy Jonatan has commented your post', 22, 22, 'UNREAD', '2019-01-28 13:57:52', '2019-01-28 13:57:52'),
+(66, 'Jordy Jonatan has commented your post', 22, 22, 'UNREAD', '2019-01-28 14:00:22', '2019-01-28 14:00:22'),
+(67, 'Jordy Jonatan has commented your post', 22, 22, 'UNREAD', '2019-01-28 14:00:22', '2019-01-28 14:00:22'),
+(68, 'Jordy Jonatan has commented your post', 22, 22, 'UNREAD', '2019-01-28 14:00:56', '2019-01-28 14:00:56'),
+(69, 'Jordy Jonatan has commented your post', 22, 22, 'UNREAD', '2019-01-28 14:01:03', '2019-01-28 14:01:03'),
+(70, 'Jordy Jonatan has commented your post', 22, 22, 'UNREAD', '2019-01-28 14:01:10', '2019-01-28 14:01:10'),
+(71, 'Jordy Jonatan has like your post', 22, 22, 'UNREAD', '2019-01-28 14:08:46', '2019-01-28 14:08:46'),
+(72, 'Jordy Jonatan has like your post', 22, 22, 'UNREAD', '2019-01-28 14:10:00', '2019-01-28 14:10:00'),
+(73, 'Jordy Jonatan has like your post', 22, 22, 'UNREAD', '2019-01-28 14:10:29', '2019-01-28 14:10:29'),
+(74, 'Jordy Jonatan has commented your post', 22, 22, 'UNREAD', '2019-01-28 14:10:35', '2019-01-28 14:10:35');
 
 -- --------------------------------------------------------
 
@@ -981,18 +994,11 @@ CREATE TABLE `post_feeds` (
 --
 
 INSERT INTO `post_feeds` (`post_id`, `post_text`, `post_picture_src`, `post_videos_src`, `jf_user_id`, `created_at`, `updated_at`) VALUES
-(6, 'test kocak 1', 'storage/app/post_picture/KZIw55kwEpI5ENybrMaMdOe8ok8XkLqtWGC3DXZ4.jpeg', '', 21, '2019-01-19 04:15:55', '2019-01-19 04:15:55'),
-(17, 'test n upload', '', 'storage/app/post_video/LBtrITwIMl5vxoeU9G7pwM6cOCUtI58prcVaaTSm.mp4', 21, '2019-01-23 07:29:10', '2019-01-23 07:29:10'),
-(18, 'test post', '', 'storage/app/post_video/yBrIHdQ7EzHSS2u1W8grToB60mmpnOHZZoTYsPuR.mp4', 21, '2019-01-24 00:27:40', '2019-01-24 00:27:40'),
-(19, 'test video', '', '', 21, '2019-01-24 00:28:35', '2019-01-24 00:28:35'),
-(20, 'test coba coba', '', '', 23, '2019-01-24 00:34:33', '2019-01-24 00:34:33'),
-(21, 'test coba coba', '', '', 23, '2019-01-24 00:36:19', '2019-01-24 00:36:19'),
-(22, 'test upload', '', 'storage/app/post_video/twVY8yeXH1sjdxmtsjaVswvsCfmRaPs7KpgZ5enM.mp4', 21, '2019-01-24 17:47:15', '2019-01-24 17:47:15'),
-(23, 'test ktp', 'storage/app/post_picture/6O9020r92HK0NLTJroURe1UaLMTM5Dvvdo09iQv1.jpeg', '', 22, '2019-01-25 05:15:12', '2019-01-25 05:15:12'),
-(24, 'test kocak 1', 'storage/app/post_picture/KZIw55kwEpI5ENybrMaMdOe8ok8XkLqtWGC3DXZ4.jpeg', '', 22, '2019-01-25 05:18:54', '2019-01-25 05:18:54'),
-(25, 'test kocak 1', 'storage/app/post_picture/KZIw55kwEpI5ENybrMaMdOe8ok8XkLqtWGC3DXZ4.jpeg', '', 22, '2019-01-25 05:19:36', '2019-01-25 05:19:36'),
-(26, 'test kocak 1', 'storage/app/post_picture/KZIw55kwEpI5ENybrMaMdOe8ok8XkLqtWGC3DXZ4.jpeg', '', 22, '2019-01-25 05:19:48', '2019-01-25 05:19:48'),
-(27, 'test ktp', 'storage/app/post_picture/6O9020r92HK0NLTJroURe1UaLMTM5Dvvdo09iQv1.jpeg', '', 22, '2019-01-25 05:19:58', '2019-01-25 05:19:58');
+(30, 'test video 1', '', 'storage/app/post_video/K3dtky1GUq68rZfapMjNeC08tNlcGi00lgh4dzwd.mp4', 22, '2019-01-25 13:49:56', '2019-01-25 13:49:56'),
+(31, 'test video 1', '', 'storage/app/post_video/K3dtky1GUq68rZfapMjNeC08tNlcGi00lgh4dzwd.mp4', 22, '2019-01-25 13:50:08', '2019-01-25 13:50:08'),
+(32, 'test ktp', 'storage/app/post_picture/qo6WDCLSltyAcokyZZ85M3XZus5i5lCLfVEzUlHl.jpeg', '', 22, '2019-01-25 13:50:41', '2019-01-25 13:50:41'),
+(33, 'test video aku', '', '', 21, '2019-01-25 13:51:10', '2019-01-25 13:51:10'),
+(34, 'test video 1', '', 'storage/app/post_video/K3dtky1GUq68rZfapMjNeC08tNlcGi00lgh4dzwd.mp4', 21, '2019-01-25 13:51:16', '2019-01-25 13:51:16');
 
 -- --------------------------------------------------------
 
@@ -1014,11 +1020,17 @@ CREATE TABLE `post_feeds_comment` (
 --
 
 INSERT INTO `post_feeds_comment` (`comment_id`, `post_id`, `jf_user_id`, `comment`, `created_at`, `updated_at`) VALUES
-(1, 6, 22, 'test', '2019-01-25 04:49:43', '2019-01-25 04:49:43'),
-(2, 6, 22, 'coba', '2019-01-25 04:49:57', '2019-01-25 04:49:57'),
-(3, 6, 22, 'lagi', '2019-01-25 04:51:42', '2019-01-25 04:51:42'),
-(4, 6, 22, 'payah', '2019-01-25 04:52:07', '2019-01-25 04:52:07'),
-(5, 6, 22, 'boro boro', '2019-01-25 04:52:58', '2019-01-25 04:52:58');
+(8, 30, 22, 'test comment', '2019-01-25 13:50:20', '2019-01-25 13:50:20'),
+(9, 30, 21, 'cobain farah', '2019-01-25 13:51:37', '2019-01-25 13:51:37'),
+(10, 31, 21, 'cobain comment kedua', '2019-01-28 00:13:17', '2018-11-27 08:00:24'),
+(11, 30, 21, 'GOBLOK TAI', '2019-01-28 00:15:15', '2019-01-28 00:15:15'),
+(12, 30, 22, 'woi ngentot', '2019-01-28 13:57:52', '2019-01-28 13:57:52'),
+(13, 30, 22, 'cobain', '2019-01-28 14:00:22', '2019-01-28 14:00:22'),
+(14, 30, 22, 'cobain', '2019-01-28 14:00:22', '2019-01-28 14:00:22'),
+(15, 30, 22, 'cobain', '2019-01-28 14:00:56', '2019-01-28 14:00:56'),
+(16, 30, 22, 'lagi', '2019-01-28 14:01:03', '2019-01-28 14:01:03'),
+(17, 31, 22, 'test', '2019-01-28 14:01:10', '2019-01-28 14:01:10'),
+(18, 32, 22, 'masih belajar belajar', '2019-01-28 14:10:35', '2019-01-28 14:10:35');
 
 -- --------------------------------------------------------
 
@@ -1039,9 +1051,9 @@ CREATE TABLE `post_feeds_likes` (
 --
 
 INSERT INTO `post_feeds_likes` (`likes_id`, `post_id`, `jf_user_id`, `created_at`, `updated_at`) VALUES
-(13, 17, 22, '2019-01-24 20:29:36', '2019-01-24 20:29:36'),
-(14, 6, 23, '2019-01-24 21:25:22', '2019-01-24 21:25:22'),
-(18, 18, 22, '2019-01-25 05:31:44', '2019-01-25 05:31:44');
+(24, 31, 22, '2019-01-28 14:08:46', '2019-01-28 14:08:46'),
+(25, 30, 22, '2019-01-28 14:09:59', '2019-01-28 14:09:59'),
+(26, 32, 22, '2019-01-28 14:10:28', '2019-01-28 14:10:28');
 
 -- --------------------------------------------------------
 
@@ -1469,7 +1481,7 @@ ALTER TABLE `detail_group_friends`
 -- AUTO_INCREMENT for table `friends_list`
 --
 ALTER TABLE `friends_list`
-  MODIFY `friends_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `friends_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `group_friends`
@@ -1559,7 +1571,7 @@ ALTER TABLE `job_user_rating`
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `login_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `login_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `master_admin`
@@ -1637,25 +1649,25 @@ ALTER TABLE `master_user`
 -- AUTO_INCREMENT for table `notification_model`
 --
 ALTER TABLE `notification_model`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `post_feeds`
 --
 ALTER TABLE `post_feeds`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `post_feeds_comment`
 --
 ALTER TABLE `post_feeds_comment`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `post_feeds_likes`
 --
 ALTER TABLE `post_feeds_likes`
-  MODIFY `likes_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `likes_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `resume_limit`
