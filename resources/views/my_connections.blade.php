@@ -55,6 +55,11 @@
                                 </a>      
                                 </div>
                             </div>
+                            <footer class="mt2 mhA text-align-center" style="margin-bottom: 20px;">
+                                <a href="{{ route('direct_message') }}?connection_id={{ $mc->partner_jf_user_id }}" style="background-color: #fff; color: #333; border: 1px solid #333; font-size: 14px; padding: 5px 15px;" class="js-mn-discovery-group-card__action-btn mn-discovery-group-card__action-btn--extra-padding artdeco-button artdeco-button--1 artdeco-button--secondary ember-view">
+                                  <span class="artdeco-button__text">View Discussion</span>
+                                </a>
+                            </footer>
                             </section>
                         </div>
                         </li>

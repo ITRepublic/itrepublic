@@ -16,7 +16,7 @@
                 </h1>	
                 <p class="text-white link-nav"><a href="{{ route('user_home') }}">Home </a>  
                 <span class="lnr lnr-arrow-right"></span>  
-                <a href="{{ route('social_media') }}" class="text-white"> Feeds</a>
+                <a href="{{ route('notification') }}" class="text-white"> Notification</a>
                 </p>
             </div>											
         </div>
@@ -61,7 +61,7 @@
                       </div>
                       <div class="t-12 t-black t-bold flex-1 text-align-right" data-control-name="identity_network" data-ember-action="" data-ember-action-423="423">
                         <span class="feed-identity-module__stat link-without-visited-state">
-                          35
+                          {{ number_format($connections) }}
                         </span>
                       </div>
                     </div>

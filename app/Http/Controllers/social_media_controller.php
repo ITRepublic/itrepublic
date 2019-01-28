@@ -12,6 +12,7 @@ use App\group_friends;
 use App\notification_model;
 use DB;
 use App\group_discussion;
+use App\direct_message;
 
 use Illuminate\Http\Request;
 
@@ -60,8 +61,10 @@ class social_media_controller extends Controller
             $is_followed[$user->finder_id] = friends_list::where('partner_jf_user_id', $user->finder_id)->first();
         }
 
+        $connections = friends_list::where('jf_user_id', session('user_id'))->count();
+
         return view('social_media_home', compact(
-            'post_feeds_shared', 'users', 'is_followed', 'user_login'
+            'post_feeds_shared', 'users', 'is_followed', 'user_login', 'connections'
         ))->withTitle('Feeds');
     }
     public function friends_connect()
@@ -183,9 +186,11 @@ class social_media_controller extends Controller
         foreach($users as $user) {
             $is_followed[$user->finder_id] = friends_list::where('partner_jf_user_id', $user->finder_id)->first();
         }
+
+        $connections = friends_list::where('jf_user_id', session('user_id'))->count();
         
         return view('social_media_notification', compact(
-            'notification_model', 'users', 'is_followed', 'user_login'
+            'notification_model', 'users', 'is_followed', 'user_login', 'connections'
         ))->withTitle('Notification');
     }
     public function confirm_like(Request $request) 
@@ -367,8 +372,9 @@ class social_media_controller extends Controller
         }
 
         $my_connections = friends_list::join('job_finder','friends_list.partner_jf_user_id','=','job_finder.finder_id')
-        ->select('job_finder.profile_pict','job_finder.full_name','job_finder.university','job_finder.field_of_study')
+        ->select('job_finder.profile_pict','job_finder.full_name','job_finder.university','job_finder.field_of_study','friends_list.partner_jf_user_id')
         ->get();
+
 
         return view('my_connections', compact(
             'connections', 'connections_profile', 'groups', 'groups_image', 'owned_groups', 'owned_groups_image', 'users', 'is_followed', 'my_connections'
@@ -579,6 +585,69 @@ class social_media_controller extends Controller
         $post['group_id'] = $id;
         $post['message'] = nl2br($request->message);
         group_discussion::create($post);
+
+        return back();
+    }
+
+    public function direct_message(Request $request) {
+        $connections = friends_list::where('jf_user_id', session('user_id'))->count();
+
+        $connections_profile = friends_list::join('job_finder','friends_list.partner_jf_user_id','=','job_finder.finder_id')
+        ->select('job_finder.profile_pict','job_finder.full_name')
+        ->take(3)
+        ->get();
+
+        $groups = detail_group_friends::join('group_friends','group_friends.group_friends_id','=','detail_group_friends.group_friends_id')
+        ->where('detail_group_friends.jf_user_id', session('user_id'))
+        ->where('group_friends.owner','!=',session('user_id'))
+        ->count();
+
+        $groups_image = detail_group_friends::join('group_friends','group_friends.group_friends_id','=','detail_group_friends.group_friends_id')
+        ->where('detail_group_friends.jf_user_id', session('user_id'))
+        ->where('group_friends.owner','!=',session('user_id'))
+        ->select('group_friends.group_name','group_friends.group_image')
+        ->take(3)
+        ->get();
+
+        $owned_groups = group_friends::where('owner', session('user_id'))->count();
+
+        $owned_groups_image = group_friends::select('group_name','group_image')
+        ->where('owner', session('user_id'))
+        ->orderBy('group_friends_id','desc')
+        ->take(3)
+        ->get();
+
+        $users = job_finder_model::where('finder_id','!=',session('user_id'))
+        ->get();
+
+        $is_followed = [];
+        foreach($users as $user) {
+            $is_followed[$user->finder_id] = friends_list::where('partner_jf_user_id', $user->finder_id)->first();
+        }
+
+        $connection_id = $request->connection_id;
+        $user = job_finder_model::where('finder_id',$connection_id)->first();
+
+        $messages = direct_message::join('job_finder','job_finder.finder_id','=','direct_message.user_id')
+        ->where('direct_message.connection_id', $connection_id)
+        ->select('direct_message.*','job_finder.full_name as author','job_finder.profile_pict as author_photo')
+        ->get();
+
+        return view('direct_message', compact(
+            'connections', 'connections_profile', 'groups', 'groups_image', 'owned_groups', 'owned_groups_image', 'users', 'is_followed',
+            'request', 'user', 'messages'
+        ))->withTitle('Direct Message');
+    }
+
+    public function send_direct_message(Request $request, $id) {
+        $this->validate($request, [
+            'message' => 'required|max:160'
+        ]);
+
+        $post['user_id'] = session('user_id');
+        $post['connection_id'] = $id;
+        $post['message'] = nl2br($request->message);
+        direct_message::create($post);
 
         return back();
     }

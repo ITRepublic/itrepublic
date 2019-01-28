@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.23)
 # Database: itrep_jobportal
-# Generation Time: 2019-01-25 09:04:03 +0000
+# Generation Time: 2019-01-28 16:30:50 +0000
 # ************************************************************
 
 
@@ -69,13 +69,13 @@ LOCK TABLES `chat` WRITE;
 
 INSERT INTO `chat` (`id`, `job_id`, `sender_id`, `receiver_id`, `message`, `created_at`, `updated_at`)
 VALUES
-	(1,13,2,3,'Hi','2018-05-08 11:56:16','0000-00-00 00:00:00'),
-	(2,13,3,2,'Hi juga','2018-05-08 12:09:23','0000-00-00 00:00:00'),
-	(3,13,3,2,'mau tanya dong','2018-05-08 12:32:33','2018-05-08 12:32:33'),
-	(4,13,3,2,'test','2018-05-08 12:32:48','2018-05-08 12:32:48'),
-	(5,13,2,3,'ya ada yang bisa di bantu?','2018-05-08 12:33:23','2018-05-08 12:33:23'),
-	(6,13,2,3,'ya??','2018-05-08 20:07:31','2018-05-08 20:07:31'),
-	(7,13,2,3,'asasa','2018-05-08 20:10:24','2018-05-08 20:10:24');
+	(1,13,2,3,'Hi','2018-05-08 18:56:16','0000-00-00 00:00:00'),
+	(2,13,3,2,'Hi juga','2018-05-08 19:09:23','0000-00-00 00:00:00'),
+	(3,13,3,2,'mau tanya dong','2018-05-08 19:32:33','2018-05-08 19:32:33'),
+	(4,13,3,2,'test','2018-05-08 19:32:48','2018-05-08 19:32:48'),
+	(5,13,2,3,'ya ada yang bisa di bantu?','2018-05-08 19:33:23','2018-05-08 19:33:23'),
+	(6,13,2,3,'ya??','2018-05-09 03:07:31','2018-05-09 03:07:31'),
+	(7,13,2,3,'asasa','2018-05-09 03:10:24','2018-05-09 03:10:24');
 
 /*!40000 ALTER TABLE `chat` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -117,24 +117,52 @@ CREATE TABLE `detail_group_friends` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`detail_group_friends_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `detail_group_friends` WRITE;
 /*!40000 ALTER TABLE `detail_group_friends` DISABLE KEYS */;
 
 INSERT INTO `detail_group_friends` (`detail_group_friends_id`, `group_friends_id`, `jf_user_id`, `role`, `created_at`, `updated_at`)
 VALUES
-	(2,1,22,'Owner','2019-01-25 12:11:21','2019-01-25 12:11:21'),
-	(3,1,21,'Member','2019-01-21 14:52:25','2019-01-21 14:52:25'),
-	(4,2,21,'Owner','2019-01-21 14:46:54','2019-01-21 14:46:54'),
-	(5,3,21,'Owner','2019-01-21 14:51:35','2019-01-21 14:51:35'),
-	(6,4,22,'Owner','2019-01-25 12:11:30','2019-01-25 12:11:30'),
-	(7,5,22,'Owner','2019-01-25 12:11:31','2019-01-25 12:11:31'),
-	(8,6,22,'Owner','2019-01-25 12:11:32','2019-01-25 12:11:32'),
-	(9,8,21,'Owner','2019-01-21 14:52:10','2019-01-21 14:52:10'),
-	(12,6,21,'Member','2019-01-25 05:25:19','2019-01-25 05:25:19');
+	(2,1,22,'Owner','2019-01-25 19:11:21','2019-01-25 19:11:21'),
+	(3,1,21,'Member','2019-01-21 21:52:25','2019-01-21 21:52:25'),
+	(4,2,21,'Owner','2019-01-21 21:46:54','2019-01-21 21:46:54'),
+	(5,3,21,'Owner','2019-01-21 21:51:35','2019-01-21 21:51:35'),
+	(6,4,22,'Owner','2019-01-25 19:11:30','2019-01-25 19:11:30'),
+	(7,5,22,'Owner','2019-01-25 19:11:31','2019-01-25 19:11:31'),
+	(8,6,22,'Owner','2019-01-25 19:11:32','2019-01-25 19:11:32'),
+	(9,8,21,'Owner','2019-01-21 21:52:10','2019-01-21 21:52:10'),
+	(12,6,21,'Member','2019-01-25 12:25:19','2019-01-25 12:25:19'),
+	(13,9,21,'Owner','2019-01-25 20:49:52','2019-01-25 20:49:52');
 
 /*!40000 ALTER TABLE `detail_group_friends` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table direct_message
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `direct_message`;
+
+CREATE TABLE `direct_message` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `connection_id` int(11) DEFAULT NULL,
+  `message` longtext,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+LOCK TABLES `direct_message` WRITE;
+/*!40000 ALTER TABLE `direct_message` DISABLE KEYS */;
+
+INSERT INTO `direct_message` (`id`, `user_id`, `connection_id`, `message`, `created_at`, `updated_at`)
+VALUES
+	(1,21,22,'Hi Jordy, thank you for following.','2019-01-28 23:27:17','2019-01-28 23:27:17'),
+	(2,21,23,'Halo Dodi','2019-01-28 23:29:42','2019-01-28 23:29:42');
+
+/*!40000 ALTER TABLE `direct_message` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -150,15 +178,17 @@ CREATE TABLE `friends_list` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`friends_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `friends_list` WRITE;
 /*!40000 ALTER TABLE `friends_list` DISABLE KEYS */;
 
 INSERT INTO `friends_list` (`friends_id`, `jf_user_id`, `partner_jf_user_id`, `created_at`, `updated_at`)
 VALUES
-	(1,21,22,'2019-01-11 14:22:45',NULL),
-	(2,21,26,'2019-01-25 07:20:54','2019-01-25 07:20:54');
+	(1,21,22,'2019-01-11 21:22:45',NULL),
+	(2,21,26,'2019-01-25 14:20:54','2019-01-25 14:20:54'),
+	(5,21,27,'2019-01-25 20:44:06','2019-01-25 20:44:06'),
+	(6,21,23,'2019-01-25 20:44:15','2019-01-25 20:44:15');
 
 /*!40000 ALTER TABLE `friends_list` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -177,19 +207,20 @@ CREATE TABLE `group_discussion` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `group_discussion` WRITE;
 /*!40000 ALTER TABLE `group_discussion` DISABLE KEYS */;
 
 INSERT INTO `group_discussion` (`id`, `user_id`, `group_id`, `message`, `created_at`, `updated_at`)
 VALUES
-	(1,21,1,'Saya newbie ni.. Mohon pencerahan dong untuk guide Laravel nya...','2019-01-25 12:45:27','2019-01-25 12:45:27'),
-	(2,22,1,'@John Doe Liat disini aja bro.. https://laravel.com','2019-01-25 12:50:27','2019-01-25 12:50:27'),
-	(3,21,1,'Hi semua ....','2019-01-25 15:32:35','2019-01-25 15:32:35'),
-	(4,21,1,'Ajari aku dong kakak','2019-01-25 15:32:50','2019-01-25 15:32:50'),
-	(5,21,1,'kalo untuk API pake ini bro https://lumen.laravel.com/','2019-01-25 15:34:45','2019-01-25 15:34:45'),
-	(8,21,8,'Test bro','2019-01-25 15:52:38','2019-01-25 15:52:38');
+	(1,21,1,'Saya newbie ni.. Mohon pencerahan dong untuk guide Laravel nya...','2019-01-25 19:45:27','2019-01-25 19:45:27'),
+	(2,22,1,'@John Doe Liat disini aja bro.. https://laravel.com','2019-01-25 19:50:27','2019-01-25 19:50:27'),
+	(3,21,1,'Hi semua ....','2019-01-25 22:32:35','2019-01-25 22:32:35'),
+	(4,21,1,'Ajari aku dong kakak','2019-01-25 22:32:50','2019-01-25 22:32:50'),
+	(5,21,1,'kalo untuk API pake ini bro https://lumen.laravel.com/','2019-01-25 22:34:45','2019-01-25 22:34:45'),
+	(8,21,8,'Test bro','2019-01-25 22:52:38','2019-01-25 22:52:38'),
+	(9,21,1,'andnsvbnqsbnsasdbndas','2019-01-25 20:46:28','2019-01-25 20:46:28');
 
 /*!40000 ALTER TABLE `group_discussion` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -208,20 +239,21 @@ CREATE TABLE `group_friends` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`group_friends_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `group_friends` WRITE;
 /*!40000 ALTER TABLE `group_friends` DISABLE KEYS */;
 
 INSERT INTO `group_friends` (`group_friends_id`, `group_name`, `owner`, `group_image`, `created_at`, `updated_at`)
 VALUES
-	(1,'Laravel',22,'https://cdn-images-1.medium.com/max/1200/1*j76hKq2KBP9-Y-N7KcnM6A.png','2019-01-21 14:52:18','2019-01-21 14:52:18'),
-	(2,'Angular JS',21,'https://cdn.auth0.com/blog/angular/logo.png','2019-01-11 15:50:08','2019-01-11 15:50:08'),
-	(3,'Ionic Framework Hybrid Mobile Application',21,'https://hackster.imgix.net/uploads/attachments/183867/ionic.png?auto=compress&w=900&h=675&fit=min&fm=jpg','2019-01-11 15:15:24','2019-01-11 15:15:24'),
-	(4,'iOS Developer',22,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdcahYVVv0vLtabdT2hVve3gpXmN6As_J1Cpe5OmRxiSRgAN1qyA','2019-01-25 12:10:57','2019-01-25 12:10:57'),
-	(5,'React Native',22,'https://cdn-images-1.medium.com/max/1200/1*KANHihva9OdXx2-V5EDn3g.png','2019-01-25 12:10:59','2019-01-25 12:10:59'),
-	(6,'Android Developer',22,'https://image.slidesharecdn.com/myandroidpresentation1-120923142837-phpapp02/95/android-fundamentals-and-tutorial-for-beginners-1-728.jpg?cb=1348410647','2019-01-25 12:11:01','2019-01-25 12:11:01'),
-	(8,'IT Republic',21,'storage/app/group_image/MLyN87N4uTfHCEBCL3McUTmhuyOMx5XSsMP4pkYK.png','2019-01-24 12:45:27','2019-01-24 05:45:27');
+	(1,'Laravel',22,'https://cdn-images-1.medium.com/max/1200/1*j76hKq2KBP9-Y-N7KcnM6A.png','2019-01-21 21:52:18','2019-01-21 21:52:18'),
+	(2,'Angular JS',21,'https://cdn.auth0.com/blog/angular/logo.png','2019-01-11 22:50:08','2019-01-11 22:50:08'),
+	(3,'Ionic Framework Hybrid Mobile Application',21,'https://hackster.imgix.net/uploads/attachments/183867/ionic.png?auto=compress&w=900&h=675&fit=min&fm=jpg','2019-01-11 22:15:24','2019-01-11 22:15:24'),
+	(4,'iOS Developer',22,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdcahYVVv0vLtabdT2hVve3gpXmN6As_J1Cpe5OmRxiSRgAN1qyA','2019-01-25 19:10:57','2019-01-25 19:10:57'),
+	(5,'React Native',22,'https://cdn-images-1.medium.com/max/1200/1*KANHihva9OdXx2-V5EDn3g.png','2019-01-25 19:10:59','2019-01-25 19:10:59'),
+	(6,'Android Developer',22,'https://image.slidesharecdn.com/myandroidpresentation1-120923142837-phpapp02/95/android-fundamentals-and-tutorial-for-beginners-1-728.jpg?cb=1348410647','2019-01-25 19:11:01','2019-01-25 19:11:01'),
+	(8,'IT Republic',21,'storage/app/group_image/MLyN87N4uTfHCEBCL3McUTmhuyOMx5XSsMP4pkYK.png','2019-01-24 19:45:27','2019-01-24 12:45:27'),
+	(9,'Grosir One',21,'storage/app/group_image/CwtdocsI8EEULyMHCO5bTb2ABxPNiOi9QU3vsjIp.png','2019-01-25 20:49:52','2019-01-25 20:49:52');
 
 /*!40000 ALTER TABLE `group_friends` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -608,7 +640,7 @@ CREATE TABLE `login_history` (
   `updated_at` varchar(50) NOT NULL,
   `created_at` varchar(50) NOT NULL,
   PRIMARY KEY (`login_history_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `login_history` WRITE;
 /*!40000 ALTER TABLE `login_history` DISABLE KEYS */;
@@ -646,7 +678,12 @@ VALUES
 	(51,21,'2019-01-11 14:29:06','2019-01-11 14:29:06','2019-01-11 14:29:06'),
 	(52,21,'2019-01-21 06:52:33','2019-01-21 06:52:33','2019-01-21 06:52:33'),
 	(53,21,'2019-01-24 04:55:23','2019-01-24 04:55:23','2019-01-24 04:55:23'),
-	(54,21,'2019-01-25 05:01:43','2019-01-25 05:01:43','2019-01-25 05:01:43');
+	(54,21,'2019-01-25 05:01:43','2019-01-25 05:01:43','2019-01-25 05:01:43'),
+	(55,21,'2019-01-25 20:29:02','2019-01-25 20:29:02','2019-01-25 20:29:02'),
+	(56,22,'2019-01-25 20:35:36','2019-01-25 20:35:36','2019-01-25 20:35:36'),
+	(57,21,'2019-01-25 20:36:14','2019-01-25 20:36:14','2019-01-25 20:36:14'),
+	(58,21,'2019-01-26 12:01:06','2019-01-26 12:01:06','2019-01-26 12:01:06'),
+	(59,21,'2019-01-28 23:05:10','2019-01-28 23:05:10','2019-01-28 23:05:10');
 
 /*!40000 ALTER TABLE `login_history` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1058,6 +1095,66 @@ VALUES
 UNLOCK TABLES;
 
 
+# Dump of table notification_model
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `notification_model`;
+
+CREATE TABLE `notification_model` (
+  `notification_id` int(11) NOT NULL AUTO_INCREMENT,
+  `log_message` text NOT NULL,
+  `sent_user_id` int(11) NOT NULL,
+  `read_user_id` int(11) NOT NULL,
+  `status_id` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`notification_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
+
+LOCK TABLES `notification_model` WRITE;
+/*!40000 ALTER TABLE `notification_model` DISABLE KEYS */;
+
+INSERT INTO `notification_model` (`notification_id`, `log_message`, `sent_user_id`, `read_user_id`, `status_id`, `created_at`, `updated_at`)
+VALUES
+	(19,'user 123 has post new feed',21,22,'UNREAD','2019-01-24 07:28:35','2019-01-24 07:28:35'),
+	(20,'user 123 has post new feed',21,23,'UNREAD','2019-01-24 07:28:35','2019-01-24 07:28:35'),
+	(21,'user 123 has post new feed',21,24,'UNREAD','2019-01-24 07:28:35','2019-01-24 07:28:35'),
+	(22,'Dodi Dodo has post new feed',23,21,'UNREAD','2019-01-24 07:36:20','2019-01-24 07:36:20'),
+	(23,'user 123 has post new feed',21,22,'UNREAD','2019-01-25 00:47:15','2019-01-25 00:47:15'),
+	(24,'user 123 has post new feed',21,23,'UNREAD','2019-01-25 00:47:15','2019-01-25 00:47:15'),
+	(25,'user 123 has post new feed',21,24,'UNREAD','2019-01-25 00:47:15','2019-01-25 00:47:15'),
+	(32,'Jordy Jonatan has like your post',22,21,'UNREAD','2019-01-25 03:29:04','2019-01-25 03:29:04'),
+	(33,'Jordy Jonatan has like your post',22,21,'UNREAD','2019-01-25 03:29:40','2019-01-25 03:29:40'),
+	(34,'Dodi Dodo has like your post',23,21,'UNREAD','2019-01-25 04:25:22','2019-01-25 04:25:22'),
+	(35,'Jordy Jonatan has like your post',22,21,'UNREAD','2019-01-25 09:53:51','2019-01-25 09:53:51'),
+	(36,'Jordy Jonatan has like your post',22,21,'UNREAD','2019-01-25 10:01:54','2019-01-25 10:01:54'),
+	(37,'Jordy Jonatan has commented your post',22,21,'UNREAD','2019-01-25 11:52:58','2019-01-25 11:52:58'),
+	(38,'Jordy Jonatan has like your post',22,21,'UNREAD','2019-01-25 12:03:41','2019-01-25 12:03:41'),
+	(39,'Jordy Jonatan has post new feed',22,21,'UNREAD','2019-01-25 12:15:12','2019-01-25 12:15:12'),
+	(40,'Jordy Jonatan has repost your feed',22,22,'UNREAD','2019-01-25 12:19:36','2019-01-25 12:19:36'),
+	(41,'Jordy Jonatan has repost your feed',22,22,'UNREAD','2019-01-25 12:19:48','2019-01-25 12:19:48'),
+	(42,'Jordy Jonatan has repost your feed',22,22,'UNREAD','2019-01-25 12:19:58','2019-01-25 12:19:58'),
+	(43,'Jordy Jonatan has like your post',22,21,'UNREAD','2019-01-25 12:31:44','2019-01-25 12:31:44'),
+	(44,'John Doe has like your post',21,21,'UNREAD','2019-01-25 20:25:29','2019-01-25 20:25:29'),
+	(45,'John Doe has commented your post',21,21,'UNREAD','2019-01-25 20:32:45','2019-01-25 20:32:45'),
+	(46,'John Doe has repost your feed',21,21,'UNREAD','2019-01-25 20:32:55','2019-01-25 20:32:55'),
+	(47,'John Doe has like your post',21,21,'UNREAD','2019-01-25 20:33:57','2019-01-25 20:33:57'),
+	(48,'John Doe has like your post',21,21,'UNREAD','2019-01-25 20:34:29','2019-01-25 20:34:29'),
+	(49,'Jordy Jonatan has like your post',22,21,'UNREAD','2019-01-25 20:35:50','2019-01-25 20:35:50'),
+	(50,'John Doe has repost your feed',21,21,'UNREAD','2019-01-25 20:39:00','2019-01-25 20:39:00'),
+	(51,'John Doe has commented your post',21,21,'UNREAD','2019-01-25 20:40:28','2019-01-25 20:40:28'),
+	(52,'John Doe has commented your post',21,21,'UNREAD','2019-01-25 20:40:28','2019-01-25 20:40:28'),
+	(53,'John Doe has commented your post',21,21,'UNREAD','2019-01-25 20:40:28','2019-01-25 20:40:28'),
+	(54,'John Doe has commented your post',21,21,'UNREAD','2019-01-25 20:40:28','2019-01-25 20:40:28'),
+	(55,'John Doe has commented your post',21,21,'UNREAD','2019-01-25 20:40:28','2019-01-25 20:40:28'),
+	(56,'John Doe has commented your post',21,21,'UNREAD','2019-01-25 20:40:28','2019-01-25 20:40:28'),
+	(57,'John Doe has commented your post',21,21,'UNREAD','2019-01-25 20:40:28','2019-01-25 20:40:28'),
+	(58,'John Doe has commented your post',21,21,'UNREAD','2019-01-25 20:40:28','2019-01-25 20:40:28');
+
+/*!40000 ALTER TABLE `notification_model` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 # Dump of table post_feeds
 # ------------------------------------------------------------
 
@@ -1072,16 +1169,18 @@ CREATE TABLE `post_feeds` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`post_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `post_feeds` WRITE;
 /*!40000 ALTER TABLE `post_feeds` DISABLE KEYS */;
 
 INSERT INTO `post_feeds` (`post_id`, `post_text`, `post_picture_src`, `post_videos_src`, `jf_user_id`, `created_at`, `updated_at`)
 VALUES
-	(4,'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','',21,'2019-01-11 20:28:57','2019-01-11 06:32:20'),
-	(5,'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','',21,'2019-01-11 20:29:01','2019-01-11 06:49:39'),
-	(7,'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.','storage/app/post_picture/z7BMO8pK539CXlKawBm1eVUZaBVWYCCL3WlhZ17P.png','',21,'2019-01-11 13:31:00','2019-01-11 13:31:00');
+	(4,'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','',21,'2019-01-12 03:28:57','2019-01-11 13:32:20'),
+	(5,'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','',21,'2019-01-12 03:29:01','2019-01-11 13:49:39'),
+	(7,'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.','storage/app/post_picture/z7BMO8pK539CXlKawBm1eVUZaBVWYCCL3WlhZ17P.png','',21,'2019-01-11 20:31:00','2019-01-11 20:31:00'),
+	(8,'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.','storage/app/post_picture/z7BMO8pK539CXlKawBm1eVUZaBVWYCCL3WlhZ17P.png','',21,'2019-01-25 20:32:55','2019-01-25 20:32:55'),
+	(9,'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.','storage/app/image/2bUuZ8bBx4w82bdIvfHEdHVSTMoRfKsoRwKVMm1S.png','',21,'2019-01-25 20:39:00','2019-01-25 20:39:00');
 
 /*!40000 ALTER TABLE `post_feeds` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1096,13 +1195,29 @@ CREATE TABLE `post_feeds_comment` (
   `comment_id` int(11) NOT NULL AUTO_INCREMENT,
   `post_id` int(11) NOT NULL,
   `jf_user_id` int(11) NOT NULL,
-  `seq` int(11) NOT NULL,
   `comment` longtext NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`comment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
+LOCK TABLES `post_feeds_comment` WRITE;
+/*!40000 ALTER TABLE `post_feeds_comment` DISABLE KEYS */;
+
+INSERT INTO `post_feeds_comment` (`comment_id`, `post_id`, `jf_user_id`, `comment`, `created_at`, `updated_at`)
+VALUES
+	(1,7,21,'tes','2019-01-25 20:32:45','2019-01-25 20:32:45'),
+	(2,4,21,'hello world!','2019-01-25 20:40:28','2019-01-25 20:40:28'),
+	(3,4,21,'hello world!','2019-01-25 20:40:28','2019-01-25 20:40:28'),
+	(4,4,21,'hello world!','2019-01-25 20:40:28','2019-01-25 20:40:28'),
+	(5,4,21,'hello world!','2019-01-25 20:40:28','2019-01-25 20:40:28'),
+	(6,4,21,'hello world!','2019-01-25 20:40:28','2019-01-25 20:40:28'),
+	(7,4,21,'hello world!','2019-01-25 20:40:28','2019-01-25 20:40:28'),
+	(8,4,21,'hello world!','2019-01-25 20:40:28','2019-01-25 20:40:28'),
+	(9,4,21,'hello world!','2019-01-25 20:40:28','2019-01-25 20:40:28');
+
+/*!40000 ALTER TABLE `post_feeds_comment` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table post_feeds_likes
@@ -1117,8 +1232,19 @@ CREATE TABLE `post_feeds_likes` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`likes_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
+LOCK TABLES `post_feeds_likes` WRITE;
+/*!40000 ALTER TABLE `post_feeds_likes` DISABLE KEYS */;
+
+INSERT INTO `post_feeds_likes` (`likes_id`, `post_id`, `jf_user_id`, `created_at`, `updated_at`)
+VALUES
+	(1,7,21,'2019-01-25 20:25:29','2019-01-25 20:25:29'),
+	(3,8,21,'2019-01-25 20:34:29','2019-01-25 20:34:29'),
+	(4,8,22,'2019-01-25 20:35:50','2019-01-25 20:35:50');
+
+/*!40000 ALTER TABLE `post_feeds_likes` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table resume_limit
@@ -1246,6 +1372,24 @@ VALUES
 
 /*!40000 ALTER TABLE `user_menu` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+# Dump of table users
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 
 

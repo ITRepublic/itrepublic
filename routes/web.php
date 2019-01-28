@@ -68,6 +68,8 @@ Route::get('/logout', 'auth_controller@destroy')->name('logout');
     Route::post('/my-groups/{id}/update', 'social_media_controller@update_my_groups')->name('update_my_groups');
     Route::get('/group-discussion', 'social_media_controller@group_discussion')->name('group_discussion');
     Route::post('/group/{id}/discussion', 'social_media_controller@post_group_discussion')->name('post_group_discussion');
+    Route::get('/direct-message', 'social_media_controller@direct_message')->name('direct_message');
+    Route::post('/direct-message/{id}/post', 'social_media_controller@send_direct_message')->name('send_direct_message');
 
     // FOR CORPORATE
     Route::get('/corporate', 'home_controller@user_home')->name('user_home');
